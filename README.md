@@ -2,7 +2,7 @@
 
 ![user-data-for-fraud-prevention logo](./user-data-for-fraud-prevention-logo.png)
 
-![CircleCI-Status](https://circle.circleci.sbg.intuit.com/gh/skodamarthi/user-data-for-fraud-prevention/tree/master.svg?style=svg)
+[![CircleCI](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master.svg?style=shield)](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange)
 
 ## Description
