@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.intuit.com:skodamarthi/user-data-for-fraud-prevention.git"
+    "url": "https://github.com/intuit/user-data-for-fraud-prevention.git"
   },
   "main": "dist/bundle.js",
   "keywords": [
@@ -46,7 +46,7 @@
     "src/js/hmrc/mtdFraudPrevention.js"
   ],
   "publishConfig": {
-    "registry": "https://registry.npmjs.intuit.com/"
+    "registry": "https://registry.npmjs.com/"
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.4",
@@ -78,5 +78,8 @@
       "src/**/*.{js,jsx}",
       "!**/test/**"
     ]
+  },
+  "directories": {
+    "test": "tests"
   }
 }
