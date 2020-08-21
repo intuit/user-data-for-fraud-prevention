@@ -38,7 +38,7 @@ export const getDeviceLocalIPAsString = () => {
         deviceIpString = ip.join(",");
         resolve(deviceIpString);
       }
-      if (event.candidate.candidate) {
+      if (event && event.candidate && event.candidate.candidate) {
         const candidateValues = event.candidate.candidate.split(" ");
         if (candidateValues.length > ICE_CANDIDATE_IP_INDEX) {
           ip.push(candidateValues[ICE_CANDIDATE_IP_INDEX]);
