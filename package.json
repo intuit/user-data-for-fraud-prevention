@@ -12,7 +12,8 @@
     "format": "lint-staged",
     "prettier": "prettier '{src,tests}/**/*.js' --write --single-quote --tab-width 4 --no-bracket-spacing --print-width 120",
     "clean": "rm -rf node_modules",
-    "rebuild": "npm run clean && npm install && npm run build"
+    "rebuild": "npm run clean && npm install && npm run build",
+    "prepublishOnly": "webpack"
   },
   "husky": {
     "hooks": {
