@@ -1,4 +1,3 @@
-import moment from "moment";
 import globalsUtil from "./globalsUtil";
 
 const ICE_CANDIDATE_IP_INDEX = 4;
@@ -68,7 +67,14 @@ const validateAndGetScreenDetail = (value) => {
   }
 };
 
-export const getTimezone = () => `UTC${moment().format("Z")}`;
+const getFormattedOffset = () => {
+    const nowUTC = new Date().toString();
+    const offset = nowUTC.slice(28,33);
+    const formattedUTC = `${offset.substr(0,3)}:${offset.substr(3,4)}`
+    return formattedUTC;
+}
+
+export const getTimezone = () => `UTC${getFormattedOffset()}`;
 export const getScreenWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().width);
 export const getScreenHeight = () =>
