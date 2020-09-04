@@ -37,7 +37,7 @@ export class MockRTCPeerConnection {
 }
 
 export class MockErrorRTCPeerConnection extends MockRTCPeerConnection {
-  createDataChannel() {
-    throw new Error("MockErrorRTCPeerConnection error thrown");
+  createOffer() {
+    return Promise.reject();
   }
 }
