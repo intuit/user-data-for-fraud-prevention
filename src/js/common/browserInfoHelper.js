@@ -69,8 +69,16 @@ const validateAndGetScreenDetail = (value) => {
 
 const getFormattedOffset = () => {
     const nowUTC = new Date().toString();
-    const offset = nowUTC.slice(28,33);
-    const formattedUTC = `${offset.substr(0,3)}:${offset.substr(3,4)}`
+    const offsetIndexStart = 28;
+    const offsetLength = 33;
+    const offset = nowUTC.substr(offsetIndexStart, offsetLength);
+
+    const hourIndexStart = 0;
+    const hourLength = 3;
+    const minuteIndexStart = 3;
+    const minuteLength = 2;
+    const formattedUTC = `${offset.substr(hourIndexStart, hourLength)}:${offset.substr(minuteIndexStart, minuteLength)}`
+
     return formattedUTC;
 }
 
