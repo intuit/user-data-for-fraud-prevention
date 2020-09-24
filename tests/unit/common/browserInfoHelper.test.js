@@ -1,4 +1,3 @@
-import sinon from "sinon";
 import getMockBrowserPluginDetails from "../mock/MockData";
 import {
   MockRTCPeerConnection,
@@ -24,10 +23,8 @@ import {
 import moment from "moment";
 
 describe("BrowserInfoHelper", () => {
-  const spies = sinon.createSandbox();
-
   afterEach(() => {
-    spies.restore();
+    jest.resetAllMocks();
   });
 
   describe("getBrowserDoNotTrackStatus", () => {
@@ -87,8 +84,8 @@ describe("BrowserInfoHelper", () => {
     getBrowserDoNotTrackStatusTests.forEach(
       ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
         it(test, () => {
-          spies.stub(globalsUtil, "getWindow").returns(mockWindow);
-          spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
+          jest.spyOn(globalsUtil, "getWindow").mockReturnValue(mockWindow);
+          jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
           expect(getBrowserDoNotTrackStatus()).toEqual(expected);
         });
       }
@@ -104,7 +101,7 @@ describe("BrowserInfoHelper", () => {
       };
     });
     it("getBrowserPluginsAsString no plugins", () => {
-      spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
+      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("");
     });
 
@@ -112,7 +109,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: getMockBrowserPluginDetails(),
       };
-      spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
+      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
 
@@ -120,7 +117,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: [...getMockBrowserPluginDetails(), null],
       };
-      spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
+      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
   });
@@ -128,18 +125,18 @@ describe("BrowserInfoHelper", () => {
   describe("getDeviceLocalIPAsString", () => {
     let webRtcConnectionStub;
     beforeEach(() => {
-      webRtcConnectionStub = spies.stub(globalsUtil, "getWebRTCConnection");
+      webRtcConnectionStub = jest.spyOn(globalsUtil, "getWebRTCConnection");
       resetDeviceIpString();
     });
 
     afterEach(() => {
-      spies.restore();
+      jest.restoreAllMocks();
       resetDeviceIpString();
       resetCandidateString();
     });
 
     it("RTCPeerConnection undefined", async () => {
-      webRtcConnectionStub.returns(undefined);
+      webRtcConnectionStub.mockReturnValue(undefined);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -150,7 +147,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection non constructable", async () => {
-      webRtcConnectionStub.returns({});
+      webRtcConnectionStub.mockReturnValue({});
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -161,7 +158,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection throws unexpected error", async () => {
-      webRtcConnectionStub.returns(MockErrorRTCPeerConnection);
+      webRtcConnectionStub.mockReturnValue(MockErrorRTCPeerConnection);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -175,7 +172,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND if candidate string does not have valid IP address as 5th element", async () => {
       setCandidateString("abc xyz 127.0.0.1");
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -187,7 +184,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND for empty candidate string", async () => {
       setEmptyCandidateString();
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
 
       try {
         await getDeviceLocalIPAsString();
@@ -199,7 +196,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection valid", async () => {
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
       //Calling the function to return an already calculated deviceIpString
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
@@ -209,25 +206,23 @@ describe("BrowserInfoHelper", () => {
       setCandidateString(
         "abc xyz 123 567 789 777 127.0.0.1 randomstring somestring"
       );
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
       expect(await getDeviceLocalIPAsString()).toEqual("789");
     });
   });
 
   it("getMTDTaxReturnWithParameter", async () => {
-    spies.stub(globalsUtil, "getNavigator").returns({
+    jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     });
-    spies
-      .stub(globalsUtil, "getWebRTCConnection")
-      .returns(MockRTCPeerConnection);
-    spies.stub(globalsUtil, "getWindow").returns({
+    jest.spyOn(globalsUtil, "getWebRTCConnection").mockReturnValue(MockRTCPeerConnection);
+    jest.spyOn(globalsUtil, "getWindow").mockReturnValue({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
     });
-    spies.stub(globalsUtil, "getScreen").returns({
+    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
       width: 1019,
       height: 1021,
       colorDepth: 17,
@@ -245,7 +240,7 @@ describe("BrowserInfoHelper", () => {
   });
 
   it("getScreen", async () => {
-    spies.stub(globalsUtil, "getScreen").returns({
+    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
       width: "900px",
       height: 1021,
       colorDepth: 17,
