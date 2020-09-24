@@ -17,7 +17,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test && npm run test:coverage"
+      "pre-push": "npm test && npm run test:coverage",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
@@ -54,10 +55,12 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
     "eslint": "^7.4.0",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "jest": "^26.0.1",
     "jest-cli": "^26.1.0",
     "jest-coverage-badges": "^1.1.2",
