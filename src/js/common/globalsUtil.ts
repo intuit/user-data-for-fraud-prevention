@@ -1,39 +1,39 @@
 export interface ExtendedNavigator extends Navigator {
-  msDoNotTrack?: Navigator["doNotTrack"];
+    msDoNotTrack?: Navigator['doNotTrack'];
 }
 
 export interface WindowWithTracking extends Window {
-  external: Window["external"] & {
-    msTrackingProtectionEnabled?: () => boolean;
-  };
+    external: Window['external'] & {
+        msTrackingProtectionEnabled?: () => boolean;
+    };
 }
 
 const getWindow = () => {
-  return window as WindowWithTracking;
+    return window as WindowWithTracking;
 };
 
 const getNavigator = () => {
-  return navigator as ExtendedNavigator;
+    return navigator as ExtendedNavigator;
 };
 
 const getWebRTCConnection = () => {
-  return RTCPeerConnection;
+    return RTCPeerConnection;
 };
 
 const getScreen = () => {
-  return screen;
+    return screen;
 };
 
 const utils = {
-  getWindow,
-  getNavigator,
-  getWebRTCConnection,
-  getScreen,
+    getWindow,
+    getNavigator,
+    getWebRTCConnection,
+    getScreen,
 };
 export default {
-  default: utils,
-  getWindow,
-  getNavigator,
-  getWebRTCConnection,
-  getScreen,
+    default: utils,
+    getWindow,
+    getNavigator,
+    getWebRTCConnection,
+    getScreen,
 };

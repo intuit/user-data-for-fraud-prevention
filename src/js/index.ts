@@ -1,7 +1,4 @@
-import {
-  fraudPreventionHeadersEnum,
-  getFraudPreventionHeaders,
-} from "./hmrc/mtdFraudPrevention";
+import {fraudPreventionHeadersEnum, getFraudPreventionHeaders} from './hmrc/mtdFraudPrevention';
 
 export default getFraudPreventionHeaders;
-export { fraudPreventionHeadersEnum, getFraudPreventionHeaders };
+export {fraudPreventionHeadersEnum, getFraudPreventionHeaders};
