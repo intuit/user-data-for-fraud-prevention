@@ -157,13 +157,13 @@ describe("BrowserInfoHelper", () => {
       throw new Error("Expected an error to be thrown, but it was not");
     });
 
-    it("RTCPeerConnection throws unexpected error", async () => {
+    it("RTCPeerConnection throws CREATE_CONNECTION_ERROR", async() => {
       webRtcConnectionStub.mockReturnValue(MockErrorRTCPeerConnection);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
         expect(error.toString()).toEqual(
-          "Error: MockErrorRTCPeerConnection error thrown"
+          "CREATE_CONNECTION_ERROR"
         );
         return;
       }
