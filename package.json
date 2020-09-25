@@ -10,7 +10,7 @@
         "lint:fix": "eslint '{src,tests}/**/*.js' --fix",
         "lint": "eslint '{src,tests}/**/*.js'",
         "format": "lint-staged",
-        "prettier": "prettier '{src,tests}/**/*.ts' --write --single-quote --tab-width 4 --no-bracket-spacing --print-width 120",
+        "prettier": "prettier '{src,tests}/**/*.ts' --write",
         "clean": "rm -rf node_modules",
         "rebuild": "npm run clean && npm install && npm run build",
         "prepublishOnly": "webpack"
@@ -85,5 +85,11 @@
     },
     "directories": {
         "test": "tests"
+    },
+    "prettier": {
+        "singleQuote": true,
+        "tabWidth": 4,
+        "bracketSpacing": false,
+        "printWidth": 120
     }
 }
