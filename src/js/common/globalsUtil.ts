@@ -1,9 +1,19 @@
+export interface ExtendedNavigator extends Navigator {
+  msDoNotTrack?: Navigator["doNotTrack"];
+}
+
+export interface WindowWithTracking extends Window {
+  external: Window["external"] & {
+    msTrackingProtectionEnabled?: () => boolean;
+  };
+}
+
 const getWindow = () => {
-  return window;
+  return window as WindowWithTracking;
 };
 
 const getNavigator = () => {
-  return navigator;
+  return navigator as ExtendedNavigator;
 };
 
 const getWebRTCConnection = () => {

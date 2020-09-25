@@ -7,7 +7,9 @@ import {
   resetCandidateString,
   setCandidateString,
 } from "../mock/MockRTCPeerConnection";
-import globalsUtil from "../../../src/js/common/globalsUtil";
+import globalsUtil, {
+  ExtendedNavigator,
+} from "../../../src/js/common/globalsUtil";
 import {
   getDeviceLocalIPAsString,
   getBrowserDoNotTrackStatus,
@@ -85,10 +87,14 @@ describe("BrowserInfoHelper", () => {
     ];
 
     getBrowserDoNotTrackStatusTests.forEach(
-      ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
+      ({ test, mockWindow = {}, mockNavigator = {}, expected }) => {
         it(test, () => {
-          spies.stub(globalsUtil, "getWindow").returns(mockWindow);
-          spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
+          spies
+            .stub(globalsUtil, "getWindow")
+            .returns(mockWindow as typeof window);
+          spies
+            .stub(globalsUtil, "getNavigator")
+            .returns(mockNavigator as ExtendedNavigator);
           expect(getBrowserDoNotTrackStatus()).toEqual(expected);
         });
       }
@@ -96,12 +102,12 @@ describe("BrowserInfoHelper", () => {
   });
 
   describe("getBrowserPluginsAsString", () => {
-    let mockNavigator;
+    let mockNavigator: ExtendedNavigator;
 
     beforeEach(() => {
       mockNavigator = {
         plugins: [],
-      };
+      } as any;
     });
     it("getBrowserPluginsAsString no plugins", () => {
       spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
@@ -111,7 +117,7 @@ describe("BrowserInfoHelper", () => {
     it("getBrowserPluginsAsString two plugins", () => {
       mockNavigator = {
         plugins: getMockBrowserPluginDetails(),
-      };
+      } as any;
       spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
@@ -119,16 +125,22 @@ describe("BrowserInfoHelper", () => {
     it("getBrowserPluginsAsString two plugins and a null plugin", () => {
       mockNavigator = {
         plugins: [...getMockBrowserPluginDetails(), null],
-      };
+      } as any;
       spies.stub(globalsUtil, "getNavigator").returns(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
   });
 
   describe("getDeviceLocalIPAsString", () => {
-    let webRtcConnectionStub;
+    let webRtcConnectionStub: sinon.SinonStub<
+      any[],
+      RTCPeerConnection | undefined
+    >;
     beforeEach(() => {
-      webRtcConnectionStub = spies.stub(globalsUtil, "getWebRTCConnection");
+      webRtcConnectionStub = spies.stub(
+        globalsUtil,
+        "getWebRTCConnection"
+      ) as any;
       resetDeviceIpString();
     });
 
@@ -150,7 +162,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection non constructable", async () => {
-      webRtcConnectionStub.returns({});
+      webRtcConnectionStub.returns({} as any);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -161,7 +173,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection throws unexpected error", async () => {
-      webRtcConnectionStub.returns(MockErrorRTCPeerConnection);
+      webRtcConnectionStub.returns(MockErrorRTCPeerConnection as any);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -175,7 +187,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND if candidate string does not have valid IP address as 5th element", async () => {
       setCandidateString("abc xyz 127.0.0.1");
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.returns(MockRTCPeerConnection as any);
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -187,7 +199,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND for empty candidate string", async () => {
       setEmptyCandidateString();
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.returns(MockRTCPeerConnection as any);
 
       try {
         await getDeviceLocalIPAsString();
@@ -199,7 +211,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection valid", async () => {
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.returns(MockRTCPeerConnection as any);
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
       //Calling the function to return an already calculated deviceIpString
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
@@ -209,7 +221,7 @@ describe("BrowserInfoHelper", () => {
       setCandidateString(
         "abc xyz 123 567 789 777 127.0.0.1 randomstring somestring"
       );
-      webRtcConnectionStub.returns(MockRTCPeerConnection);
+      webRtcConnectionStub.returns(MockRTCPeerConnection as any);
       expect(await getDeviceLocalIPAsString()).toEqual("789");
     });
   });
@@ -218,20 +230,20 @@ describe("BrowserInfoHelper", () => {
     spies.stub(globalsUtil, "getNavigator").returns({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
+    } as any);
     spies
       .stub(globalsUtil, "getWebRTCConnection")
-      .returns(MockRTCPeerConnection);
+      .returns(MockRTCPeerConnection as any);
     spies.stub(globalsUtil, "getWindow").returns({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
+    } as typeof window);
     spies.stub(globalsUtil, "getScreen").returns({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
+    } as Screen);
     expect(getTimezone()).toEqual(`UTC${moment().format("Z")}`);
     expect(getScreenWidth()).toEqual(1019);
     expect(getScreenHeight()).toEqual(1021);
@@ -249,7 +261,7 @@ describe("BrowserInfoHelper", () => {
       width: "900px",
       height: 1021,
       colorDepth: 17,
-    });
+    } as any);
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);

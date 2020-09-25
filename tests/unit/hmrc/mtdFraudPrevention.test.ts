@@ -25,23 +25,23 @@ describe("FraudPreventionHeaders", () => {
     spies.stub(globalsUtil, "getNavigator").returns({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
+    } as any);
     setAdditionalCandidateString(",127.0.0.2");
     spies
       .stub(globalsUtil, "getWebRTCConnection")
-      .returns(MockRTCPeerConnection);
+      .returns(MockRTCPeerConnection as any);
     spies.stub(globalsUtil, "getWindow").returns({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
+    } as typeof window);
     spies.stub(globalsUtil, "getScreen").returns({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
+    } as Screen);
 
-    const {headers, errors} = await getFraudPreventionHeaders();
+    const { headers, errors } = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(
@@ -63,24 +63,26 @@ describe("FraudPreventionHeaders", () => {
     spies.stub(globalsUtil, "getNavigator").returns({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
+    } as any);
     setAdditionalCandidateString(",127.0.0.2");
     spies
       .stub(globalsUtil, "getWebRTCConnection")
-      .returns(MockRTCPeerConnection);
+      .returns(MockRTCPeerConnection as any);
     spies.stub(globalsUtil, "getWindow").returns({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
+    } as typeof window);
     spies.stub(globalsUtil, "getScreen").returns({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
-    spies.stub(browserInfoHelper, "getDeviceLocalIPAsString").returns(Promise.reject("Something went wrong."))
+    } as Screen);
+    spies
+      .stub(browserInfoHelper, "getDeviceLocalIPAsString")
+      .returns(Promise.reject("Something went wrong."));
 
-    const {headers, errors} = await getFraudPreventionHeaders();
+    const { headers, errors } = await getFraudPreventionHeaders();
     expect(headers.size).toBe(5);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(

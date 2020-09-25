@@ -12,21 +12,23 @@ export const resetDeviceIpString = () => {
 };
 
 export const getDeviceLocalIPAsString = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     if (deviceIpString) {
-      resolve(deviceIpString);
+      return resolve(deviceIpString);
     }
+
     const WebRTCConnection = globalsUtil.getWebRTCConnection();
     if (!WebRTCConnection) {
-      reject("WEBRTC_UNSUPPORTED_BROWSER");
+      return reject("WEBRTC_UNSUPPORTED_BROWSER");
     }
+
     //RTCPeerConection is supported, so will try to find the IP
-    const ip = [];
-    let pc;
+    const ip: string[] = [];
+    let pc: RTCPeerConnection;
     try {
       pc = new WebRTCConnection();
     } catch (err) {
-      reject("WEBRTC_CONSTRUCTION_FAILED");
+      return reject("WEBRTC_CONSTRUCTION_FAILED");
     }
 
     pc.onicecandidate = function (event) {
@@ -38,7 +40,8 @@ export const getDeviceLocalIPAsString = () => {
         deviceIpString = ip.join(",");
         resolve(deviceIpString);
       }
-      if (event.candidate.candidate) {
+
+      if (event.candidate?.candidate) {
         const candidateValues = event.candidate.candidate.split(" ");
         if (candidateValues.length > ICE_CANDIDATE_IP_INDEX) {
           ip.push(candidateValues[ICE_CANDIDATE_IP_INDEX]);
@@ -47,20 +50,23 @@ export const getDeviceLocalIPAsString = () => {
     };
     pc.createDataChannel("");
     pc.createOffer()
-        .then(pc.setLocalDescription.bind(pc))
-        .catch((e) => {
-            reject("CREATE_CONNECTION_ERROR");
+      .then(pc.setLocalDescription.bind(pc))
+      .catch((e) => {
+        reject("CREATE_CONNECTION_ERROR");
       });
   });
 };
 
 export const getBrowserPluginsAsString = () => {
-  return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
+  return Array.from(
+    globalsUtil.getNavigator().plugins,
+    (plugin) => plugin && plugin.name
+  )
     .filter((name) => name)
     .join(",");
 };
 
-const validateAndGetScreenDetail = (value) => {
+const validateAndGetScreenDetail = (value: number) => {
   if (isNaN(value)) {
     return null;
   } else {

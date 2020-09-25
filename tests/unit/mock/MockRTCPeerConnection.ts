@@ -1,8 +1,8 @@
 let candidateString = "";
-export const setAdditionalCandidateString = (value) => {
+export const setAdditionalCandidateString = (value: string) => {
   candidateString = `abc xyz 123 777 127.0.0.1${value} randomstring somestring`;
 };
-export const setCandidateString = (value) => {
+export const setCandidateString = (value: string) => {
   candidateString = value;
 };
 export const resetCandidateString = () => {
@@ -13,7 +13,10 @@ export const setEmptyCandidateString = () => {
 };
 
 export class MockRTCPeerConnection {
-  createDataChannel(str) {
+  str = "";
+  onicecandidate: (evt?: any) => void = () => {};
+
+  createDataChannel(str: string) {
     this.str = str;
   }
 
@@ -23,7 +26,7 @@ export class MockRTCPeerConnection {
     });
   }
 
-  setLocalDescription() {
+  async setLocalDescription() {
     const evt = {
       candidate: {
         candidate: candidateString,

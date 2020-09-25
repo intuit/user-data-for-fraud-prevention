@@ -1,0 +1,19 @@
+{
+  "include": ["src/**/*", "typings/**/*"],
+    "compilerOptions": {
+      "outDir": "dist",
+    "module": "commonjs", // Resolve modules the node way
+    "lib": ["dom", "es2017"], // Use newest ecma script features
+    /* Outputs: */
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    /* Syntax: */
+    "strict": true,
+    "downlevelIteration": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true
+  }
+}
