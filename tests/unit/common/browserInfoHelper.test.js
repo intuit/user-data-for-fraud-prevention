@@ -20,7 +20,6 @@ import {
   getTimezone,
   resetDeviceIpString,
 } from "../../../src/js/common/browserInfoHelper";
-import moment from "moment";
 
 describe("BrowserInfoHelper", () => {
   afterEach(() => {
@@ -198,7 +197,7 @@ describe("BrowserInfoHelper", () => {
     it("RTCPeerConnection valid", async () => {
       webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
-      //Calling the function to return an already calculated deviceIpString
+      // Calling the function to return an already calculated deviceIpString
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
     });
 

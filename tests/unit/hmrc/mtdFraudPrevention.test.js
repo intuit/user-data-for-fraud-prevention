@@ -8,7 +8,6 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
-import moment from "moment";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -36,13 +35,18 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
+    global.Date = class DateMock {
+        constructor() {
+        }
+        toString() {
+            return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+        }
+    };
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
     expect(errors.length).toBe(0);
-    expect(headers.get("Gov-Client-Timezone")).toBe(
-      `UTC${moment().format("Z")}`
-    );
+    expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
       "width=1019&height=1021&scaling-factor=2&colour-depth=17"
     );
@@ -77,9 +81,7 @@ describe("FraudPreventionHeaders", () => {
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(5);
     expect(errors.length).toBe(1);
-    expect(headers.get("Gov-Client-Timezone")).toBe(
-      `UTC${moment().format("Z")}`
-    );
+    expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
       "width=1019&height=1021&scaling-factor=2&colour-depth=17"
     );
