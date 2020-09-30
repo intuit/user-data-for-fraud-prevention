@@ -227,7 +227,15 @@ describe("BrowserInfoHelper", () => {
       height: 1021,
       colorDepth: 17,
     });
-    expect(getTimezone()).toEqual(`UTC${moment().format("Z")}`);
+    global.Date = class DateMock {
+        constructor() {
+        }
+        toString() {
+            return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+        }
+    };
+
+    expect(getTimezone()).toEqual(`UTC+01:00`);
     expect(getScreenWidth()).toEqual(1019);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenScalingFactor()).toEqual(2);

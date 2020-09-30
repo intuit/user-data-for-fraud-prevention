@@ -69,16 +69,13 @@ const validateAndGetScreenDetail = (value) => {
 
 const getFormattedOffset = () => {
     const nowUTC = new Date().toString();
-    const offsetIndexStart = 28;
-    const offsetLength = 33;
-    const offset = nowUTC.substr(offsetIndexStart, offsetLength);
-
-    const hourIndexStart = 0;
-    const hourLength = 3;
-    const minuteIndexStart = 3;
-    const minuteLength = 2;
-    const formattedUTC = `${offset.substr(hourIndexStart, hourLength)}:${offset.substr(minuteIndexStart, minuteLength)}`
-
+    // nowUTC is in format like "Wed Sep 30 2020 23:11:02 GMT+0100 (British Summer Time)"
+    // To format the offset, we pick the relevant characters based on their position
+    // and reformat with a ":"
+    const signCharIndex = 28;
+    const hourOffset = `${nowUTC.charAt(signCharIndex)}${nowUTC.charAt(29)}${nowUTC.charAt(30)}`;
+    const minuteOffset = `${nowUTC.charAt(31)}${nowUTC.charAt(32)}`;
+    const formattedUTC = `${hourOffset}:${minuteOffset}`;
     return formattedUTC;
 }
 
