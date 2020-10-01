@@ -26,7 +26,7 @@ You can find a demo of the project [here](https://github.com/reubenae/user-data-
 
 ## Contributing
 
-We do not allow contributors to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance. 
+We do not allow contributors to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance.
 
 1. Fork the repo
 1. Install dependencies locally `yarn` or `npm install`
@@ -37,7 +37,7 @@ We do not allow contributors to claim issues. If you find something interesting 
 1. Ensure the code coverage is the same or higher than before your changes.
 1. Create a PR to the `master` branch
 
-## How Contributors can Add Themselves
+## How contributors get added to the README
 
 There are two ways to add yourself as a contributor to this repo:
 
