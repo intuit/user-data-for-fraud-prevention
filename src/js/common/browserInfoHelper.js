@@ -1,4 +1,5 @@
 import globalsUtil from "./globalsUtil";
+import uuid from 'uuid'
 
 const ICE_CANDIDATE_IP_INDEX = 4;
 
@@ -105,4 +106,8 @@ export const getBrowserDoNotTrackStatus = () => {
       windowVar.external.msTrackingProtectionEnabled &&
       windowVar.external.msTrackingProtectionEnabled());
   return isBrowserDoNotTrack ? "true" : "false";
+};
+
+export const getDeviceId = () => {
+  return uuid();
 };
