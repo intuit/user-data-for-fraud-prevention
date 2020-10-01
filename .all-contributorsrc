@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "reubenae",
+      "name": "reubenae",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17691502?v=4",
+      "profile": "https://github.com/reubenae",
+      "contributions": [
+        "doc",
+        "review",
+        "test",
+        "question",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "user-data-for-fraud-prevention",
+  "projectOwner": "intuit",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
