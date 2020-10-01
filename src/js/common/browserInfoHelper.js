@@ -47,8 +47,8 @@ export const getDeviceLocalIPAsString = () => {
     pc.createDataChannel("");
     pc.createOffer()
         .then(pc.setLocalDescription.bind(pc))
-        .catch((e) => {
-            reject({message: "CREATE_CONNECTION_ERROR", error: e});
+        .catch((err) => {
+            reject({message: "CREATE_CONNECTION_ERROR", error: err});
       });
   });
 };
