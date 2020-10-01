@@ -17,7 +17,7 @@ export const getDeviceLocalIPAsString = () => {
     }
     const WebRTCConnection = globalsUtil.getWebRTCConnection();
     if (!WebRTCConnection) {
-      reject("WEBRTC_UNSUPPORTED_BROWSER");
+      reject({message: "WEBRTC_UNSUPPORTED_BROWSER", error: undefined});
     }
     //RTCPeerConection is supported, so will try to find the IP
     const ip = [];
@@ -25,14 +25,14 @@ export const getDeviceLocalIPAsString = () => {
     try {
       pc = new WebRTCConnection();
     } catch (err) {
-      reject("WEBRTC_CONSTRUCTION_FAILED");
+      reject({message: "WEBRTC_CONSTRUCTION_FAILED", error: err});
     }
 
     pc.onicecandidate = (event) => {
       if (!event || !event.candidate) {
         pc.close();
         if (ip.length < 1) {
-          reject("NO_IP_FOUND");
+          reject({message: "NO_IP_FOUND", error: undefined});
         }
         deviceIpString = ip.join(",");
         resolve(deviceIpString);
@@ -47,8 +47,8 @@ export const getDeviceLocalIPAsString = () => {
     pc.createDataChannel("");
     pc.createOffer()
         .then(pc.setLocalDescription.bind(pc))
-        .catch((e) => {
-            reject("CREATE_CONNECTION_ERROR");
+        .catch((err) => {
+            reject({message: "CREATE_CONNECTION_ERROR", error: err});
       });
   });
 };

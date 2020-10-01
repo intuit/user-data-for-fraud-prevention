@@ -139,7 +139,8 @@ describe("BrowserInfoHelper", () => {
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
-        expect(error.toString()).toEqual("WEBRTC_UNSUPPORTED_BROWSER");
+        expect(error.message).toEqual("WEBRTC_UNSUPPORTED_BROWSER");
+        expect(error).toHaveProperty('error');
         return;
       }
       throw new Error("Expected an error to be thrown, but it was not");
@@ -150,7 +151,8 @@ describe("BrowserInfoHelper", () => {
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
-        expect(error.toString()).toEqual("WEBRTC_CONSTRUCTION_FAILED");
+        expect(error.message).toEqual("WEBRTC_CONSTRUCTION_FAILED");
+        expect(error).toHaveProperty('error');
         return;
       }
       throw new Error("Expected an error to be thrown, but it was not");
@@ -161,9 +163,8 @@ describe("BrowserInfoHelper", () => {
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
-        expect(error.toString()).toEqual(
-          "CREATE_CONNECTION_ERROR"
-        );
+        expect(error.message).toEqual("CREATE_CONNECTION_ERROR");
+        expect(error).toHaveProperty('error');
         return;
       }
       throw new Error("Expected an error to be thrown, but it was not");
@@ -175,7 +176,8 @@ describe("BrowserInfoHelper", () => {
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
-        expect(error.toString()).toEqual("NO_IP_FOUND");
+        expect(error.message).toEqual("NO_IP_FOUND");
+        expect(error).toHaveProperty('error');
         return;
       }
       throw new Error("Expected an error to be thrown, but it was not");
@@ -188,7 +190,8 @@ describe("BrowserInfoHelper", () => {
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
-        expect(error.toString()).toEqual("NO_IP_FOUND");
+        expect(error.message).toEqual("NO_IP_FOUND");
+        expect(error).toHaveProperty('error');
         return;
       }
       throw new Error("Expected an error to be thrown, but it was not");
