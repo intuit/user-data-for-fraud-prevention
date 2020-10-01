@@ -20,7 +20,7 @@ jobs:
       # run build
       - run : npm run build
 
-      # run tests
+      # run tests!
       - run:
           command: npm run test:badges
 
