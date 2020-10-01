@@ -16,30 +16,7 @@ Eg: Tax Authority in UK (HMRC) requires software providers using some of their A
 Each top level folder in `src/js` has its own README with more specific information around the use case. E.g. [HMRC README](src/js/hmrc/README.md)
 
 ## How to use
-
-In your project root run:
-
-```sh
-yarn add user-data-for-fraud-prevention
-```
-
-Then to use in code:
-
-```js
-import getFraudPreventionHeaders from 'user-data-for-fraud-prevention';
-// or
-import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-for-fraud-prevention';
-```
-
-To use
-
-```js
-const fraudHeaders = await getFraudPreventionHeaders();
-// If you need individual headers
-const timezoneHeader = fraudHeaders.get('Gov-Client-Timezone');
-// Or
-const timezoneHeader = fraudHeaders.get(fraudPreventionHeadersEnum.TIMEZONE);
-```
+Usage instructions can be found [here](./USAGE.md)
 
 ## Demo
 You can find a demo of the project [here](https://github.com/reubenae/user-data-demo)
