@@ -62,3 +62,5 @@ You can find a demo of the project [here](https://github.com/reubenae/user-data-
 ## Changelog
 
 Please see our [CHANGELOG](CHANGELOG.md)
+
+## Contributors
