@@ -19,7 +19,6 @@ import {
   getWindowWidth,
   getTimezone,
   resetDeviceIpString,
-  getDeviceId,
 } from "../../../src/js/common/browserInfoHelper";
 
 describe("BrowserInfoHelper", () => {
@@ -259,11 +258,5 @@ describe("BrowserInfoHelper", () => {
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);
-  });
-
-  it("getDeviceId", () => {
-    const getUUID = getDeviceId();
-    expect(getUUID.split("-").length).toEqual(5);
-    expect(getUUID.length).toEqual(36);
   });
 });

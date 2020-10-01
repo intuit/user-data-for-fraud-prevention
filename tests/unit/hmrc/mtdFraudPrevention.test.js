@@ -35,6 +35,9 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
+    jest.spyOn(globalsUtil, "getDeviceId").mockReturnValue({
+      uuid: "af33f46c-085d-4050-be2a-98b72820c572",
+    });
     global.Date = class DateMock {
         constructor() {
         }
@@ -44,7 +47,7 @@ describe("FraudPreventionHeaders", () => {
     };
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(6);
+    expect(headers.size).toBe(7);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -58,8 +61,9 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
-    expect(headers.get("Gov-Client-Device-ID").split("-").length).toEqual(5);
-    expect(headers.get("Gov-Client-Device-ID").length).toEqual(36);
+    expect(headers.get("Gov-Client-Device-ID")).toBe(
+        "uuid=af33f46c-085d-4050-be2a-98b72820c572"
+    );
   });
   it("getFraudPreventionHeaders with one error", async () => {
     jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
@@ -79,9 +83,12 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
+    jest.spyOn(globalsUtil, "getDeviceId").mockReturnValue({
+      uuid: "424f48aa-b723-4f97-8a30-d214b43bf372",
+    });
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(5);
+    expect(headers.size).toBe(6);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -95,8 +102,9 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
-    expect(headers.get("Gov-Client-Device-ID").split("-").length).toEqual(5);
-    expect(headers.get("Gov-Client-Device-ID").length).toEqual(36);
+    expect(headers.get("Gov-Client-Device-ID")).toBe(
+        "uuid=424f48aa-b723-4f97-8a30-d214b43bf372"
+    );
     expect(errors[0]).toEqual("Something went wrong.");
   });
 });

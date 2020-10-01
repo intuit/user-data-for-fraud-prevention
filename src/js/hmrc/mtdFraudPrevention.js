@@ -9,8 +9,11 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone,
-  getDeviceId,
 } from "../common/browserInfoHelper";
+
+import {
+  getDeviceId,
+} from "../common/uuidGeneratorHelper";
 
 /**
  * Enum object of keys for each header in the Map returned by getFraudPreventionHeaders().headers
