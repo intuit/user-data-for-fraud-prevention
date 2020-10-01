@@ -21,7 +21,12 @@ jobs:
       - run : npm run build
 
       # run tests!
-      - run: npm run test:badges
+      - run: npm test
+
+      # generate badges 
+      - run : 
+          name : "Generate Code Coverage and Badges"
+          command : npm run test:badges
 
       - store_artifacts:
           path: coverage
