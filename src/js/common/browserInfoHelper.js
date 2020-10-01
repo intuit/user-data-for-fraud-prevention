@@ -1,4 +1,3 @@
-import moment from "moment";
 import globalsUtil from "./globalsUtil";
 
 const ICE_CANDIDATE_IP_INDEX = 4;
@@ -68,7 +67,18 @@ const validateAndGetScreenDetail = (value) => {
   }
 };
 
-export const getTimezone = () => `UTC${moment().format("Z")}`;
+const getFormattedOffset = () => {
+    // Date().toString() is in format like "Wed Sep 30 2020 23:11:02 GMT+0100 (British Summer Time)"
+    // To format the offset, we split on "GMT"
+    // and then pick the relevant characters based on their position and reformat with a ":"
+    const offset = new Date().toString().split("GMT")[1];
+    const hourOffset = `${offset[0]}${offset[1]}${offset[2]}`;
+    const minuteOffset = `${offset[3]}${offset[4]}`;
+    const formattedUTC = `${hourOffset}:${minuteOffset}`;
+    return formattedUTC;
+}
+
+export const getTimezone = () => `UTC${getFormattedOffset()}`;
 export const getScreenWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().width);
 export const getScreenHeight = () =>

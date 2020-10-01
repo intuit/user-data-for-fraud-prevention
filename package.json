@@ -51,7 +51,6 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.4",
-    "moment": "^2.24.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
