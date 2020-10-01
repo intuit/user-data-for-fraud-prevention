@@ -89,11 +89,18 @@ jobs:
 
       # run tests!
       - run: npm test
+  canaryrelease:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15.3-browsers
 
-      # canary release
+    working_directory: ~/user-data-for-fraud-prevention
+
+    steps:
       - canary
 workflows:
   version: 2
   build:
     jobs:
       - build
+      - canaryrelease
