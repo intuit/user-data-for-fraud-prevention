@@ -1,6 +1,32 @@
 version: 2.1
-orbs:
-  release: auto/release@0.2.3
+commands:
+  canary:
+    parameters:
+      arguments:
+        type: string
+        description: Optional argument string to be passed to auto canary
+        default: ""
+    steps:
+      - run:
+          name: Check for GH_TOKEN
+          command: |
+            if [[ -z "${GH_TOKEN}" ]]; then 
+              echo "GH_TOKEN environment variable not set, skipping canary deploy" 
+              circleci-agent step halt
+            fi
+      - download-executable
+      - run:
+          name: Skip if no canary label
+          command: |
+            if auto label --pr "${CIRCLE_PULL_REQUEST##*/}" | grep 'canary'; then
+              echo "canary label found, starting canary deployment!"
+            else
+              echo "Skipping, canary label isn't present."
+              circleci-agent step halt
+            fi
+      - run:
+          name: auto canary
+          command: auto canary << parameters.arguments >> $AUTO_CANARY_ARGS
 jobs:
   build:
     docker:
