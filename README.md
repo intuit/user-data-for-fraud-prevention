@@ -58,6 +58,16 @@ You can find a demo of the project [here](https://github.com/reubenae/user-data-
 1. Ensure the code coverage is the same or higher than before your changes.
 1. Create a PR to the `master` branch
 
+## How Contributors can Add Themselves
+
+There are two ways to add yourself as a contributor to this repo:
+
+1. Call @all-contributors bot by adding this following comment in a PR: **@all-contributors please add [username] for [contributions]**. Please refer to the [docs](https://allcontributors.org/docs/en/bot/usage) for more info.
+1. Use the all-contributors-cli by running `npx all-contributors add [username] [contributions]`. Please refer to the [docs](https://allcontributors.org/docs/en/cli/usage) for more info.
+
+All parameters are required.
+See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+
 ## License
 
 [License](LICENSE)
