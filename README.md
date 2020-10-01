@@ -47,13 +47,14 @@ You can find a demo of the project [here](https://github.com/reubenae/user-data-
 ## Contributing
 
 1. Fork the repo
-1. Install dependencies locally `yarn` or `npm install`
-1. Make your changes.
-1. Make sure it builds `yarn build` or `npm build`
-1. Run the tests (you added tests, right?) with `npm test` or `yarn tests`
-1. Test your changes in your consuming code: `yarn link` [Yarn link documentation](https://classic.yarnpkg.com/en/docs/cli/link) or `npm link` [npm link documentation](https://docs.npmjs.com/cli/link)
-1. Ensure the code coverage is the same or higher than before your changes.
-1. Create a PR to the `master` branch
+2. Install dependencies locally `yarn` or `npm install`
+3. Make your changes.
+4. Make sure it builds `yarn build` or `npm build`
+5. Run the tests (you added tests, right?) with `npm test` or `yarn tests`
+6. Test your changes in your consuming code: `yarn link` [Yarn link documentation](https://classic.yarnpkg.com/en/docs/cli/link) or `npm link` [npm link documentation](https://docs.npmjs.com/cli/link)
+7. Ensure the code coverage is the same or higher than before your changes.
+8. Create a PR to the `master` branch
+9. We encourage contributors not to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance. 
 
 ## License
 
