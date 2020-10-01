@@ -1,4 +1,6 @@
-version: 2
+version: 2.1
+orbs:
+  release: auto/release@0.2.3
 jobs:
   build:
     docker:
@@ -16,12 +18,15 @@ jobs:
       - checkout
 
       - run: npm install
-      
+
       # run build
       - run : npm run build
 
       # run tests!
       - run: npm test
+
+      # canary release
+      - run: canary
 workflows:
   version: 2
   build:
