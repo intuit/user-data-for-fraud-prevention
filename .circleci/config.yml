@@ -22,7 +22,7 @@ jobs:
 
       # run tests
       - run:
-          command: npm test --collectCoverage=true
+          command: npm test:coverage
 
       - store_artifacts:
           path: coverage
