@@ -1,6 +1,6 @@
 {
   "projectName": "user-data-for-fraud-prevention",
-  "projectOwner": "skodamarthi",
+  "projectOwner": "intuit",
   "repoType": "github",
   "repoHost": "https://github.com",
   "files": [
@@ -18,7 +18,21 @@
       "contributions": [
         "tool"
       ]
+    },
+    {
+      "login": "reubenae",
+      "name": "Reuben",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17691502?v=4",
+      "profile": "https://github.com/reubenae",
+      "contributions": [
+        "doc",
+        "review",
+        "test",
+        "question",
+        "code"
+      ]
     }
   ],
-  "contributorsPerLine": 7
+  "contributorsPerLine": 7,
+  "skipCi": true
 }
