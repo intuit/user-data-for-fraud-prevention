@@ -1,18 +1,10 @@
-const getWindow = () => {
-  return window;
-};
+const getWindow = () => window;
 
-const getNavigator = () => {
-  return navigator;
-};
+const getNavigator = () => navigator;
 
-const getWebRTCConnection = () => {
-  return RTCPeerConnection;
-};
+const getWebRTCConnection = () => RTCPeerConnection;
 
-const getScreen = () => {
-  return screen;
-};
+const getScreen = () => screen;
 
 const utils = {
   getWindow,
