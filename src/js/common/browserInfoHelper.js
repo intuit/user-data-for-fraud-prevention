@@ -28,7 +28,7 @@ export const getDeviceLocalIPAsString = () => {
       reject("WEBRTC_CONSTRUCTION_FAILED");
     }
 
-    pc.onicecandidate = function (event) {
+    pc.onicecandidate = (event) => {
       if (!event || !event.candidate) {
         pc.close();
         if (ip.length < 1) {
