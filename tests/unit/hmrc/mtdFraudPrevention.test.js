@@ -8,6 +8,7 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
+import {generateClientDeviceID} from "../../../src/js/common/standaloneInfoHelper";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -58,8 +59,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
-    expect(headers.get("Gov-Client-Device-ID").split("-").length).toEqual(5);
-    expect(headers.get("Gov-Client-Device-ID").length).toEqual(36);
+    expect(headers.get("Gov-Client-Device-ID")).not.toBe(generateClientDeviceID());
   });
   it("getFraudPreventionHeaders with one error", async () => {
     jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
@@ -95,8 +95,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
-    expect(headers.get("Gov-Client-Device-ID").split("-").length).toEqual(5);
-    expect(headers.get("Gov-Client-Device-ID").length).toEqual(36);
+    expect(headers.get("Gov-Client-Device-ID")).not.toBe(generateClientDeviceID());
     expect(errors[0]).toEqual("Something went wrong.");
   });
 });
