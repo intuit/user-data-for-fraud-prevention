@@ -20,10 +20,9 @@ jobs:
       # run build
       - run : npm run build
 
-      # run tests & add code coverage
+      # run tests
       - run:
-          name: "Run Jest and Collect Coverage Reports"
-          command: jest --collectCoverage=true
+          command: npm test --collectCoverage=true
 
       - store_artifacts:
           path: coverage
