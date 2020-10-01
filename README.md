@@ -4,12 +4,17 @@
 
 [![CircleCI](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master.svg?style=shield)](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master)
 ![NPM Version](https://img.shields.io/npm/v/user-data-for-fraud-prevention)
-![CodeCoverage](./coverage/badge-statements.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![npm](https://img.shields.io/npm/v/user-data-for-fraud-prevention.svg)](http://npm.im/user-data-for-fraud-prevention)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+## Coverage
+![Coverage:Statements](./coverage/badge-statements.svg)
+![Coverage:Branches](./coverage/badge-branches.svg)
+![Coverage:Functions](./coverage/badge-functions.svg)
+![Coverage:Lines](./coverage/badge-lines.svg)
 
 ## Description
 
