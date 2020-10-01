@@ -89,7 +89,7 @@ jobs:
 
       # run tests!
       - run: npm test
-  canaryrelease:
+  canaryrel:
     docker:
       # specify the version you desire here
       - image: circleci/node:10.15.3-browsers
@@ -103,4 +103,4 @@ workflows:
   build:
     jobs:
       - build
-      - canaryrelease
+      - canaryrel
