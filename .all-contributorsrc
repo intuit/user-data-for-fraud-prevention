@@ -31,6 +31,19 @@
         "question",
         "code"
       ]
+    },
+    {
+      "login": "skodamarthi",
+      "name": "Susmitha Kodamarthi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/4538858?v=4",
+      "profile": "https://github.com/skodamarthi",
+      "contributions": [
+        "doc",
+        "review",
+        "test",
+        "question",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
