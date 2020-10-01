@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "rachelquan",
+      "name": "Rachel Quan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/39972689?v=4",
+      "profile": "http://rachelquan.xyz/",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "user-data-for-fraud-prevention",
+  "projectOwner": "intuit",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
