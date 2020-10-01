@@ -29,9 +29,9 @@ You can find a demo of the project [here](https://github.com/reubenae/user-data-
 We do not allow contributors to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance.
 
 1. Fork the repo
-1. Install dependencies locally `yarn` or `npm install`
+1. Install dependencies locally by running `yarn` or `npm install`
 1. Make your changes
-1. Make sure it builds `yarn build` or `npm run build`
+1. Make sure it builds using `yarn build` or `npm run build`
 1. Run the tests (you added tests, right?) with `npm test` or `yarn tests`
 1. Test your changes in your consuming code or using our demo project: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
 1. Ensure the code coverage is the same or higher than before your changes
