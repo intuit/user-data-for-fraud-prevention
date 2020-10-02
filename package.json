@@ -6,7 +6,6 @@
     "test": "jest",
     "build": "webpack",
     "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
-    "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "lint:fix": "eslint '{src,tests}/**/*.js' --fix",
     "lint": "eslint '{src,tests}/**/*.js'",
     "format": "lint-staged",
