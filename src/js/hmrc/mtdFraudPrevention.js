@@ -1,3 +1,5 @@
+import uuid from "uuid";
+
 import {
   getDeviceLocalIPAsString,
   getBrowserDoNotTrackStatus,
@@ -10,10 +12,6 @@ import {
   getWindowWidth,
   getTimezone,
 } from "../common/browserInfoHelper";
-
-import {
-  getDeviceId,
-} from "../common/uuidGeneratorHelper";
 
 /**
  * Enum object of keys for each header in the Map returned by getFraudPreventionHeaders().headers
@@ -80,3 +78,5 @@ export const getFraudPreventionHeaders = async () => {
   }
   return { headers, errors };
 };
+
+export const getDeviceId = () => uuid();

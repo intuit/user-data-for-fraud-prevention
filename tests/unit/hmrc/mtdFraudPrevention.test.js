@@ -8,9 +8,7 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
-import * as uuidGeneratorHelper from "../../../src/js/common/uuidGeneratorHelper";
-import { getDeviceId } from "../../../src/js/common/uuidGeneratorHelper";
-
+import { getDeviceId } from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -38,7 +36,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
-    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue("af33f46c-085d-4050-be2a-98b72820c572");
+    jest.mock('uuid', () => () => '424f48aa-b723-4f97-8a30-d214b43bf372');
     global.Date = class DateMock {
         constructor() {
         }
@@ -63,7 +61,7 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
     expect(headers.get("Gov-Client-Device-ID")).toBe(
-        "af33f46c-085d-4050-be2a-98b72820c572"
+        "424f48aa-b723-4f97-8a30-d214b43bf372"
     );
   });
   it("getFraudPreventionHeaders with one error", async () => {
@@ -84,7 +82,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue("24f48aa-b723-4f97-8a30-d214b43bf372");
+    jest.mock('uuid', () => () => '23815626-4129-43b7-b3d3-c8b31dd282ca');
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
@@ -102,8 +100,15 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
     expect(headers.get("Gov-Client-Device-ID")).toBe(
-        "24f48aa-b723-4f97-8a30-d214b43bf372"
+        "23815626-4129-43b7-b3d3-c8b31dd282ca"
     );
     expect(errors[0]).toEqual("Something went wrong.");
+  });
+});
+
+describe("getDeviceId", () => {
+  it("getDeviceId", () => {
+    jest.mock('uuid', () => () => '424f48aa-b723-4f97-8a30-d214b43bf372');
+    expect(getDeviceId).toEqual("424f48aa-b723-4f97-8a30-d214b43bf372");
   });
 });
