@@ -38,9 +38,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
-    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue({
-      uuid: "af33f46c-085d-4050-be2a-98b72820c572",
-    });
+    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue("af33f46c-085d-4050-be2a-98b72820c572");
     global.Date = class DateMock {
         constructor() {
         }
@@ -86,9 +84,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue({
-      uuid: "424f48aa-b723-4f97-8a30-d214b43bf372",
-    });
+    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue("24f48aa-b723-4f97-8a30-d214b43bf372");
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
