@@ -30,8 +30,6 @@ jobs:
           name : "Generate Code Coverage and Badges"
           command : npm run test:badges
       
-      - coveralls/upload
-      
       - store_artifacts:
           path: coverage
 
