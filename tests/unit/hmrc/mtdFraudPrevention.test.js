@@ -8,7 +8,7 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
-import {getDeviceId} from "../../../src/js/hmrc/mtdFraudPrevention";
+import uuid from "uuid";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -36,7 +36,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
-    jest.spyOn('uuid').mockReturnValue("424f48aa-b723-4f97-8a30-d214b43bf372");
+    jest.spyOn(uuid).mockReturnValue("424f48aa-b723-4f97-8a30-d214b43bf372");
     global.Date = class DateMock {
         constructor() {
         }
@@ -80,7 +80,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn('uuid').mockReturnValue("23815626-4129-43b7-b3d3-c8b31dd282ca");
+    jest.spyOn(uuid).mockReturnValue("23815626-4129-43b7-b3d3-c8b31dd282ca");
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
