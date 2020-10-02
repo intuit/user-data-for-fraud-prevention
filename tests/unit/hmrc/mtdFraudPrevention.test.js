@@ -44,7 +44,7 @@ describe("FraudPreventionHeaders", () => {
     };
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(6);
+    expect(headers.size).toBe(7);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -58,6 +58,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
+    expect(headers.get("Gov-Client-Device-ID")).toBeTruthy();
   });
   it("getFraudPreventionHeaders with one error", async () => {
     jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
@@ -79,7 +80,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(5);
+    expect(headers.size).toBe(6);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -93,6 +94,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
+    expect(headers.get("Gov-Client-Device-ID")).toBeTruthy();
     expect(errors[0]).toEqual("Something went wrong.");
   });
 });

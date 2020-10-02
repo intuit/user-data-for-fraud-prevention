@@ -19,6 +19,7 @@ import {
   getWindowWidth,
   getTimezone,
   resetDeviceIpString,
+  getDeviceId,
 } from "../../../src/js/common/browserInfoHelper";
 
 describe("BrowserInfoHelper", () => {
@@ -247,6 +248,10 @@ describe("BrowserInfoHelper", () => {
     expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     expect(getBrowserDoNotTrackStatus()).toEqual("true");
     expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+  });
+
+  it("getDeviceId", async () => {
+    expect(getDeviceId()).toBeTruthy();
   });
 
   it("getScreen", async () => {

@@ -1,4 +1,5 @@
 import globalsUtil from "./globalsUtil";
+import { v4 as uuidv4 } from 'uuid';
 
 const ICE_CANDIDATE_IP_INDEX = 4;
 
@@ -53,6 +54,9 @@ export const getDeviceLocalIPAsString = () => {
   });
 };
 
+// Get a UUID as the device ID.
+export const getDeviceId = () => uuidv4();
+
 export const getBrowserPluginsAsString = () => {
   return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
     .filter((name) => name)
@@ -76,7 +80,7 @@ const getFormattedOffset = () => {
     const minuteOffset = `${offset[3]}${offset[4]}`;
     const formattedUTC = `${hourOffset}:${minuteOffset}`;
     return formattedUTC;
-}
+};
 
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
 export const getScreenWidth = () =>
