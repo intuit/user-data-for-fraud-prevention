@@ -102,7 +102,7 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
     expect(headers.get("Gov-Client-Device-ID")).toBe(
-        "424f48aa-b723-4f97-8a30-d214b43bf372"
+        "24f48aa-b723-4f97-8a30-d214b43bf372"
     );
     expect(errors[0]).toEqual("Something went wrong.");
   });
