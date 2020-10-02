@@ -9,6 +9,7 @@ import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
 import {generateClientDeviceID} from "../../../src/js/common/standaloneInfoHelper";
+import uuid from "uuid";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -36,6 +37,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
+    jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
     global.Date = class DateMock {
         constructor() {
         }
@@ -59,7 +61,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
-    expect(headers.get("Gov-Client-Device-ID")).not.toBe(generateClientDeviceID());
+    expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
   });
   it("getFraudPreventionHeaders with one error", async () => {
     jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
@@ -79,6 +81,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
+    jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
@@ -95,7 +98,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
-    expect(headers.get("Gov-Client-Device-ID")).not.toBe(generateClientDeviceID());
+    expect(headers.get("Gov-Client-Device-ID")).toEqual("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
     expect(errors[0]).toEqual("Something went wrong.");
   });
 });
