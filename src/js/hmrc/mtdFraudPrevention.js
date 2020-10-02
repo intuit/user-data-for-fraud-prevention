@@ -64,7 +64,7 @@ export const getFraudPreventionHeaders = async () => {
     },
     {
       header: fraudPreventionHeadersEnum.DEVICE_ID,
-      callback: getDeviceId,
+      callback: uuid,
     },
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
@@ -78,5 +78,3 @@ export const getFraudPreventionHeaders = async () => {
   }
   return { headers, errors };
 };
-
-export const getDeviceId = () => uuid();

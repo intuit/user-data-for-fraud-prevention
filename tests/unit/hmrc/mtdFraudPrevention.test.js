@@ -8,7 +8,7 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
-import * as mtdFraudPrevention from "../../../src/js/hmrc/mtdFraudPrevention";
+import uuid from "uuid";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -36,7 +36,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
-    jest.spyOn(mtdFraudPrevention, "uuid").mockReturnValue("424f48aa-b723-4f97-8a30-d214b43bf372");
+    jest.spyOn(uuid).mockReturnValue("424f48aa-b723-4f97-8a30-d214b43bf372");
     global.Date = class DateMock {
         constructor() {
         }
@@ -60,7 +60,8 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
-    expect(headers.get("Gov-Client-Device-ID")).toBe("424f48aa-b723-4f97-8a30-d214b43bf372");
+    expect(headers.get("Gov-Client-Device-ID")).toReturnWith("424f48aa-b723-4f97-8a30-d214b43bf372");
+
   });
   it("getFraudPreventionHeaders with one error", async () => {
     jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
@@ -80,7 +81,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(mtdFraudPrevention, "uuid").mockReturnValue("23815626-4129-43b7-b3d3-c8b31dd282ca");
+    jest.spyOn(uuid).mockReturnValue("23815626-4129-43b7-b3d3-c8b31dd282ca");
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
@@ -97,8 +98,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
-    expect(headers.get("Gov-Client-Device-ID")).toBe("23815626-4129-43b7-b3d3-c8b31dd282ca");
-
+    expect(headers.get("Gov-Client-Device-ID")).toReturnWith("23815626-4129-43b7-b3d3-c8b31dd282ca");
     expect(errors[0]).toEqual("Something went wrong.");
   });
 });
