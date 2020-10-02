@@ -8,6 +8,8 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
+import { getDeviceId } from "../../../src/js/common/uuidGeneratorHelper";
+
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -35,7 +37,7 @@ describe("FraudPreventionHeaders", () => {
       height: 1021,
       colorDepth: 17,
     });
-    jest.spyOn(globalsUtil, "getDeviceId").mockReturnValue({
+    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue({
       uuid: "af33f46c-085d-4050-be2a-98b72820c572",
     });
     global.Date = class DateMock {
@@ -62,7 +64,7 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
     expect(headers.get("Gov-Client-Device-ID")).toBe(
-        "uuid=af33f46c-085d-4050-be2a-98b72820c572"
+        "af33f46c-085d-4050-be2a-98b72820c572"
     );
   });
   it("getFraudPreventionHeaders with one error", async () => {
@@ -83,7 +85,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     });
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(globalsUtil, "getDeviceId").mockReturnValue({
+    jest.spyOn(uuidGeneratorHelper, "getDeviceId").mockReturnValue({
       uuid: "424f48aa-b723-4f97-8a30-d214b43bf372",
     });
 
@@ -103,7 +105,7 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
     expect(headers.get("Gov-Client-Device-ID")).toBe(
-        "uuid=424f48aa-b723-4f97-8a30-d214b43bf372"
+        "424f48aa-b723-4f97-8a30-d214b43bf372"
     );
     expect(errors[0]).toEqual("Something went wrong.");
   });
