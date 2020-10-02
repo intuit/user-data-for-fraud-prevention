@@ -20,7 +20,7 @@ Each top level folder in `src/js` has its own README with more specific informat
 Usage instructions can be found [here](./USAGE.md)
 
 ## Demo
-You can find demo of the project [here](https://github.com/reubenae/user-data-demo)
+You can find a demo of the project [here](https://github.com/reubenae/user-data-demo)
 
 ## Contributing
 
