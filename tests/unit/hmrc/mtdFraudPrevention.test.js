@@ -8,6 +8,7 @@ import {
 import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
+import * as uuidGeneratorHelper from "../../../src/js/common/uuidGeneratorHelper";
 import { getDeviceId } from "../../../src/js/common/uuidGeneratorHelper";
 
 

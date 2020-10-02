@@ -1,5 +1,5 @@
 import { getDeviceId } from "../../../src/js/common/uuidGeneratorHelper";
-import globalsUtil from "../../../src/js/common/globalsUtil";
+import * as uuidGeneratorHelper from "../../../src/js/common/uuidGeneratorHelper";
 
 describe("uuidGeneratorHelper", () => {
     afterEach(() => {
