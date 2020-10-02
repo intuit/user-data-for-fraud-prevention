@@ -5,11 +5,19 @@ const ICE_CANDIDATE_IP_INDEX = 4;
 // store this as a global variable as generating it is expensive and often required several times
 let deviceIpString = "";
 
-// This reset function is valuable only for unit testing
+/**
+ * This reset function is valuable only for unit testing
+ */
 export const resetDeviceIpString = () => {
   deviceIpString = "";
 };
 
+/**
+ * The function returns the local IP address as a string as an async promise.
+ * It uses RTCPeerConnection object's onicecandidate event handler which gets called
+ * automatically when a new Ice Candidate is available.
+ * @returns {Promise} Promise to get users devices IP address
+ */
 export const getDeviceLocalIPAsString = () => {
   return new Promise((resolve, reject) => {
     if (deviceIpString) {
@@ -53,6 +61,10 @@ export const getDeviceLocalIPAsString = () => {
   });
 };
 
+/**
+ * The function returns all the browsers plugin as a comma seperated string
+ * @returns {string} comma seperated users browser plugins
+ */
 export const getBrowserPluginsAsString = () => {
   return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
     .filter((name) => name)
@@ -78,20 +90,59 @@ const getFormattedOffset = () => {
     return formattedUTC;
 }
 
+/**
+ * The function returns users timezone offset relative to UTC
+ * @returns {string} UTC concatenated with users broesers offset 
+ */
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
+
+/**
+ * The function returns validated screens width value
+ * @returns {string | null} valid value of screens width 
+ */
 export const getScreenWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().width);
+
+/**
+ * The function returns validated screens height value
+ * @returns {string | null} valid value of screens height 
+ */
 export const getScreenHeight = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().height);
+
+/**
+ * The function returns users validated device pixel ratio
+ * @returns {string | null} valid value of windows devicePixelRatio 
+ */
 export const getScreenScalingFactor = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().devicePixelRatio);
+
+/**
+ * The function returns validated bit depth of the color palette for displaying images
+ * @returns {string | null} valid value of screens colorDepth 
+ */
 export const getScreenColourDepth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().colorDepth);
+
+/**
+ * The function returns validated interior width of the window in pixels 
+ * @returns {string | null} valid value of windows innerWidth 
+ */
 export const getWindowWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().innerWidth);
+
+/**
+ * The function returns validated interior height of the window in pixels 
+ * @returns {string | null} valid value of windows innerHeight 
+ */
 export const getWindowHeight = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().innerHeight);
 
+/**
+ * The function returns users browser's do not track setting by checking the navigator
+ * and window object for the same 
+ * @returns {string} true or false based on users Do Not Track setting 
+ */
 export const getBrowserDoNotTrackStatus = () => {
   const windowVar = globalsUtil.getWindow(),
     navigatorVar = globalsUtil.getNavigator();
