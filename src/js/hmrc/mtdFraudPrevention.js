@@ -1,4 +1,4 @@
-import {v4 as uuidV4} from "uuid";
+import uuid from "uuid";
 
 import {
   getDeviceLocalIPAsString,
@@ -64,7 +64,7 @@ export const getFraudPreventionHeaders = async () => {
     },
     {
       header: fraudPreventionHeadersEnum.DEVICE_ID,
-      callback: uuidV4(),
+      callback: uuid,
     },
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
