@@ -13,7 +13,7 @@ export const resetDeviceIpString = () => {
 };
 
 /**
- * The function returns the local IP address as a string as an async promise.
+ * Function that returns the local IP address as a string as an async promise.
  * It uses RTCPeerConnection object's onicecandidate event handler which gets called
  * automatically when a new Ice Candidate is available.
  * @returns {Promise} Promise to get users devices IP address
@@ -62,8 +62,8 @@ export const getDeviceLocalIPAsString = () => {
 };
 
 /**
- * The function returns all the browsers plugin as a comma seperated string
- * @returns {string} comma seperated users browser plugins
+ * Function that returns user's browser's all plugin as a comma separated string
+ * @returns {string} comma separated user's browser's plugins
  */
 export const getBrowserPluginsAsString = () => {
   return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
@@ -91,49 +91,55 @@ const getFormattedOffset = () => {
 }
 
 /**
- * The function returns users timezone offset relative to UTC
- * @returns {string} UTC concatenated with users broesers offset 
+ * Function that returns user's timezone offset relative to UTC
+ * @returns {string} UTC concatenated with user's browser's timezone offset 
  */
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
 
 /**
- * The function returns validated screens width value
- * @returns {string | null} valid value of screens width 
+ * Function that validates {the user's screen's width value}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen width 
  */
 export const getScreenWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().width);
 
 /**
- * The function returns validated screens height value
- * @returns {string | null} valid value of screens height 
+ * Function that validates {the user's screen's height value}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen height 
  */
 export const getScreenHeight = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().height);
 
 /**
- * The function returns users validated device pixel ratio
- * @returns {string | null} valid value of windows devicePixelRatio 
+ * Function that validates {the user's device's pixel ratio}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's devicePixelRatio 
  */
 export const getScreenScalingFactor = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().devicePixelRatio);
 
 /**
- * The function returns validated bit depth of the color palette for displaying images
- * @returns {string | null} valid value of screens colorDepth 
+ * Function that validates {the user's screen's colorDepth}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen's colorDepth 
  */
 export const getScreenColourDepth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().colorDepth);
 
 /**
- * The function returns validated interior width of the window in pixels 
- * @returns {string | null} valid value of windows innerWidth 
+ * Function that validates {the user's window's interior width in pixels}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's innerWidth 
  */
 export const getWindowWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().innerWidth);
 
 /**
- * The function returns validated interior height of the window in pixels 
- * @returns {string | null} valid value of windows innerHeight 
+ * Function that validates {the user's window's interior height in pixels}, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's innerHeight 
  */
 export const getWindowHeight = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().innerHeight);
