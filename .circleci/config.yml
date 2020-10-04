@@ -16,6 +16,9 @@ jobs:
       - checkout
 
       # install eslint
+      - run: npm install eslint
+
+      #install babel-eslint
       - run: npm install babel-eslint
 
       # run lint
