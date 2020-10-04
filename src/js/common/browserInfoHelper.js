@@ -97,7 +97,7 @@ const getFormattedOffset = () => {
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
 
 /**
- * Function that validates {the user's screen's width value}, and then returns it.
+ * Function that validates the user's screen's width value, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen width 
  */
@@ -105,7 +105,7 @@ export const getScreenWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().width);
 
 /**
- * Function that validates {the user's screen's height value}, and then returns it.
+ * Function that validates the user's screen's height value, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen height 
  */
@@ -113,7 +113,7 @@ export const getScreenHeight = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().height);
 
 /**
- * Function that validates {the user's device's pixel ratio}, and then returns it.
+ * Function that validates the user's device's pixel ratio, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's devicePixelRatio 
  */
@@ -121,7 +121,7 @@ export const getScreenScalingFactor = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().devicePixelRatio);
 
 /**
- * Function that validates {the user's screen's colorDepth}, and then returns it.
+ * Function that validates the user's screen's colorDepth, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen's colorDepth 
  */
@@ -129,7 +129,7 @@ export const getScreenColourDepth = () =>
   validateAndGetScreenDetail(globalsUtil.getScreen().colorDepth);
 
 /**
- * Function that validates {the user's window's interior width in pixels}, and then returns it.
+ * Function that validates the user's window's interior width in pixels, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's innerWidth 
  */
@@ -137,7 +137,7 @@ export const getWindowWidth = () =>
   validateAndGetScreenDetail(globalsUtil.getWindow().innerWidth);
 
 /**
- * Function that validates {the user's window's interior height in pixels}, and then returns it.
+ * Function that validates the user's window's interior height in pixels, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's innerHeight 
  */
