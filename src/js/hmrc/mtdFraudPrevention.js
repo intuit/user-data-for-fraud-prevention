@@ -13,6 +13,10 @@ import {
   getTimezone,
 } from "../common/browserInfoHelper";
 
+import {
+  generateClientDeviceID,
+} from "../common/standaloneInfoHelper";
+
 /**
  * Enum object of keys for each header in the Map returned by getFraudPreventionHeaders().headers
  */
@@ -62,10 +66,7 @@ export const getFraudPreventionHeaders = async () => {
       header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS,
       callback: async () => encodeURI(await getDeviceLocalIPAsString()),
     },
-    {
-      header: fraudPreventionHeadersEnum.DEVICE_ID,
-      callback: uuidV4,
-    },
+    { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
     try {
