@@ -1,0 +1,12 @@
+{
+  "name": "generator-fraudulentlogic",
+  "version": "0.1.0",
+  "description": "",
+  "files": [
+    "hmrc"
+  ],
+  "keywords": ["yeoman-generator"],
+  "dependencies": {
+    "yeoman-generator": "^1.0.0"
+  }
+}
