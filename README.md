@@ -22,7 +22,19 @@ Each top level folder in `src/js` has its own README with more specific informat
 Usage instructions can be found [here](./USAGE.md)
 
 ## Demo
-You can find a demo of the project [here](https://github.com/reubenae/user-data-demo)
+### Steps for testing:
+
+* Run `yarn link` in `user-data-for-fraud-prevention`
+* `Git clone` the demo project [here](https://github.com/reubenae/user-data-demo)
+* In the demo project, run below commands:
+  * Run `yarn`
+  * Run `yarn start`
+  * Run `yarn demo`
+  * Run `yarn link "user-data-for-fraud-prevention"`
+
+Now you can make changes in `user-data-for-fraud-prevention` locally and they will instantly reflect in the demo project.
+
+You can check the browser console for errors.
 
 ## Contributing
 
