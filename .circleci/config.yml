@@ -1,5 +1,25 @@
 version: 2
 jobs:
+  lint:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15.3-browsers
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/user-data-for-fraud-prevention
+
+    steps:
+      - checkout
+
+      # install eslint
+      - run: npm install eslint
+
+      # run lint
+      - run: npm lint
   build:
     docker:
       # specify the version you desire here
@@ -24,6 +44,9 @@ jobs:
       - run: npm test
 workflows:
   version: 2
-  build:
+  lint_and_build:
     jobs:
-      - build
+      - lint
+      - build:
+          requires:
+            - lint
