@@ -2,8 +2,8 @@
 
 ![user-data-for-fraud-prevention logo](./user-data-for-fraud-prevention-logo.png)
 
-[![CircleCI](https://circleci.com/gh/christyjacob4/user-data-for-fraud-prevention/tree/master.svg?style=shield)](https://circleci.com/gh/christyjacob4/user-data-for-fraud-prevention/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/christyjacob4/user-data-for-fraud-prevention/badge.svg?branch=ci-coverage)](https://coveralls.io/github/christyjacob4/user-data-for-fraud-prevention?branch=ci-coverage)
+[![CircleCI](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master.svg?style=shield)](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/intuit/user-data-for-fraud-prevention/badge.svg?branch=ci-coverage)](https://coveralls.io/github/intuit/user-data-for-fraud-prevention?branch=ci-coverage)
 ![NPM Version](https://img.shields.io/npm/v/user-data-for-fraud-prevention)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
