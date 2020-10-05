@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "files": [
-    "hmrc"
+    "generators"
   ],
+  "main": "generators/index.js",
   "keywords": ["yeoman-generator"],
   "dependencies": {
     "yeoman-generator": "^1.0.0"
