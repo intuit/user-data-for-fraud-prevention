@@ -14,7 +14,7 @@
 This is an npm library to detect some browser or device details of the user such as Timezone, screen sizes, browser configuration etc.
 Such details are often required to be sent by software providers to the tax authority in their country to prevent fraud.
 
-Eg: Tax Authority in UK (HMRC) requires software providers using some of their APIs to provide consistent headers known as Fraud Prevention headers. This node module collects such information for you in the format required.
+Eg: The Tax Authority in the UK (HMRC) requires software providers using some of their APIs to provide consistent headers known as Fraud Prevention headers. This node module collects such information for you in the format required.
 
 Each top level folder in `src/js` has its own README with more specific information around the use case. E.g. [HMRC README](src/js/hmrc/README.md)
 
