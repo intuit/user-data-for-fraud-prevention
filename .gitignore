@@ -3,4 +3,3 @@ dist
 yarn-error.log
 coverage
 .env
-.coveralls.yml
