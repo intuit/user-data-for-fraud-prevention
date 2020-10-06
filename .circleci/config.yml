@@ -18,17 +18,19 @@ jobs:
       - checkout
 
       - run: npm install
-      
-      # run build
-      - run : npm run build
 
-      # run tests and generate coverage 
-      - run : 
-          name : "Run tests and generate coverage report"
-          command : npm run test:coverage
-      
+      # run build
+      - run: npm run build
+
+      # run tests and generate coverage
+      - run:
+          name: "Run tests and generate coverage report"
+          command: npm run test:coverage
+
       - store_artifacts:
           path: coverage
+
+      - run: npm run release
 
 notify:
   webhooks:
