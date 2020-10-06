@@ -54,7 +54,6 @@
   },
   "devDependencies": {
     "@auto-it/all-contributors": "9.54.2",
-    "@auto-it/first-time-contributor": "9.54.2",
     "@auto-it/released": "9.54.2",
     "auto": "9.54.2",
     "@commitlint/cli": "^11.0.0",
@@ -92,7 +91,6 @@
     "plugins": [
       "npm",
       "released",
-      "first-time-contributor",
       "all-contributors"
     ],
     "labels": [
