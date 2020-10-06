@@ -5,15 +5,46 @@ defaults: &defaults
     - image: circleci/node:10.15.3-browsers
   environment:
     TZ: '/usr/share/zoneinfo/America/Los_Angeles'
+
 orbs:
   coveralls: coveralls/coveralls@1.0.4
+
+aliases:
+  # Circle related commands
+  - &restore-cache
+    keys:
+      # Find a cache corresponding to this specific package.json checksum
+      # when this file is changed, this key will fail
+      - user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+      - user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}
+      # Find the most recent cache used from any branch
+      - user-data-for-fraud-prevention-
+  - &save-cache
+    key: user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
+    paths:
+      - ~/.cache/yarn
+      - node_modules
+  # Yarn commands
+  - &install
+    name: Install Dependencies
+    command: yarn install --frozen-lockfile --non-interactive
+  - &lint
+    name: Lint
+    command: yarn lint
+  - &test
+    name: Test
+    command: yarn test
+  - &build
+    name: Build
+    command: yarn build
+
 jobs:
   install:
     <<: *defaults
     steps:
       - checkout
       - restore_cache: *restore-cache
-      - run: *yarn
+      - run: *install
       - save_cache: *save-cache
       - persist_to_workspace:
           root: .
@@ -25,23 +56,21 @@ jobs:
     - attach_workspace:
       at: ~/user-data-for-fraud-prevention
     steps:
-
-      # run build
-      - run: yarn run build
+      - run: *build
 
   lint:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/user-data-for-fraud-prevention
-      - run: yarn run lint
+      - run: *lint
 
   test:
     <<: *defaults
     steps:
       - attach_workspace:
           at: ~/user-data-for-fraud-prevention
-      - run: yarn run tes
+      - run: *test
       # run tests and generate coverage
       - run:
           name: "Run tests and generate coverage report"
