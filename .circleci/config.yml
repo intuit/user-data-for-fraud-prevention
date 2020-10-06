@@ -4,7 +4,7 @@ defaults: &defaults
   docker:
     - image: circleci/node:10.15.3-browsers
   environment:
-    TZ: '/usr/share/zoneinfo/America/Los_Angeles'
+    TZ: "/usr/share/zoneinfo/America/Los_Angeles"
 
 orbs:
   coveralls: coveralls/coveralls@1.0.4
@@ -53,9 +53,9 @@ jobs:
 
   build:
     <<: *defaults
-    - attach_workspace:
-      at: ~/user-data-for-fraud-prevention
     steps:
+      - attach_workspace:
+        at: ~/user-data-for-fraud-prevention
       - run: *build
 
   lint:
@@ -92,7 +92,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at:  ~/user-data-for-fraud-prevention
+          at: ~/user-data-for-fraud-prevention
       - run: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run:
           name: Release
