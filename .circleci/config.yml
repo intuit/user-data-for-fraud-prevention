@@ -26,11 +26,13 @@ jobs:
       - run : 
           name : "Run tests and generate coverage report"
           command : npm run test:coverage
+          
+      - run : auto shipit
       
       - store_artifacts:
           path: coverage
           
-      - run : auto shipit
+      
 
 notify:
   webhooks:
