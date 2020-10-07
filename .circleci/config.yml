@@ -1,11 +1,12 @@
 version: 2.1
+
+orbs:
+  coveralls: coveralls/coveralls@1.0.4
+
 defaults: &defaults
   working_directory: ~/user-data-for-fraud-prevention
   docker:
     - image: circleci/node:10.15.3-browsers
-
-orbs:
-  coveralls: coveralls/coveralls@1.0.4
 
 aliases:
   # Circle related commands
