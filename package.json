@@ -42,7 +42,6 @@
   "files": [
     "src/js/index.js",
     "src/js/browserInfoHelper.js",
-    "src/js/globalsUtil.js",
     "src/js/hmrc/mtdFraudPrevention.js"
   ],
   "publishConfig": {
