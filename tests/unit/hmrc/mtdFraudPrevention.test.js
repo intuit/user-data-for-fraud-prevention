@@ -5,6 +5,7 @@ import {
   setAdditionalCandidateString,
   resetCandidateString,
 } from "../mock/MockRTCPeerConnection";
+import globalsUtil from "../../../src/js/common/globalsUtil";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
@@ -19,18 +20,18 @@ describe("FraudPreventionHeaders", () => {
     resetCandidateString();
   });
   it("getFraudPreventionHeaders with no errors", async () => {
-    jest.spyOn(global, "navigator").mockReturnValue({
+    jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     });
     setAdditionalCandidateString(",127.0.0.2");
-    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(global, "window").mockReturnValue({
+    jest.spyOn(globalsUtil, "getWebRTCConnection").mockReturnValue(MockRTCPeerConnection);
+    jest.spyOn(globalsUtil, "getWindow").mockReturnValue({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
     });
-    jest.spyOn(global, "screen").mockReturnValue({
+    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
       width: 1019,
       height: 1021,
       colorDepth: 17,
@@ -62,18 +63,18 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
   });
   it("getFraudPreventionHeaders with one error", async () => {
-    jest.spyOn(global, "navigator").mockReturnValue({
+    jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     });
     setAdditionalCandidateString(",127.0.0.2");
-    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(global, "window").mockReturnValue({
+    jest.spyOn(globalsUtil, "getWebRTCConnection").mockReturnValue(MockRTCPeerConnection);
+    jest.spyOn(globalsUtil, "getWindow").mockReturnValue({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
     });
-    jest.spyOn(global, "screen").mockReturnValue({
+    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
       width: 1019,
       height: 1021,
       colorDepth: 17,
