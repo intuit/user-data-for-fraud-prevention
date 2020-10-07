@@ -21,7 +21,19 @@ import {
 } from "../../../src/js/common/browserInfoHelper";
 
 describe("BrowserInfoHelper", () => {
+  let screenSpy, navigatorSpy, windowSpy;
+
+  beforeEach(() => {
+    screenSpy = jest.spyOn(global, 'screen', 'get');
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+    windowSpy = jest.spyOn(global, 'window', 'get');
+    global.RTCPeerConnection = MockRTCPeerConnection;
+  });
+
   afterEach(() => {
+    screenSpy.mockRestore();
+    navigatorSpy.mockRestore();
+    windowSpy.mockRestore();
     jest.resetAllMocks();
   });
 
@@ -82,8 +94,8 @@ describe("BrowserInfoHelper", () => {
     getBrowserDoNotTrackStatusTests.forEach(
       ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
         it(test, () => {
-          jest.spyOn(global, "window").mockReturnValue(mockWindow);
-          jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
+          windowSpy.mockImplementation(() => (mockWindow));
+          navigatorSpy.mockImplementation(() => (mockNavigator));
           expect(getBrowserDoNotTrackStatus()).toEqual(expected);
         });
       }
@@ -99,7 +111,7 @@ describe("BrowserInfoHelper", () => {
       };
     });
     it("getBrowserPluginsAsString no plugins", () => {
-      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("");
     });
 
@@ -107,7 +119,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: getMockBrowserPluginDetails(),
       };
-      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
 
@@ -115,7 +127,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: [...getMockBrowserPluginDetails(), null],
       };
-      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
   });
@@ -123,7 +135,7 @@ describe("BrowserInfoHelper", () => {
   describe("getDeviceLocalIPAsString", () => {
     let webRtcConnectionStub;
     beforeEach(() => {
-      webRtcConnectionStub = jest.spyOn(global, "RTCPeerConnection");
+      global.RTCPeerConnection = MockRTCPeerConnection;
       resetDeviceIpString();
     });
 
@@ -134,7 +146,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection undefined", async () => {
-      webRtcConnectionStub.mockReturnValue(undefined);
+      global.RTCPeerConnection = undefined;
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -146,7 +158,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection non constructable", async () => {
-      webRtcConnectionStub.mockReturnValue({});
+      global.RTCPeerConnection = {};
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -158,7 +170,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection throws CREATE_CONNECTION_ERROR", async() => {
-      webRtcConnectionStub.mockReturnValue(MockErrorRTCPeerConnection);
+      global.RTCPeerConnection = MockErrorRTCPeerConnection;
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -171,7 +183,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND if candidate string does not have valid IP address as 5th element", async () => {
       setCandidateString("abc xyz 127.0.0.1");
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
+      global.RTCPeerConnection = MockRTCPeerConnection;
       try {
         await getDeviceLocalIPAsString();
       } catch (error) {
@@ -184,7 +196,7 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection throws NO_IP_FOUND for empty candidate string", async () => {
       setEmptyCandidateString();
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
+      global.RTCPeerConnection = MockRTCPeerConnection;
 
       try {
         await getDeviceLocalIPAsString();
@@ -197,7 +209,7 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection valid", async () => {
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
+      global.RTCPeerConnection = MockRTCPeerConnection;
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
       // Calling the function to return an already calculated deviceIpString
       expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
@@ -207,27 +219,30 @@ describe("BrowserInfoHelper", () => {
       setCandidateString(
         "abc xyz 123 567 789 777 127.0.0.1 randomstring somestring"
       );
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
+      global.RTCPeerConnection = MockRTCPeerConnection;
       expect(await getDeviceLocalIPAsString()).toEqual("789");
     });
   });
 
   it("getMTDTaxReturnWithParameter", async () => {
-    jest.spyOn(global, "navigator").mockReturnValue({
+    navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
-    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(global, "window").mockReturnValue({
+    }));
+
+    windowSpy.mockImplementation(() => ({
       devicePixelRatio: 2,
       innerWidth: 1009,
-      innerHeight: 1013,
-    });
-    jest.spyOn(global, "screen").mockReturnValue({
+      innerHeight: 1013
+    }));
+
+    global.RTCPeerConnection = MockRTCPeerConnection;
+    
+    screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
-      colorDepth: 17,
-    });
+      colorDepth: 17
+    }))
     global.Date = class DateMock {
         constructor() {
         }
@@ -249,11 +264,11 @@ describe("BrowserInfoHelper", () => {
   });
 
   it("getScreen", async () => {
-    jest.spyOn(global, "screen").mockReturnValue({
+    screenSpy.mockImplementation(() => ({
       width: "900px",
       height: 1021,
-      colorDepth: 17,
-    });
+      colorDepth: 17
+    }))
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);

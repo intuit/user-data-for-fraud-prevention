@@ -12,29 +12,43 @@ import uuid from "uuid";
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
   resetCandidateString();
+  let screenSpy, navigatorSpy, windowSpy;
+  
+  beforeEach(() => {
+    screenSpy = jest.spyOn(global, 'screen', 'get');
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+    windowSpy = jest.spyOn(global, 'window', 'get');
+    global.RTCPeerConnection = MockRTCPeerConnection;
+  });
 
   afterEach(() => {
+    screenSpy.mockRestore();
+    navigatorSpy.mockRestore();
+    windowSpy.mockRestore();
     jest.resetAllMocks();
     resetDeviceIpString();
     resetCandidateString();
   });
+
   it("getFraudPreventionHeaders with no errors", async () => {
-    jest.spyOn(global, "navigator").mockReturnValue({
+    navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
+    }));
+
     setAdditionalCandidateString(",127.0.0.2");
-    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(global, "window").mockReturnValue({
+    windowSpy.mockImplementation(() => ({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
-    jest.spyOn(global, "screen").mockReturnValue({
+    }));
+
+    screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
+    }));
+
     jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
     global.Date = class DateMock {
         constructor() {
@@ -62,22 +76,26 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
   });
   it("getFraudPreventionHeaders with one error", async () => {
-    jest.spyOn(global, "navigator").mockReturnValue({
+
+    navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
+    }));
+
     setAdditionalCandidateString(",127.0.0.2");
-    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(global, "window").mockReturnValue({
+
+    windowSpy.mockImplementation(() => ({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
-    jest.spyOn(global, "screen").mockReturnValue({
+    }));
+
+    screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
+    }));
+
     jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
