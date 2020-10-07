@@ -3,8 +3,6 @@ defaults: &defaults
   working_directory: ~/user-data-for-fraud-prevention
   docker:
     - image: circleci/node:10.15.3-browsers
-  environment:
-    TZ: "/usr/share/zoneinfo/America/Los_Angeles"
 
 orbs:
   coveralls: coveralls/coveralls@1.0.4
