@@ -1,100 +1,36 @@
-version: 2.1
+version: 2
 orbs:
   coveralls: coveralls/coveralls@1.0.4
-
-defaults: &defaults
-  working_directory: ~/user-data-for-fraud-prevention
-  docker:
-    - image: circleci/node:10.15.3-browsers
-
-aliases:
-  # Circle related commands
-  - &restore-cache
-    keys:
-      # Find a cache corresponding to this specific package.json checksum
-      # when this file is changed, this key will fail
-      - user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
-      - user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}
-      # Find the most recent cache used from any branch
-      - user-data-for-fraud-prevention-
-  - &save-cache
-    key: user-data-for-fraud-prevention-{{ checksum "yarn.lock" }}-{{ checksum ".circleci/config.yml" }}
-    paths:
-      - ~/.cache/yarn
-      - node_modules
-  # Yarn commands
-  - &install
-    name: Install Dependencies
-    command: yarn install --frozen-lockfile --non-interactive
-  - &lint
-    name: Lint
-    command: yarn lint
-  - &test
-    name: Test
-    command: yarn test
-  - &build
-    name: Build
-    command: yarn build
-
 jobs:
-  install:
-    <<: *defaults
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.15.3-browsers
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/user-data-for-fraud-prevention
+
     steps:
       - checkout
-      - restore_cache: *restore-cache
-      - run: *install
-      - save_cache: *save-cache
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
 
-  build:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-        at: ~/user-data-for-fraud-prevention
-      - run: *build
+      - run: npm install
+      
+      # run build
+      - run : npm run build
 
-  lint:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/user-data-for-fraud-prevention
-      - run: *lint
-
-  test:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/user-data-for-fraud-prevention
-      - run: *test
-      # run tests and generate coverage
-      - run:
-          name: "Run tests and generate coverage report"
-          command: yarn run test:coverage
-
+      # run tests and generate coverage 
+      - run : 
+          name : "Run tests and generate coverage report"
+          command : npm run test:coverage
+      
       - store_artifacts:
           path: coverage
-
-  pr-check:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/user-data-for-fraud-prevention
-      - run:
-          name: Check PR for semantic version label
-          command: yarn auto pr-check --pr $CHANGE_ID --url $CIRCLE_BUILD_URL
-
-  release:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/user-data-for-fraud-prevention
-      - run: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
-      - run:
-          name: Release
-          command: yarn auto shipit
+          
+      - run : auto shipit
 
 notify:
   webhooks:
@@ -102,31 +38,6 @@ notify:
 
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
-      - install
-
-      - build:
-          requires:
-            - install
-
-      - lint:
-          requires:
-            - build
-
-      - test:
-          requires:
-            - build
-
-      - pr-check:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore:
-                - master
-
-      - release:
-          requires:
-            - test
-            - lint
+      - build
