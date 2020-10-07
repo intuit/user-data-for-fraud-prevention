@@ -6,7 +6,6 @@ import {
   resetCandidateString,
   setCandidateString,
 } from "../mock/MockRTCPeerConnection";
-import globalsUtil from "../../../src/js/common/globalsUtil";
 import {
   getDeviceLocalIPAsString,
   getBrowserDoNotTrackStatus,
@@ -83,8 +82,8 @@ describe("BrowserInfoHelper", () => {
     getBrowserDoNotTrackStatusTests.forEach(
       ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
         it(test, () => {
-          jest.spyOn(globalsUtil, "getWindow").mockReturnValue(mockWindow);
-          jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+          jest.spyOn(global, "window").mockReturnValue(mockWindow);
+          jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
           expect(getBrowserDoNotTrackStatus()).toEqual(expected);
         });
       }
@@ -100,7 +99,7 @@ describe("BrowserInfoHelper", () => {
       };
     });
     it("getBrowserPluginsAsString no plugins", () => {
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("");
     });
 
@@ -108,7 +107,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: getMockBrowserPluginDetails(),
       };
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
 
@@ -116,7 +115,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: [...getMockBrowserPluginDetails(), null],
       };
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      jest.spyOn(global, "navigator").mockReturnValue(mockNavigator);
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
   });
@@ -124,7 +123,7 @@ describe("BrowserInfoHelper", () => {
   describe("getDeviceLocalIPAsString", () => {
     let webRtcConnectionStub;
     beforeEach(() => {
-      webRtcConnectionStub = jest.spyOn(globalsUtil, "getWebRTCConnection");
+      webRtcConnectionStub = jest.spyOn(global, "RTCPeerConnection");
       resetDeviceIpString();
     });
 
@@ -214,17 +213,17 @@ describe("BrowserInfoHelper", () => {
   });
 
   it("getMTDTaxReturnWithParameter", async () => {
-    jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
+    jest.spyOn(global, "navigator").mockReturnValue({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     });
-    jest.spyOn(globalsUtil, "getWebRTCConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(globalsUtil, "getWindow").mockReturnValue({
+    jest.spyOn(global, "RTCPeerConnection").mockReturnValue(MockRTCPeerConnection);
+    jest.spyOn(global, "window").mockReturnValue({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
     });
-    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
+    jest.spyOn(global, "screen").mockReturnValue({
       width: 1019,
       height: 1021,
       colorDepth: 17,
@@ -250,7 +249,7 @@ describe("BrowserInfoHelper", () => {
   });
 
   it("getScreen", async () => {
-    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
+    jest.spyOn(global, "screen").mockReturnValue({
       width: "900px",
       height: 1021,
       colorDepth: 17,
