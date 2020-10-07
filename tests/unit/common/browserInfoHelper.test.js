@@ -133,7 +133,6 @@ describe("BrowserInfoHelper", () => {
   });
 
   describe("getDeviceLocalIPAsString", () => {
-    let webRtcConnectionStub;
     beforeEach(() => {
       global.RTCPeerConnection = MockRTCPeerConnection;
       resetDeviceIpString();
@@ -233,7 +232,7 @@ describe("BrowserInfoHelper", () => {
     windowSpy.mockImplementation(() => ({
       devicePixelRatio: 2,
       innerWidth: 1009,
-      innerHeight: 1013
+      innerHeight: 1013,
     }));
 
     global.RTCPeerConnection = MockRTCPeerConnection;
@@ -241,8 +240,8 @@ describe("BrowserInfoHelper", () => {
     screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
-      colorDepth: 17
-    }))
+      colorDepth: 17,
+    }));
     global.Date = class DateMock {
         constructor() {
         }
@@ -267,8 +266,8 @@ describe("BrowserInfoHelper", () => {
     screenSpy.mockImplementation(() => ({
       width: "900px",
       height: 1021,
-      colorDepth: 17
-    }))
+      colorDepth: 17,
+    }));
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);
