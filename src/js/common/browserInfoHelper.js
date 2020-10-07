@@ -1,3 +1,5 @@
+import globalsUtil from "./globalsUtil";
+
 const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store this as a global variable as generating it is expensive and often required several times
@@ -21,7 +23,7 @@ export const getDeviceLocalIPAsString = () => {
     if (deviceIpString) {
       resolve(deviceIpString);
     }
-    const WebRTCConnection = RTCPeerConnection;
+    const WebRTCConnection = globalsUtil.getWebRTCConnection();
     if (!WebRTCConnection) {
       reject({message: "WEBRTC_UNSUPPORTED_BROWSER", error: undefined});
     }
@@ -64,7 +66,7 @@ export const getDeviceLocalIPAsString = () => {
  * @returns {string} comma separated user's browser's plugins
  */
 export const getBrowserPluginsAsString = () => {
-  return Array.from(navigator.plugins, plugin => plugin && plugin.name)
+  return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
     .filter((name) => name)
     .join(",");
 };
@@ -100,7 +102,7 @@ export const getTimezone = () => `UTC${getFormattedOffset()}`;
  * @returns {string | null} validated value of screen width 
  */
 export const getScreenWidth = () =>
-  validateAndGetScreenDetail(screen.width);
+  validateAndGetScreenDetail(globalsUtil.getScreen().width);
 
 /**
  * Function that validates the user's screen's height value, and then returns it.
@@ -108,7 +110,7 @@ export const getScreenWidth = () =>
  * @returns {string | null} validated value of screen height 
  */
 export const getScreenHeight = () =>
-  validateAndGetScreenDetail(screen.height);
+  validateAndGetScreenDetail(globalsUtil.getScreen().height);
 
 /**
  * Function that validates the user's device's pixel ratio, and then returns it.
@@ -116,7 +118,7 @@ export const getScreenHeight = () =>
  * @returns {string | null} validated value of window's devicePixelRatio 
  */
 export const getScreenScalingFactor = () =>
-  validateAndGetScreenDetail(window.devicePixelRatio);
+  validateAndGetScreenDetail(globalsUtil.getWindow().devicePixelRatio);
 
 /**
  * Function that validates the user's screen's colorDepth, and then returns it.
@@ -124,7 +126,7 @@ export const getScreenScalingFactor = () =>
  * @returns {string | null} validated value of screen's colorDepth 
  */
 export const getScreenColourDepth = () =>
-  validateAndGetScreenDetail(screen.colorDepth);
+  validateAndGetScreenDetail(globalsUtil.getScreen().colorDepth);
 
 /**
  * Function that validates the user's window's interior width in pixels, and then returns it.
@@ -132,7 +134,7 @@ export const getScreenColourDepth = () =>
  * @returns {string | null} validated value of window's innerWidth 
  */
 export const getWindowWidth = () =>
-  validateAndGetScreenDetail(window.innerWidth);
+  validateAndGetScreenDetail(globalsUtil.getWindow().innerWidth);
 
 /**
  * Function that validates the user's window's interior height in pixels, and then returns it.
@@ -140,7 +142,7 @@ export const getWindowWidth = () =>
  * @returns {string | null} validated value of window's innerHeight 
  */
 export const getWindowHeight = () =>
-  validateAndGetScreenDetail(window.innerHeight);
+  validateAndGetScreenDetail(globalsUtil.getWindow().innerHeight);
 
 /**
  * The function returns users browser's do not track setting by checking the navigator
@@ -148,8 +150,8 @@ export const getWindowHeight = () =>
  * @returns {string} true or false based on users Do Not Track setting 
  */
 export const getBrowserDoNotTrackStatus = () => {
-  const windowVar = window,
-    navigatorVar = navigator;
+  const windowVar = globalsUtil.getWindow(),
+    navigatorVar = globalsUtil.getNavigator();
   /* eslint-disable eqeqeq */
   const isBrowserDoNotTrack =
     (windowVar.doNotTrack && windowVar.doNotTrack == "1") ||
