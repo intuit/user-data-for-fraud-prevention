@@ -26,11 +26,15 @@ jobs:
       - run : 
           name : "Run tests and generate coverage report"
           command : npm run test:coverage
-          
-      - run : auto shipit
       
       - store_artifacts:
           path: coverage
+  release:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - checkout
+      - run: auto shipit
           
       
 
@@ -43,3 +47,9 @@ workflows:
   build:
     jobs:
       - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
