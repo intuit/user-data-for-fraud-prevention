@@ -1025,7 +1025,7 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime@^7.11.0", "@babel/runtime@^7.11.2", "@babel/runtime@^7.7.6":
+"@babel/runtime@^7.11.2", "@babel/runtime@^7.7.6":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -1893,9 +1893,9 @@
   integrity sha1-PQOs07NBTPZ/r5ma7RFoLtEh8is=
 
 "@types/node@>= 8":
-  version "14.11.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.5.tgz#fecad41c041cae7f2404ad4b2d0742fdb628b305"
-  integrity sha512-jVFzDV6NTbrLMxm4xDSIW/gKnk8rQLF9wAzLWIOg+5nU6ACrIMndeBdXci0FGtqJbP9tQvm6V39eshc96TO2wQ==
+  version "14.11.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.8.tgz#fe2012f2355e4ce08bca44aeb3abbb21cf88d33f"
+  integrity sha512-KPcKqKm5UKDkaYPTuXSx8wEP7vE9GnuaXIZKijwRYcePpZFDVuy2a57LarFKiORbHOuTOOwYzxVxcUzsh2P2Pw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2187,9 +2187,9 @@ all-contributors-cli@6.17.4:
     yargs "^15.0.1"
 
 all-contributors-cli@^6.17.4:
-  version "6.18.0"
-  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.18.0.tgz#616802b57b10ea20971f0275391f79d322136e1b"
-  integrity sha512-Dy90FtqKZ0TKmjWF3rkJUJzENW7O57mHL4B7JE7nziGjnSSLjGek9VeGAgCfluU037ENj4BKYbsB4oB/op+xFA==
+  version "6.19.0"
+  resolved "https://registry.yarnpkg.com/all-contributors-cli/-/all-contributors-cli-6.19.0.tgz#7e4550973afede2476b62bd159fee6d72a1ad802"
+  integrity sha512-QJN4iLeTeYpTZJES8XFTzQ+itA1qSyBbxLapJLtwrnY+kipyRhCX49fS/s/qftQQym9XLATMZUpUeEeJSox1sw==
   dependencies:
     "@babel/runtime" "^7.7.6"
     async "^3.0.1"
@@ -5724,11 +5724,11 @@ jsesc@~0.5.0:
   integrity sha1-597mbjXW/Bb3EP6R1c9p9w8IkR0=
 
 json-fixer@^1.5.1:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/json-fixer/-/json-fixer-1.6.3.tgz#1beaf69b137ed3588b8fdb5a5a507f4b3f276fe4"
-  integrity sha512-JSjfJJaKCQpSNEh+Tw1lX2L8MnDjIxfBpPTWUO/XN0JUY87nHJiFBy5i0Tm8o7/841LWfMDbqhn7UjhkjrZKkw==
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/json-fixer/-/json-fixer-1.6.5.tgz#fcdb4db5d98c94f7666b3d8cdd10e25cdfbad309"
+  integrity sha512-ewOhCI/b7Wx0DtO7ZhDp4SW5sjvp5dBWoeGnjta7mXPrvopvcE6TYGIqo+XREhzr/hKz7Bf3e2C0TSuoGFxAYA==
   dependencies:
-    "@babel/runtime" "^7.11.0"
+    "@babel/runtime" "^7.11.2"
     chalk "^4.1.0"
     pegjs "^0.10.0"
 
@@ -8024,7 +8024,7 @@ through2@^3.0.0:
 
 "through@>=2.2.7 <3", through@^2.3.6, through@^2.3.8:
   version "2.3.8"
-  resolved "https://registry.npmjs.intuit.com:443/artifactory/api/npm/npm-intuit/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
+  resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
 
 timers-browserify@^2.0.4:
