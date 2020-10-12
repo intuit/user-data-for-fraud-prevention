@@ -45,6 +45,24 @@
         "question",
         "code"
       ]
+    },
+    {
+      "login": "khanna98",
+      "name": "Mayank Khanna",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/29047276?v=4",
+      "profile": "https://www.youtube.com/user/coolbuddymax",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "jitinmaher",
+      "name": "Jitin Maherchandani",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/7746087?v=4",
+      "profile": "https://jitinmaher.me",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
