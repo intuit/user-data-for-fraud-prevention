@@ -49,7 +49,7 @@ We do not allow contributors to claim issues. If you find something interesting 
 1. Run the tests (you added tests, right?) with `npm test` or `yarn test`
 1. Test your changes in your consuming code or using our demo project: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
 1. Ensure the code coverage is the same or higher than before your changes
-1. Ensure commit message is properly formatted: `type(subject): input`. Ex: `chore(prettier): update prettier to 2.x`
+1. Ensure commit messages is properly formatted: `type(subject): input`. Ex: `chore(prettier): update prettier to 2.x`
 1. Create a PR to the `master` branch
 
 ## How contributors get added to the README
