@@ -30,7 +30,7 @@ import getFraudPreventionHeaders from 'user-data-for-fraud-prevention';
 import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-for-fraud-prevention';
 ```
 
-To use
+To fetch the headers:
 
 ```js
 const fraudHeaders = await getFraudPreventionHeaders();
