@@ -4,7 +4,6 @@
 
 [![CircleCI](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master.svg?style=shield)](https://circleci.com/gh/intuit/user-data-for-fraud-prevention/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/intuit/user-data-for-fraud-prevention/badge.svg?branch=master)](https://coveralls.io/github/intuit/user-data-for-fraud-prevention?branch=master)
-[![renovate](https://fancy.badges.a.intuit.com/badge/%20%20%F0%9F%93%A6%20%20managed%20by-renovate-brightgreen.svg)]
 ![NPM Version](https://img.shields.io/npm/v/user-data-for-fraud-prevention)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
