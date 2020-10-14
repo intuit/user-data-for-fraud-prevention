@@ -1,14 +1,14 @@
 {
   "name": "user-data-for-fraud-prevention",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Detects Timezone, screen size, scaling factor, browser plugins, local device IPs etc;",
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "test:coverage": "npm test -- --coverage",
-    "test:badges": "npm run test:coverage  && jest-coverage-badges",
-    "lint:fix": "eslint \"{src,tests}/**/*.js\" --fix",
-    "lint": "eslint \"{src,tests}/**/*.js\"",
+    "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
+    "lint:fix": "eslint '{src,tests}/**/*.js' --fix",
+    "lint": "eslint '{src,tests}/**/*.js'",
+
     "format": "lint-staged",
     "prettier": "prettier '{src,tests}/**/*.js' --write --single-quote --tab-width 4 --no-bracket-spacing --print-width 120",
     "clean": "rm -rf node_modules",
@@ -17,7 +17,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test && npm run test:coverage",
+      "pre-push": "npm test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -43,7 +43,6 @@
   "files": [
     "src/js/index.js",
     "src/js/browserInfoHelper.js",
-    "src/js/globalsUtil.js",
     "src/js/hmrc/mtdFraudPrevention.js"
   ],
   "publishConfig": {
@@ -59,6 +58,7 @@
     "all-contributors-cli": "^6.17.4",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
+    "coveralls": "^3.1.0",
     "eslint": "^7.4.0",
     "husky": "^4.3.0",
     "jest": "^26.0.1",

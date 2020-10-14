@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  coveralls: coveralls/coveralls@1.0.4
 jobs:
   lint:
     docker:
@@ -43,8 +45,18 @@ jobs:
       # run build
       - run : npm run build
 
-      # run tests!
-      - run: npm test
+      # run tests and generate coverage 
+      - run : 
+          name : "Run tests and generate coverage report"
+          command : npm run test:coverage
+      
+      - store_artifacts:
+          path: coverage
+
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=${process.env.COVERALLS_REPO_TOKEN}
+
 workflows:
   version: 2
   lint_and_build:

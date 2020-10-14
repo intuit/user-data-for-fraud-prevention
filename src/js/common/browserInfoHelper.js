@@ -1,21 +1,27 @@
-import globalsUtil from "./globalsUtil";
-
 const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store this as a global variable as generating it is expensive and often required several times
 let deviceIpString = "";
 
-// This reset function is valuable only for unit testing
+/**
+ * This reset function is valuable only for unit testing
+ */
 export const resetDeviceIpString = () => {
   deviceIpString = "";
 };
 
+/**
+ * Function that returns the local IP address as a string as an async promise.
+ * It uses RTCPeerConnection object's onicecandidate event handler which gets called
+ * automatically when a new Ice Candidate is available.
+ * @returns {Promise} Promise to get users devices IP address
+ */
 export const getDeviceLocalIPAsString = () => {
   return new Promise((resolve, reject) => {
     if (deviceIpString) {
       resolve(deviceIpString);
     }
-    const WebRTCConnection = globalsUtil.getWebRTCConnection();
+    const WebRTCConnection = RTCPeerConnection;
     if (!WebRTCConnection) {
       reject({message: "WEBRTC_UNSUPPORTED_BROWSER", error: undefined});
     }
@@ -53,8 +59,12 @@ export const getDeviceLocalIPAsString = () => {
   });
 };
 
+/**
+ * Function that returns user's browser's all plugin as a comma separated string
+ * @returns {string} comma separated user's browser's plugins
+ */
 export const getBrowserPluginsAsString = () => {
-  return Array.from(globalsUtil.getNavigator().plugins, plugin => plugin && plugin.name)
+  return Array.from(navigator.plugins, plugin => plugin && plugin.name)
     .filter((name) => name)
     .join(",");
 };
@@ -78,23 +88,68 @@ const getFormattedOffset = () => {
     return formattedUTC;
 }
 
+/**
+ * Function that returns user's timezone offset relative to UTC
+ * @returns {string} UTC concatenated with user's browser's timezone offset 
+ */
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
-export const getScreenWidth = () =>
-  validateAndGetScreenDetail(globalsUtil.getScreen().width);
-export const getScreenHeight = () =>
-  validateAndGetScreenDetail(globalsUtil.getScreen().height);
-export const getScreenScalingFactor = () =>
-  validateAndGetScreenDetail(globalsUtil.getWindow().devicePixelRatio);
-export const getScreenColourDepth = () =>
-  validateAndGetScreenDetail(globalsUtil.getScreen().colorDepth);
-export const getWindowWidth = () =>
-  validateAndGetScreenDetail(globalsUtil.getWindow().innerWidth);
-export const getWindowHeight = () =>
-  validateAndGetScreenDetail(globalsUtil.getWindow().innerHeight);
 
+/**
+ * Function that validates the user's screen's width value, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen width 
+ */
+export const getScreenWidth = () =>
+  validateAndGetScreenDetail(screen.width);
+
+/**
+ * Function that validates the user's screen's height value, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen height 
+ */
+export const getScreenHeight = () =>
+  validateAndGetScreenDetail(screen.height);
+
+/**
+ * Function that validates the user's device's pixel ratio, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's devicePixelRatio 
+ */
+export const getScreenScalingFactor = () =>
+  validateAndGetScreenDetail(window.devicePixelRatio);
+
+/**
+ * Function that validates the user's screen's colorDepth, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of screen's colorDepth 
+ */
+export const getScreenColourDepth = () =>
+  validateAndGetScreenDetail(screen.colorDepth);
+
+/**
+ * Function that validates the user's window's interior width in pixels, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's innerWidth 
+ */
+export const getWindowWidth = () =>
+  validateAndGetScreenDetail(window.innerWidth);
+
+/**
+ * Function that validates the user's window's interior height in pixels, and then returns it.
+ * If it fails validation, it returns null
+ * @returns {string | null} validated value of window's innerHeight 
+ */
+export const getWindowHeight = () =>
+  validateAndGetScreenDetail(window.innerHeight);
+
+/**
+ * The function returns users browser's do not track setting by checking the navigator
+ * and window object for the same 
+ * @returns {string} true or false based on users Do Not Track setting 
+ */
 export const getBrowserDoNotTrackStatus = () => {
-  const windowVar = globalsUtil.getWindow(),
-    navigatorVar = globalsUtil.getNavigator();
+  const windowVar = window,
+    navigatorVar = navigator;
   /* eslint-disable eqeqeq */
   const isBrowserDoNotTrack =
     (windowVar.doNotTrack && windowVar.doNotTrack == "1") ||
