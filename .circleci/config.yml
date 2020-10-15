@@ -1,30 +1,5 @@
 version: 2
-orbs:
-  coveralls: coveralls/coveralls@1.0.4
-jobs:
-  lint:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:10.15.3-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/user-data-for-fraud-prevention
-
-    steps:
-      - checkout
-
-      # install eslint
-      - run: npm install eslint
-
-      #install babel-eslint
-      - run: npm install babel-eslint
-
-      # run lint
-      - run: npm run lint
+jobs: 
   build:
     docker:
       # specify the version you desire here
@@ -42,26 +17,16 @@ jobs:
 
       - run: npm install
       
+      # run lint
+      - run: npm run lint
+      
       # run build
       - run : npm run build
 
-      # run tests and generate coverage 
-      - run : 
-          name : "Run tests and generate coverage report"
-          command : npm run test:coverage
-      
-      - store_artifacts:
-          path: coverage
-
-notify:
-  webhooks:
-    - url: https://coveralls.io/webhook?repo_token=${process.env.COVERALLS_REPO_TOKEN}
-
+      # run tests!
+      - run: npm test
 workflows:
   version: 2
-  lint_and_build:
+  build:
     jobs:
-      - lint
-      - build:
-          requires:
-            - lint
+      - build
