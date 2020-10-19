@@ -18,17 +18,23 @@ jobs:
       - checkout
 
       - run: npm install
-      
-      # run build
-      - run : npm run build
 
-      # run tests and generate coverage 
-      - run : 
-          name : "Run tests and generate coverage report"
-          command : npm run test:coverage
-      
+      # run build
+      - run: npm run build
+
+      # run tests and generate coverage
+      - run:
+          name: "Run tests and generate coverage report"
+          command: npm run test:coverage
+
       - store_artifacts:
           path: coverage
+  release:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - checkout
+      - run: npm run release
 
 notify:
   webhooks:
@@ -39,3 +45,9 @@ workflows:
   build:
     jobs:
       - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master

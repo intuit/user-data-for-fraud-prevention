@@ -12,7 +12,8 @@
     "prettier": "prettier '{src,tests}/**/*.js' --write --single-quote --tab-width 4 --no-bracket-spacing --print-width 120",
     "clean": "rm -rf node_modules",
     "rebuild": "npm run clean && npm install && npm run build",
-    "prepublishOnly": "webpack"
+    "prepublishOnly": "webpack",
+    "release": "auto shipit"
   },
   "husky": {
     "hooks": {
@@ -52,6 +53,9 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "@auto-it/all-contributors": "9.54.2",
+    "@auto-it/released": "9.54.2",
+    "auto": "9.54.2",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "all-contributors-cli": "^6.17.4",
@@ -82,5 +86,19 @@
   },
   "directories": {
     "test": "tests"
+  },
+  "auto": {
+    "plugins": [
+      "npm",
+      "released",
+      "all-contributors"
+    ],
+    "labels": [
+      {
+        "name": "dependency-update",
+        "changelogTitle": "🔩 Dependency Updates",
+        "releaseType": "none"
+      }
+    ]
   }
 }
