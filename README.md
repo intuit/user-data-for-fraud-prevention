@@ -50,6 +50,7 @@ We do not allow contributors to claim issues. If you find something interesting 
 1. Test your changes in your consuming code or using our demo project: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
 1. Ensure the code coverage is the same or higher than before your changes
 1. Create a PR to the `master` branch
+1. Codeowners will automatically be requested to review, so no need to tag on your PR
 
 ## How contributors get added to the README
 
