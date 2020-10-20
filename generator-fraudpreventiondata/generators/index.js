@@ -14,8 +14,8 @@ module.exports = class extends Generator {
   writing() {
     this.log("component name", this.answers.name);
     this.fs.copy(
-      this.templatePath('hmrc'),
-      this.destinationPath(`./src/js/${this.answers.name}`)
+      this.templatePath('./helloworld'),
+      this.destinationPath(`../src/js/${this.answers.name}`)
     );
   }
 };

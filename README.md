@@ -51,12 +51,18 @@ We do not allow contributors to claim issues. If you find something interesting 
 1. Ensure the code coverage is the same or higher than before your changes
 1. Create a PR to the `master` branch
 
+Below are the steps for scaffolding a new feature similar to HMRC:
+
+1. `yo fraudpreventiondata`
+1. Enter the component name in the prompt
+1. A scaffolded version of `generator-fraudulentlogic/generators/templates/helloworld` will be created in `src/js` with user entered component name
+
 ## How contributors get added to the README
 
 There are two ways to add yourself as a contributor to this repo:
 
 1. Call @all-contributors bot by adding this following comment in a PR: **@all-contributors please add [username] for [contributions]**. Please refer to the [docs](https://allcontributors.org/docs/en/bot/usage) for more info.
-1. Use the all-contributors-cli by running `npx all-contributors add [username] [contributions]`. Please refer to the [docs](https://allcontributors.org/docs/en/cli/usage) for more info.
+2. Use the all-contributors-cli by running `npx all-contributors add [username] [contributions]`. Please refer to the [docs](https://allcontributors.org/docs/en/cli/usage) for more info.
 
 All parameters are required.
 See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
