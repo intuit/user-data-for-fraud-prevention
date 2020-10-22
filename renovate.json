@@ -1,0 +1,21 @@
+{
+  "semanticCommits": true,
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "packageRules": [
+      {
+        "packagePatterns": ["*"],
+        "groupName": "external (minor, patch)",
+        "updateTypes": ["patch", "minor"],
+        "automerge": false,
+        "enabled": true
+      },
+      {
+        "packagePatterns": ["*"],
+        "groupName": "external",
+        "updateTypes": ["major"],
+        "automerge": false,
+        "enabled": true
+      }
+  ]
+}

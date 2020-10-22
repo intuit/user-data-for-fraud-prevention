@@ -13,7 +13,7 @@
     "clean": "rm -rf node_modules",
     "rebuild": "npm run clean && npm install && npm run build",
     "prepublishOnly": "webpack",
-    "release": "auto shipit"
+    "release": "yarn run auto shipit"
   },
   "husky": {
     "hooks": {
