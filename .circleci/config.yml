@@ -29,12 +29,6 @@ jobs:
 
       - store_artifacts:
           path: coverage
-  release:
-    docker:
-      - image: circleci/node:10.15.3-browsers
-    steps:
-      - checkout
-      - run: npm run release
 
 notify:
   webhooks:
@@ -45,9 +39,3 @@ workflows:
   build:
     jobs:
       - build
-      - release:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
