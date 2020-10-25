@@ -38,6 +38,29 @@ const getWindowSize = () => {
   return encodeURI(windowSize);
 };
 
+export const screenWidth = () => {
+  return getScreenWidth();
+}
+
+export const screenHeight = () => {
+  return getScreenHeight();
+}
+
+export const screenColorDepth = () => {
+  return getScreenColourDepth();
+}
+
+export const screenScalingFactor = () => {
+  return getScreenScalingFactor();
+}
+
+export const windowWidth = () => {
+  return getWindowWidth();
+}
+
+export const windowHeight = () => {
+  return getWindowHeight();
+}
 /**
  * Returns Map of HMRC Fraud prevention headers.
  * @returns {object} with two fields headers and errors - The headers are a Map object and the errors are an array. If there are no errors, the array is empty
