@@ -47,7 +47,7 @@ workflows:
       - build
       - coverage
         requires:
-          - build
+            - build
         filters:
             branches:
               only: master
