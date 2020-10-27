@@ -22,13 +22,19 @@ jobs:
       # run build
       - run: npm run build
 
-      # run tests and generate coverage
+      # run tests
       - run:
-          name: "Run tests and generate coverage report"
-          command: npm run test:coverage
+          name: "Run tests"
+          command: npm run test
 
       - store_artifacts:
           path: coverage
+  coverage:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - checkout
+      - run: npm run test:coverage
 
 notify:
   webhooks:
@@ -39,3 +45,9 @@ workflows:
   build:
     jobs:
       - build
+      - coverage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
