@@ -27,14 +27,20 @@ jobs:
           name: "Run tests"
           command: npm run test
 
-      - store_artifacts:
-          path: coverage
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+     
   coverage:
     docker:
       - image: circleci/node:10.15.3-browsers
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - run: npm run test:coverage
+      - store_artifacts:
+          path: coverage
 
 notify:
   webhooks:
@@ -50,4 +56,5 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              only: 
+                - master
