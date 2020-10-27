@@ -45,7 +45,7 @@ workflows:
   build:
     jobs:
       - build
-      - coverage
+      - coverage:
           requires:
             - build
           filters:
