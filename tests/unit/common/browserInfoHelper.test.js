@@ -20,6 +20,19 @@ import {
   resetDeviceIpString,
 } from "../../../src/js/common/browserInfoHelper";
 
+expect.extend({
+  toBeErrorWithMessage(received, expectedMessage) {
+    let pass = true;
+    pass = received.message === expectedMessage;
+    pass = pass && 'error' in received;
+    return {
+      message: () =>
+        `expected error to be have message ${expectedMessage}`,
+      pass,
+    };
+  }
+})
+
 describe("BrowserInfoHelper", () => {
   let screenSpy, navigatorSpy, windowSpy;
 
@@ -93,6 +106,7 @@ describe("BrowserInfoHelper", () => {
 
     getBrowserDoNotTrackStatusTests.forEach(
       ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
+        // eslint-disable-next-line jest/valid-title
         it(test, () => {
           windowSpy.mockImplementation(() => (mockWindow));
           navigatorSpy.mockImplementation(() => (mockNavigator));
@@ -146,65 +160,49 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection undefined", async () => {
       global.RTCPeerConnection = undefined;
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("WEBRTC_UNSUPPORTED_BROWSER");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('WEBRTC_UNSUPPORTED_BROWSER');
     });
 
     it("RTCPeerConnection non constructable", async () => {
       global.RTCPeerConnection = {};
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("WEBRTC_CONSTRUCTION_FAILED");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('WEBRTC_CONSTRUCTION_FAILED');
     });
 
     it("RTCPeerConnection throws CREATE_CONNECTION_ERROR", async() => {
       global.RTCPeerConnection = MockErrorRTCPeerConnection;
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("CREATE_CONNECTION_ERROR");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('CREATE_CONNECTION_ERROR');
     });
 
     it("RTCPeerConnection throws NO_IP_FOUND if candidate string does not have valid IP address as 5th element", async () => {
       setCandidateString("abc xyz 127.0.0.1");
       global.RTCPeerConnection = MockRTCPeerConnection;
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("NO_IP_FOUND");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('NO_IP_FOUND');
     });
 
     it("RTCPeerConnection throws NO_IP_FOUND for empty candidate string", async () => {
       setEmptyCandidateString();
       global.RTCPeerConnection = MockRTCPeerConnection;
-
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("NO_IP_FOUND");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('NO_IP_FOUND');
     });
 
     it("RTCPeerConnection valid", async () => {
@@ -236,7 +234,7 @@ describe("BrowserInfoHelper", () => {
     }));
 
     global.RTCPeerConnection = MockRTCPeerConnection;
-    
+
     screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
