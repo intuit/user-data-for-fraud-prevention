@@ -12,7 +12,8 @@ module.exports = {
   },
   plugins: ["jest"],
   extends: [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:jest/recommended"
   ],
   parser: "babel-eslint"
 };
