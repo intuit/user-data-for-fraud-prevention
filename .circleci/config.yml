@@ -22,11 +22,23 @@ jobs:
       # run build
       - run: npm run build
 
-      # run tests and generate coverage
+      # run tests
       - run:
-          name: "Run tests and generate coverage report"
-          command: npm run test:coverage
+          name: "Run tests"
+          command: npm run test
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+     
+  coverage:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm run test:coverage
       - store_artifacts:
           path: coverage
 
@@ -39,3 +51,10 @@ workflows:
   build:
     jobs:
       - build
+      - coverage:
+          requires:
+            - build
+          filters:
+            branches:
+              only: 
+                - master
