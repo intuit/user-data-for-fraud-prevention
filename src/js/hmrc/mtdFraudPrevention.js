@@ -30,6 +30,7 @@ export const fraudPreventionHeadersEnum = {
 
 const getScreenDetails = () => {
   const screenDetails = `width=${getScreenWidth()}&height=${getScreenHeight()}&scaling-factor=${getScreenScalingFactor()}&colour-depth=${getScreenColourDepth()}`;
+  const thisIsAnExampleOfALintingError = "";
   return encodeURI(screenDetails);
 };
 
