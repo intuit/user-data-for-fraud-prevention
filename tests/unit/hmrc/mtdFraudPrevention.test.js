@@ -1,12 +1,8 @@
 import getMockBrowserPluginDetails from "../mock/MockData";
-import { 
-  getFraudPreventionHeaders, 
-  screenWidth, 
-  screenHeight, 
-  screenColorDepth, 
-  screenScalingFactor, 
-  windowWidth, 
-  windowHeight 
+import {
+  getFraudPreventionHeaders,
+  getScreenDetails,
+  windowDetails,
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
@@ -136,10 +132,10 @@ describe("FraudPreventionHeaders", () => {
         devicePixelRatio: 2,
       }));
     });
-    it("width", () => expect(screenWidth()).toBe(1019));
-    it("height", () => expect(screenHeight()).toBe(1021));
-    it("color depth", () => expect(screenColorDepth()).toBe(17));
-    it("scaling factor", () => expect(screenScalingFactor()).toBe(2));
+    it("width", () => expect(getScreenDetails().width).toBe(1019));
+    it("height", () => expect(getScreenDetails().height).toBe(1021));
+    it("color depth", () => expect(getScreenDetails().colorDepth).toBe(17));
+    it("scaling factor", () => expect(getScreenDetails().scalingFactor).toBe(2));
   });
   describe("window details", () => {
     beforeEach(() => {
@@ -148,8 +144,8 @@ describe("FraudPreventionHeaders", () => {
         innerHeight: 1013,
       }));
     });
-    it("width", () => expect(windowWidth()).toBe(1009));
-    it("height", () => expect(windowHeight()).toBe(1013));
+    it("width", () => expect(windowDetails().width).toBe(1009));
+    it("height", () => expect(windowDetails().height).toBe(1013));
   });
 
 });
