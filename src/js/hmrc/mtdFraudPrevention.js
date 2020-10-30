@@ -28,39 +28,32 @@ export const fraudPreventionHeadersEnum = {
   DEVICE_ID: "Gov-Client-Device-ID",
 };
 
-const getScreenDetails = () => {
+const getScreenData = () => {
   const screenDetails = `width=${getScreenWidth()}&height=${getScreenHeight()}&scaling-factor=${getScreenScalingFactor()}&colour-depth=${getScreenColourDepth()}`;
   return encodeURI(screenDetails);
 };
+
+export const getScreenDetails = () => {
+  return {
+    width: getScreenWidth(),
+    height: getScreenHeight(),
+    colorDepth: getScreenColourDepth(),
+    scalingFactor: getScreenScalingFactor(),
+  };
+}
 
 const getWindowSize = () => {
   const windowSize = `width=${getWindowWidth()}&height=${getWindowHeight()}`;
   return encodeURI(windowSize);
 };
 
-export const screenWidth = () => {
-  return getScreenWidth();
+export const windowDetails = () => {
+  return {
+    width: getWindowWidth(),
+    height: getWindowHeight(),
+  };
 }
 
-export const screenHeight = () => {
-  return getScreenHeight();
-}
-
-export const screenColorDepth = () => {
-  return getScreenColourDepth();
-}
-
-export const screenScalingFactor = () => {
-  return getScreenScalingFactor();
-}
-
-export const windowWidth = () => {
-  return getWindowWidth();
-}
-
-export const windowHeight = () => {
-  return getWindowHeight();
-}
 /**
  * Returns Map of HMRC Fraud prevention headers.
  * @returns {object} with two fields headers and errors - The headers are a Map object and the errors are an array. If there are no errors, the array is empty
@@ -72,7 +65,7 @@ export const getFraudPreventionHeaders = async () => {
     { header: fraudPreventionHeadersEnum.TIMEZONE, callback: getTimezone },
     {
       header: fraudPreventionHeadersEnum.SCREENS_DETAILS,
-      callback: getScreenDetails,
+      callback: getScreenData,
     },
     { header: fraudPreventionHeadersEnum.WINDOW_SIZE, callback: getWindowSize },
     {
