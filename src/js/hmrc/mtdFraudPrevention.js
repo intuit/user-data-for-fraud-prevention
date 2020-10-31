@@ -28,15 +28,31 @@ export const fraudPreventionHeadersEnum = {
   DEVICE_ID: "Gov-Client-Device-ID",
 };
 
-const getScreenDetails = () => {
+const getScreenData = () => {
   const screenDetails = `width=${getScreenWidth()}&height=${getScreenHeight()}&scaling-factor=${getScreenScalingFactor()}&colour-depth=${getScreenColourDepth()}`;
   return encodeURI(screenDetails);
 };
+
+export const getScreenDetails = () => {
+  return {
+    width: getScreenWidth(),
+    height: getScreenHeight(),
+    colorDepth: getScreenColourDepth(),
+    scalingFactor: getScreenScalingFactor(),
+  };
+}
 
 const getWindowSize = () => {
   const windowSize = `width=${getWindowWidth()}&height=${getWindowHeight()}`;
   return encodeURI(windowSize);
 };
+
+export const windowDetails = () => {
+  return {
+    width: getWindowWidth(),
+    height: getWindowHeight(),
+  };
+}
 
 /**
  * Returns Map of HMRC Fraud prevention headers.
@@ -49,7 +65,7 @@ export const getFraudPreventionHeaders = async () => {
     { header: fraudPreventionHeadersEnum.TIMEZONE, callback: getTimezone },
     {
       header: fraudPreventionHeadersEnum.SCREENS_DETAILS,
-      callback: getScreenDetails,
+      callback: getScreenData,
     },
     { header: fraudPreventionHeadersEnum.WINDOW_SIZE, callback: getWindowSize },
     {
