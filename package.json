@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.4",
+    "node-notifier": "^8.0.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
