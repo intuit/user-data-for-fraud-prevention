@@ -78,14 +78,6 @@ export const getFraudPreventionHeaders = async () => {
       header: fraudPreventionHeadersEnum.BROWSER_DONOTTRACK,
       callback: getBrowserDoNotTrackStatus,
     },
-    {
-      header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS,
-      callback: async () => encodeURI(await getDeviceLocalIPAsString()),
-    },
-    { 
-      header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP,
-      callback: async () => encodeURI(await getDeviceLocalIPTimeStamp()),
-    },
     { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
@@ -97,5 +89,16 @@ export const getFraudPreventionHeaders = async () => {
       errors.push(error);
     }
   }
+
+  try {
+    const ipAddress = await getDeviceLocalIPAsString();
+
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, encodeURI(ipAddress.deviceIpTimeStamp));
+
+  } catch (error) {
+    errors.push(error);
+  }
+
   return { headers, errors };
 };

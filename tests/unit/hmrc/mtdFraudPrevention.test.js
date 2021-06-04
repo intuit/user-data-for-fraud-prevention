@@ -110,7 +110,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(7);
+    expect(headers.size).toBe(6);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(

@@ -1,18 +1,20 @@
 const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store this as a global variable as generating it is expensive and often required several times
-let deviceIpString = "";
-let deviceIpTimeStamp = "";
+const deviceIpData = {
+  deviceIpString: "",
+  deviceIpTimeStamp: ""
+}
 
 /**
  * This reset function is valuable only for unit testing
  */
 export const resetDeviceIpString = () => {
-  deviceIpString = "";
+  deviceIpData.deviceIpString = "";
 };
 
 export const resetDeviceIpTimeStamp = () => {
-  deviceIpTimeStamp = "";
+  deviceIpData.deviceIpTimeStamp = "";
 };
 
 /**
@@ -23,8 +25,8 @@ export const resetDeviceIpTimeStamp = () => {
  */
 export const getDeviceLocalIPAsString = () => {
   return new Promise((resolve, reject) => {
-    if (deviceIpString) {
-      resolve(deviceIpString);
+    if (deviceIpData.deviceIpString != "" && deviceIpData.deviceIpTimeStamp != "") {
+      resolve(deviceIpData);
     }
     const WebRTCConnection = RTCPeerConnection;
     if (!WebRTCConnection) {
@@ -45,9 +47,9 @@ export const getDeviceLocalIPAsString = () => {
         if (ip.length < 1) {
           reject({message: "NO_IP_FOUND", error: undefined});
         }
-        deviceIpString = ip.join(",");
-        deviceIpTimeStamp = new Date().toISOString();
-        resolve(deviceIpString);
+        deviceIpData.deviceIpString = ip.join(",");
+        deviceIpData.deviceIpTimeStamp = new Date().toISOString();
+        resolve(deviceIpData);
       }
       else if (event.candidate.candidate) {
         const candidateValues = event.candidate.candidate.split(" ");
@@ -63,15 +65,6 @@ export const getDeviceLocalIPAsString = () => {
             reject({message: "CREATE_CONNECTION_ERROR", error: err});
       });
   });
-};
-
-export const getDeviceLocalIPTimeStamp = () => {
-  return new Promise((resolve, reject) => {
-    if (deviceIpTimeStamp === "") {
-      reject({message: "NO_IP_TIMESTAMP_FOUND", error: undefined})
-    }
-    resolve(deviceIpTimeStamp);
-  })
 };
 
 /**

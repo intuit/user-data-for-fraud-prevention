@@ -38,6 +38,18 @@ expect.extend({
 describe("BrowserInfoHelper", () => {
   let screenSpy, navigatorSpy, windowSpy;
 
+  const mockTimeStamp = "2021-06-03T13:02:22.107Z"
+  global.Date = class DateMock {
+    constructor() {
+    }
+    toString() {
+        return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+    }
+    toISOString() {
+        return mockTimeStamp;
+    }
+};
+
   beforeEach(() => {
     screenSpy = jest.spyOn(global, 'screen', 'get');
     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
@@ -209,9 +221,9 @@ describe("BrowserInfoHelper", () => {
 
     it("RTCPeerConnection valid", async () => {
       global.RTCPeerConnection = MockRTCPeerConnection;
-      expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
       // Calling the function to return an already calculated deviceIpString
-      expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
     });
 
     it("RTCPeerConnection returns 5th item in array after splitting", async () => {
@@ -219,40 +231,7 @@ describe("BrowserInfoHelper", () => {
         "abc xyz 123 567 789 777 127.0.0.1 randomstring somestring"
       );
       global.RTCPeerConnection = MockRTCPeerConnection;
-      expect(await getDeviceLocalIPAsString()).toEqual("789");
-    });
-  });
-
-  describe("getDeviceLocalIPTimeStamp", () => {
-    beforeEach(() => {
-      resetDeviceIpTimeStamp();
-    });
-
-    afterEach(() => {
-      jest.restoreAllMocks();
-      resetDeviceIpTimeStamp();
-    });
-
-    it("getDeviceLocalIPTimeStamp throws NO_IP_TIMESTAMP_FOUND for empty timestamp string", async () => {
-      await expect(async() => getDeviceLocalIPTimeStamp())
-      .rejects
-      .toBeErrorWithMessage('NO_IP_TIMESTAMP_FOUND');  
-    });
-
-    it("getDeviceLocalIPTimeStamp returns timestamp after IP has been retrieved", async () => {
-      const mockTimeStamp = "2021-06-03T13:02:22.107Z"
-      global.RTCPeerConnection = MockRTCPeerConnection;
-      global.Date = class DateMock {
-        constructor() {
-        }
-        toISOString() {
-            return mockTimeStamp;
-        }
-    };
-      const dateSpy = jest.spyOn(global.Date.prototype, 'toISOString');
-      await getDeviceLocalIPAsString();
-      expect(dateSpy).toHaveBeenCalled();
-      expect(await getDeviceLocalIPTimeStamp()).toEqual(mockTimeStamp);
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "789", "deviceIpTimeStamp": mockTimeStamp});
     });
   });
 
@@ -269,23 +248,12 @@ describe("BrowserInfoHelper", () => {
     }));
 
     global.RTCPeerConnection = MockRTCPeerConnection;
-    const mockTimeStamp = "2021-06-03T13:02:22.107Z"
 
     screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
       colorDepth: 17,
     }));
-    global.Date = class DateMock {
-        constructor() {
-        }
-        toString() {
-            return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
-        }
-        toISOString() {
-            return mockTimeStamp;
-        }
-    };
 
     expect(getTimezone()).toEqual(`UTC+01:00`);
     expect(getScreenWidth()).toEqual(1019);
@@ -296,8 +264,7 @@ describe("BrowserInfoHelper", () => {
     expect(getWindowHeight()).toEqual(1013);
     expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     expect(getBrowserDoNotTrackStatus()).toEqual("true");
-    expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
-    expect(await getDeviceLocalIPTimeStamp()).toEqual(mockTimeStamp);
+    expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
   });
 
   it("getScreen", async () => {
