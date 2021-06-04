@@ -1,5 +1,6 @@
 import {
   getDeviceLocalIPAsString,
+  getDeviceLocalIPTimeStamp,
   getBrowserDoNotTrackStatus,
   getBrowserPluginsAsString,
   getScreenColourDepth,
@@ -26,6 +27,7 @@ export const fraudPreventionHeadersEnum = {
   BROWSER_DONOTTRACK: "Gov-Client-Browser-Do-Not-Track",
   DEVICE_LOCAL_IPS: "Gov-Client-Local-IPs",
   DEVICE_ID: "Gov-Client-Device-ID",
+  DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
 };
 
 const getScreenData = () => {
@@ -79,6 +81,10 @@ export const getFraudPreventionHeaders = async () => {
     {
       header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS,
       callback: async () => encodeURI(await getDeviceLocalIPAsString()),
+    },
+    { 
+      header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP,
+      callback: async () => encodeURI(await getDeviceLocalIPTimeStamp()),
     },
     { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
   ];

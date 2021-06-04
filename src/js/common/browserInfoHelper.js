@@ -2,12 +2,17 @@ const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store this as a global variable as generating it is expensive and often required several times
 let deviceIpString = "";
+let deviceIpTimeStamp = "";
 
 /**
  * This reset function is valuable only for unit testing
  */
 export const resetDeviceIpString = () => {
   deviceIpString = "";
+};
+
+export const resetDeviceIpTimeStamp = () => {
+  deviceIpTimeStamp = "";
 };
 
 /**
@@ -41,6 +46,7 @@ export const getDeviceLocalIPAsString = () => {
           reject({message: "NO_IP_FOUND", error: undefined});
         }
         deviceIpString = ip.join(",");
+        deviceIpTimeStamp = new Date().toISOString();
         resolve(deviceIpString);
       }
       else if (event.candidate.candidate) {
@@ -57,6 +63,15 @@ export const getDeviceLocalIPAsString = () => {
             reject({message: "CREATE_CONNECTION_ERROR", error: err});
       });
   });
+};
+
+export const getDeviceLocalIPTimeStamp = () => {
+  return new Promise((resolve, reject) => {
+    if (deviceIpTimeStamp === "") {
+      reject({message: "NO_IP_TIMESTAMP_FOUND", error: undefined})
+    }
+    resolve(deviceIpTimeStamp);
+  })
 };
 
 /**

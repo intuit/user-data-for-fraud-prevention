@@ -18,6 +18,8 @@ import {
   getWindowWidth,
   getTimezone,
   resetDeviceIpString,
+  getDeviceLocalIPTimeStamp,
+  resetDeviceIpTimeStamp,
 } from "../../../src/js/common/browserInfoHelper";
 
 expect.extend({
@@ -221,6 +223,39 @@ describe("BrowserInfoHelper", () => {
     });
   });
 
+  describe("getDeviceLocalIPTimeStamp", () => {
+    beforeEach(() => {
+      resetDeviceIpTimeStamp();
+    });
+
+    afterEach(() => {
+      jest.restoreAllMocks();
+      resetDeviceIpTimeStamp();
+    });
+
+    it("getDeviceLocalIPTimeStamp throws NO_IP_TIMESTAMP_FOUND for empty timestamp string", async () => {
+      await expect(async() => getDeviceLocalIPTimeStamp())
+      .rejects
+      .toBeErrorWithMessage('NO_IP_TIMESTAMP_FOUND');  
+    });
+
+    it("getDeviceLocalIPTimeStamp returns timestamp after IP has been retrieved", async () => {
+      const mockTimeStamp = "2021-06-03T13:02:22.107Z"
+      global.RTCPeerConnection = MockRTCPeerConnection;
+      global.Date = class DateMock {
+        constructor() {
+        }
+        toISOString() {
+            return mockTimeStamp;
+        }
+    };
+      const dateSpy = jest.spyOn(global.Date.prototype, 'toISOString');
+      await getDeviceLocalIPAsString();
+      expect(dateSpy).toHaveBeenCalled();
+      expect(await getDeviceLocalIPTimeStamp()).toEqual(mockTimeStamp);
+    });
+  });
+
   it("getMTDTaxReturnWithParameter", async () => {
     navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
@@ -234,6 +269,7 @@ describe("BrowserInfoHelper", () => {
     }));
 
     global.RTCPeerConnection = MockRTCPeerConnection;
+    const mockTimeStamp = "2021-06-03T13:02:22.107Z"
 
     screenSpy.mockImplementation(() => ({
       width: 1019,
@@ -245,6 +281,9 @@ describe("BrowserInfoHelper", () => {
         }
         toString() {
             return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+        }
+        toISOString() {
+            return mockTimeStamp;
         }
     };
 
@@ -258,6 +297,7 @@ describe("BrowserInfoHelper", () => {
     expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     expect(getBrowserDoNotTrackStatus()).toEqual("true");
     expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+    expect(await getDeviceLocalIPTimeStamp()).toEqual(mockTimeStamp);
   });
 
   it("getScreen", async () => {

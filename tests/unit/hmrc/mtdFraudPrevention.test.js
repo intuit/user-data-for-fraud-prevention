@@ -10,11 +10,12 @@ import {
   resetCandidateString,
 } from "../mock/MockRTCPeerConnection";
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
-import { resetDeviceIpString } from "../../../src/js/common/browserInfoHelper";
+import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
+  resetDeviceIpTimeStamp();
   resetCandidateString();
   let screenSpy, navigatorSpy, windowSpy;
   
@@ -54,16 +55,20 @@ describe("FraudPreventionHeaders", () => {
     }));
 
     jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
+    const mockTimeStamp = "2021-06-03T13:02:22.107Z"
     global.Date = class DateMock {
         constructor() {
         }
         toString() {
             return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
         }
+        toISOString() {
+          return mockTimeStamp;
+      }
     };
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(7);
+    expect(headers.size).toBe(8);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -77,6 +82,7 @@ describe("FraudPreventionHeaders", () => {
     );
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
+    expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(mockTimeStamp);
     expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
   });
   it("getFraudPreventionHeaders with one error", async () => {
@@ -104,7 +110,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(6);
+    expect(headers.size).toBe(7);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
