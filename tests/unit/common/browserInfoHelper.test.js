@@ -18,8 +18,6 @@ import {
   getWindowWidth,
   getTimezone,
   resetDeviceIpString,
-  getDeviceLocalIPTimeStamp,
-  resetDeviceIpTimeStamp,
 } from "../../../src/js/common/browserInfoHelper";
 
 expect.extend({

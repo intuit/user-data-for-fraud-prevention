@@ -158,7 +158,7 @@ describe("FraudPreventionHeaders", () => {
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(6);
     expect(errors.length).toBe(1);
-    expect(headers.get("Gov-Client-Timezone")).toBe("UTC+01:00");
+    expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
       "width=1019&height=1021&scaling-factor=2&colour-depth=17"
     );
