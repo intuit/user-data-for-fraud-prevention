@@ -1,6 +1,5 @@
 import {
   getDeviceLocalIPAsString,
-  getDeviceLocalIPTimeStamp,
   getBrowserDoNotTrackStatus,
   getBrowserPluginsAsString,
   getScreenColourDepth,
@@ -92,7 +91,6 @@ export const getFraudPreventionHeaders = async () => {
 
   try {
     const ipAddress = await getDeviceLocalIPAsString();
-
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, encodeURI(ipAddress.deviceIpTimeStamp));
 
