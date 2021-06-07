@@ -26,6 +26,7 @@ export const fraudPreventionHeadersEnum = {
   BROWSER_DONOTTRACK: "Gov-Client-Browser-Do-Not-Track",
   DEVICE_LOCAL_IPS: "Gov-Client-Local-IPs",
   DEVICE_ID: "Gov-Client-Device-ID",
+  DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
 };
 
 const getScreenData = () => {
@@ -76,10 +77,6 @@ export const getFraudPreventionHeaders = async () => {
       header: fraudPreventionHeadersEnum.BROWSER_DONOTTRACK,
       callback: getBrowserDoNotTrackStatus,
     },
-    {
-      header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS,
-      callback: async () => encodeURI(await getDeviceLocalIPAsString()),
-    },
     { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
@@ -91,5 +88,15 @@ export const getFraudPreventionHeaders = async () => {
       errors.push(error);
     }
   }
+
+  try {
+    const ipAddress = await getDeviceLocalIPAsString();
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, ipAddress.deviceIpTimeStamp);
+
+  } catch (error) {
+    errors.push(error);
+  }
+
   return { headers, errors };
 };
