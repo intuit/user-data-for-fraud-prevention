@@ -1,6 +1,6 @@
 const ICE_CANDIDATE_IP_INDEX = 4;
 
-// store this as a global variable as generating it is expensive and often required several times
+// store deviceIpString as a global variable as generating it is expensive and often required several times
 const deviceIpData = {
   deviceIpString: "",
   deviceIpTimeStamp: ""
@@ -25,7 +25,7 @@ export const resetDeviceIpTimeStamp = () => {
  */
 export const getDeviceLocalIPAsString = () => {
   return new Promise((resolve, reject) => {
-    if (deviceIpData.deviceIpString != "" && deviceIpData.deviceIpTimeStamp != "") {
+    if (deviceIpData.deviceIpString !== "" && deviceIpData.deviceIpTimeStamp !== "") {
       resolve(deviceIpData);
     }
     const WebRTCConnection = RTCPeerConnection;
