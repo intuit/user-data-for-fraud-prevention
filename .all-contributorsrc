@@ -81,6 +81,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "vvijayalakshmi21",
+      "name": "vvijayalakshmi21",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34595292?v=4",
+      "profile": "http://www.linkedin.com/in/vijaya-lakshmi-venkatraman",
+      "contributions": [
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
