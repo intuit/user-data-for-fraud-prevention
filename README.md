@@ -59,15 +59,13 @@ The structure shown here is how your code should be organised in the repository
 
 implementation folder should be renamed according to the problem you are solving for eg. the code for HMRC in UK is in the folder named hmrc.
 
-``
+```
 Project
-|
-├──src
-     ├──js
-          ├──common                // Common and non specific code shoud be put in this folder
-          |
-          ├──implementation       // Implementation specific code for solving problem should be in this folder
-``
+└──src
+     └──js
+        └──common                // Common and non specific code shoud be put in this folder
+        └──implementation       // Implementation specific code for solving problem should be in this folder
+```
 
 ## How contributors get added to the README
 
