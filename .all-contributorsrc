@@ -158,6 +158,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "dereklouis",
+      "name": "Derek Louis",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71146953?v=4",
+      "profile": "https://github.com/dereklouis",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
