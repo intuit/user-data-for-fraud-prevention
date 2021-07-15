@@ -149,6 +149,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "AbderrahimSoubaiElidrissi",
+      "name": "Abderrahim SOUBAI-ELIDRISI",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11523791?v=4",
+      "profile": "https://soubai.me/",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
