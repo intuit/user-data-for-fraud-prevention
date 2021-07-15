@@ -101,6 +101,16 @@
         "code",
         "plugin"
       ]
+    },
+    {
+      "login": "burzynnn",
+      "name": "burzynnn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33811303?v=4",
+      "profile": "https://github.com/burzynnn",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
