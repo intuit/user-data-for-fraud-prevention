@@ -131,6 +131,15 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "JohanAludden",
+      "name": "Johan Aludden",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11306?v=4",
+      "profile": "https://github.com/JohanAludden",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
