@@ -53,6 +53,20 @@ We do not allow contributors to claim issues. If you find something interesting 
 1. Create a PR to the `master` branch
 1. Codeowners will automatically be requested to review, so no need to tag on your PR
 
+## Expected Project Structure
+
+The structure shown here is how your code should be organised in the repository
+
+implementation folder should be renamed according to the problem you are solving for eg. the code for HMRC in UK is in the folder named hmrc.
+
+Project
+|
+|___src
+     |___js
+          |__common                // Common and non specific code shoud be put in this folder
+          |
+          |__implementation       // Implementation specific code for solving problem should be in this folder
+
 ## How contributors get added to the README
 
 There are two ways to add yourself as a contributor to this repo:
