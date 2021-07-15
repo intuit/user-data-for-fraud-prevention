@@ -13,3 +13,11 @@ Here are some of HMRC's fraud prevention headers required to be sent by web appl
 1. Gov-Client-Local-IPs (A list of all local IPv4 and IPv6 addresses available to the originating device)
 
 Detailed information about each of these headers can be found here:  https://developer.service.hmrc.gov.uk/guides/fraud-prevention/connection-method/web-app-via-server/
+**Details about newly added header Gov-Client-Local-IPs:**
+1. A timestamp to show when Gov-Client-Local-IPs is collected.
+2. Collect the timestamp immediately before the client makes the request to the backend server that triggers a request to the API.
+3. The value must not be altered before being sent to the API.
+4. If the timestamp is not in UTC zero time offset, you’ll need to convert it.
+5.Submit a UTC timestamp in the format yyyy-MM-ddThh:mm:ss.sssZ where Z designates zero time offset. You must include T and use the 24 hour format. You must include seconds and milliseconds, including trailing zeros.
+*Example*
+`Gov-Client-Local-IPs-Timestamp: 2020-09-21T14:30:05.123Z`
