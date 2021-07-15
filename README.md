@@ -24,7 +24,7 @@ Each top level folder in `src/js` has its own README with more specific informat
 Usage instructions can be found [here](./USAGE.md)
 
 ## How to test
-
+Instructions for testing the changes can be found [here](./DEMO.md)
 
 ## Contributing
 
