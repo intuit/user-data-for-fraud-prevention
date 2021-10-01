@@ -8,7 +8,7 @@ import {
   getScreenWidth,
   getWindowHeight,
   getWindowWidth,
-  getTimezone,
+  getTimezone, getUserAgent,
 } from "../common/browserInfoHelper";
 
 import {
@@ -27,6 +27,7 @@ export const fraudPreventionHeadersEnum = {
   DEVICE_LOCAL_IPS: "Gov-Client-Local-IPs",
   DEVICE_ID: "Gov-Client-Device-ID",
   DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
+  BROWSER_USER_AGENT: "Gov-Client-Browser-JS-User-Agent",
 };
 
 const getScreenData = () => {
@@ -78,6 +79,7 @@ export const getFraudPreventionHeaders = async () => {
       callback: getBrowserDoNotTrackStatus,
     },
     { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
+    { header: fraudPreventionHeadersEnum.BROWSER_USER_AGENT, callback: getUserAgent },
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
     try {
