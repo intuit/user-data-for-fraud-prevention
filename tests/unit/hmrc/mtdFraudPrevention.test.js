@@ -18,7 +18,7 @@ describe("FraudPreventionHeaders", () => {
   resetDeviceIpTimeStamp();
   resetCandidateString();
   let screenSpy, navigatorSpy, windowSpy;
-  
+
   beforeEach(() => {
     screenSpy = jest.spyOn(global, 'screen', 'get');
     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
@@ -69,7 +69,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(8);
+    expect(headers.size).toBe(9);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -111,7 +111,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(7);
+    expect(headers.size).toBe(8);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(undefined);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -156,7 +156,7 @@ describe("FraudPreventionHeaders", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(6);
+    expect(headers.size).toBe(7);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(

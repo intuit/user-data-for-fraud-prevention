@@ -17,7 +17,7 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone,
-  resetDeviceIpString,
+  resetDeviceIpString, getUserAgent,
 } from "../../../src/js/common/browserInfoHelper";
 
 expect.extend({
@@ -264,6 +264,14 @@ describe("BrowserInfoHelper", () => {
     expect(getBrowserDoNotTrackStatus()).toEqual("true");
     expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
   });
+
+  it("getUserAgent", async () => {
+    const mockedUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36"
+    navigatorSpy.mockImplementation(() => ({
+      userAgent: mockedUserAgent
+    }));
+    expect(getUserAgent()).toEqual(mockedUserAgent)
+  })
 
   it("getScreen", async () => {
     screenSpy.mockImplementation(() => ({
