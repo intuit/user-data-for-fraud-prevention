@@ -270,7 +270,7 @@ describe("BrowserInfoHelper", () => {
     navigatorSpy.mockImplementation(() => ({
       userAgent: mockedUserAgent
     }));
-    expect(getUserAgent()).toEqual(mockedUserAgent)
+    expect(getUserAgent()).toEqual(mockedUserAgent);
   })
 
   it("getScreen", async () => {
