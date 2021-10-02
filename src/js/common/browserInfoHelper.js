@@ -175,5 +175,5 @@ export const getBrowserDoNotTrackStatus = () => {
  * @returns {String} user agent for the current browser
  */
 export const getUserAgent = () => {
-  return navigator.userAgent
+  return navigator.userAgent;
 }
