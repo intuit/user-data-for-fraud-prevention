@@ -98,14 +98,14 @@ const getFormattedOffset = () => {
 
 /**
  * Function that returns user's timezone offset relative to UTC
- * @returns {string} UTC concatenated with user's browser's timezone offset 
+ * @returns {string} UTC concatenated with user's browser's timezone offset
  */
 export const getTimezone = () => `UTC${getFormattedOffset()}`;
 
 /**
  * Function that validates the user's screen's width value, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of screen width 
+ * @returns {string | null} validated value of screen width
  */
 export const getScreenWidth = () =>
   validateAndGetScreenDetail(screen.width);
@@ -113,7 +113,7 @@ export const getScreenWidth = () =>
 /**
  * Function that validates the user's screen's height value, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of screen height 
+ * @returns {string | null} validated value of screen height
  */
 export const getScreenHeight = () =>
   validateAndGetScreenDetail(screen.height);
@@ -121,7 +121,7 @@ export const getScreenHeight = () =>
 /**
  * Function that validates the user's device's pixel ratio, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of window's devicePixelRatio 
+ * @returns {string | null} validated value of window's devicePixelRatio
  */
 export const getScreenScalingFactor = () =>
   validateAndGetScreenDetail(window.devicePixelRatio);
@@ -129,7 +129,7 @@ export const getScreenScalingFactor = () =>
 /**
  * Function that validates the user's screen's colorDepth, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of screen's colorDepth 
+ * @returns {string | null} validated value of screen's colorDepth
  */
 export const getScreenColourDepth = () =>
   validateAndGetScreenDetail(screen.colorDepth);
@@ -137,7 +137,7 @@ export const getScreenColourDepth = () =>
 /**
  * Function that validates the user's window's interior width in pixels, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of window's innerWidth 
+ * @returns {string | null} validated value of window's innerWidth
  */
 export const getWindowWidth = () =>
   validateAndGetScreenDetail(window.innerWidth);
@@ -145,15 +145,15 @@ export const getWindowWidth = () =>
 /**
  * Function that validates the user's window's interior height in pixels, and then returns it.
  * If it fails validation, it returns null
- * @returns {string | null} validated value of window's innerHeight 
+ * @returns {string | null} validated value of window's innerHeight
  */
 export const getWindowHeight = () =>
   validateAndGetScreenDetail(window.innerHeight);
 
 /**
  * The function returns users browser's do not track setting by checking the navigator
- * and window object for the same 
- * @returns {string} true or false based on users Do Not Track setting 
+ * and window object for the same
+ * @returns {string} true or false based on users Do Not Track setting
  */
 export const getBrowserDoNotTrackStatus = () => {
   const windowVar = window,
@@ -169,3 +169,11 @@ export const getBrowserDoNotTrackStatus = () => {
       windowVar.external.msTrackingProtectionEnabled());
   return isBrowserDoNotTrack ? "true" : "false";
 };
+
+/**
+ * This function returns user agent by checking the navigator
+ * @returns {String} user agent for the current browser
+ */
+export const getUserAgent = () => {
+  return navigator.userAgent;
+}
