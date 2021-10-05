@@ -72,6 +72,12 @@ Project
 
 請看我們的[CHANGELOG](CHANGELOG.md)
 
+## 多語言
+多語言版本README自述文件:
+
+1. [英文](README.md)
+1. [簡體中文](README_SIMPLIFIED_CHINESE.md)
+
 ## 貢獻者
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->

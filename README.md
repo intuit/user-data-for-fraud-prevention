@@ -73,6 +73,12 @@ See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/d
 
 Please see our [CHANGELOG](CHANGELOG.md)
 
+## Other Languages
+README in other languages:
+
+1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
+1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
