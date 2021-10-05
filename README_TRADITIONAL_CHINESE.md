@@ -11,75 +11,74 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Description
+## 描述
+這是一個npm庫，用於檢測用戶的一些瀏覽器或設備詳細信息，例如時區、屏幕大小、瀏覽器配置等。
+軟件供應商通常需要將此類詳細信息發送給其所在國家/地區的稅務機關，以防止欺詐。
 
-This is an npm library to detect some browser or device details of the user such as Timezone, screen sizes, browser configuration etc.
-Such details are often required to be sent by software providers to the tax authority in their country to prevent fraud.
+例如：英國稅務局(HMRC)要求軟件提供商使用其某些API提供一致的HTTP消息頭，這種消息頭被稱為欺詐預防消息頭。此模塊以所需的格式為您收集此類信息。
 
-Eg: The Tax Authority in the UK (HMRC) requires software providers using some of their APIs to provide consistent headers known as Fraud Prevention headers. This node module collects such information for you in the format required.
+`src/js` 中的每個頂層文件夾都有自己的自述文件，其中包含有關用例的更多具體信息。例如：[HMRC README](src/js/hmrc/README.md)
 
-Each top level folder in `src/js` has its own README with more specific information around the use case. E.g. [HMRC README](src/js/hmrc/README.md)
+## 如何使用
+使用說明在[這裡](./USAGE.md)
 
-## How to use
-Usage instructions can be found [here](./USAGE.md)
+## 如何測試
+如何測試更改內容的說明在[這裡](./DEMO.md)
 
-## How to test
-Instructions for testing the changes can be found [here](./DEMO.md)
+## 貢獻
 
-## Contributing
+我們不允許貢獻者認領issues。如果你發現一些有趣的東西可以為這個repo做出貢獻，請隨時提出PR。我們不要求您提前通知我們。
 
-We do not allow contributors to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance.
+1. Fork這個repo
+1. 通過運行 `yarn` 或 `npm install` 在本地安裝依賴項
+1. 進行更改
+1. 確保使用 `yarn build` 或 `npm run build` 進行打包
+1. 使用 `npm test` 或 `yarn test` 運行測試（你添加了測試，對吧？）
+1. 在您運行的代碼或者我們的演示項目中測試您的更改：運行 [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) 或 [`npm link`](https://docs.npmjs.com/cli/link)
+1. 確保代碼覆蓋率與更改前相同或更高
+1. 確保commit message的格式正確：`type(subject): input`。例如：`chore(prettier): update prettier to 2.x`
+1. 創建一個PR到 `master` 分支
+1. 代碼所有者將被自動要求審核，因此無需在您的PR上添加標籤
 
-1. Fork the repo
-1. Install dependencies locally by running `yarn` or `npm install`
-1. Make your changes
-1. Make sure it builds using `yarn build` or `npm run build`
-1. Run the tests (you added tests, right?) with `npm test` or `yarn test`
-1. Test your changes in your consuming code or using our demo project: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
-1. Ensure the code coverage is the same or higher than before your changes
-1. Ensure commit message is properly formatted: `type(subject): input`. Eg: `chore(prettier): update prettier to 2.x`
-1. Create a PR to the `master` branch
-1. Codeowners will automatically be requested to review, so no need to tag on your PR
+## 預期項目結構
 
-## Expected Project Structure
+此處顯示的結構是您的代碼需要在此repo中如何呈現的整理方式
 
-The structure shown here is how your code should be organised in the repository
-
-implementation folder should be renamed according to the problem you are solving for eg. the code for HMRC in UK is in the folder named hmrc.
+應根據您要解決的問題重命名implementation文件夾，例如：英國HMRC的代碼位於名為 hmrc 的文件夾中。
 
 ```
 Project
 └──src
      └──js
-        └──common                // Common and non specific code shoud be put in this folder
-        └──implementation       // Implementation specific code for solving problem should be in this folder
+        └──common                // 公用和非特定代碼應放在此文件夾中
+        └──implementation       // 解決問題的實現特定代碼應該在這個
 ```
 
-## How contributors get added to the README
+## 如何將貢獻者添加到自述文件中
 
-There are two ways to add yourself as a contributor to this repo:
+有兩種方法可以將自己添加為此repo的貢獻者：
 
-1. Call @all-contributors bot by adding this following comment in a PR: **@all-contributors please add [username] for [contributions]**. Please refer to the [docs](https://allcontributors.org/docs/en/bot/usage) for more info.
-1. Use the all-contributors-cli by running `npx all-contributors add [username] [contributions]`. Please refer to the [docs](https://allcontributors.org/docs/en/cli/usage) for more info.
+1. 通過在PR中添加以下評論來@all-contributors bot：**@all-contributors please add [username] for [contributions]**。請參閱[docs](https://allcontributors.org/docs/en/bot/usage)了解更多信息。
+1. 通過運行 `npx all-contributors add [username] [contributions]` 來使用 all-contributors-cli。請參閱[docs](https://allcontributors.org/docs/en/cli/usage)了解更多信息。
 
-All parameters are required.
-See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+所有參數都是必需的。
+有關有效貢獻類型的列表，請參閱 [Emoji Key（貢獻類型參考）](https://allcontributors.org/docs/en/emoji-key)。
 
-## License
+## 許可
 
 [License](LICENSE)
 
-## Changelog
+## 變更日誌
 
-Please see our [CHANGELOG](CHANGELOG.md)
+請看我們的[CHANGELOG](CHANGELOG.md)
 
-## Other Languages
-README in other languages:
+## 多語言
+多語言版本README自述文件:
 
-1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
-1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
+1. [英文](README.md)
+1. [簡體中文](README_SIMPLIFIED_CHINESE.md)
 
-## Contributors
+## 貢獻者
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
