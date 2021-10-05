@@ -59,7 +59,7 @@ Project
 有两种方法可以将自己添加为此repo的贡献者：
 
 1. 通过在PR中添加以下评论来@all-contributors bot：**@all-contributors please add [username] for [contributions]**。请参阅[docs](https://allcontributors.org/docs/en/bot/usage)了解更多信息。
-1. 通过运行 `npx all-contributors add [username] [contributions]` 来使用 all-contributors-cli。请参阅[docs](https://allcontributors.org/docs/en/cli/usage) 了解更多信息。
+1. 通过运行 `npx all-contributors add [username] [contributions]` 来使用 all-contributors-cli。请参阅[docs](https://allcontributors.org/docs/en/cli/usage)了解更多信息。
 
 所有参数都是必需的。
 有关有效贡献类型的列表，请参阅 [Emoji Key（贡献类型参考）](https://allcontributors.org/docs/en/emoji-key)。
