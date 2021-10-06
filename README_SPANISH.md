@@ -11,76 +11,76 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Description
+## Descripción
 
-This is an npm library to detect some browser or device details of the user such as Timezone, screen sizes, browser configuration etc.
-Such details are often required to be sent by software providers to the tax authority in their country to prevent fraud.
+Se trata de una librería npm para detectar algunos detalles del navegador o dispositivo del usuario como: la zona horaria, la resolución de la pantalla, la configuración del navegador, etc.
+Estos detalles suelen ser requeridos por la autoridad fiscal del país correspondiente a los proveedores de software para que se los envíen, con la intención de evitar fraudes.
 
-Eg: The Tax Authority in the UK (HMRC) requires software providers using some of their APIs to provide consistent headers known as Fraud Prevention headers. This node module collects such information for you in the format required.
+Por ejemplo: La Autoridad Fiscal del Reino Unido (HMRC) requiere que los proveedores de software que utilicen alguna de sus APIs, proporcionen encabezados coherentes conocidos como encabezados de prevención de fraudes. Este nodo de módulo almacena esta información para usted en el formato requerido.
 
-Each top level folder in `src/js` has its own README with more specific information around the use case. E.g. [HMRC README](src/js/hmrc/README.md)
+Cada carpeta de nivel superior en `src/js` tiene su propio README con información más detallada sobre los casos de uso. Por ejemplo: [HMRC README](src/js/hmrc/README.md)
 
-## How to use
-Usage instructions can be found [here](./USAGE.md)
+## Cómo se usa
+Las instrucciones de uso se pueden encontrar aquí [here](./USAGE.md)
 
-## How to test
-Instructions for testing the changes can be found [here](./DEMO.md)
+## Cómo testearlo
+Las instrucciones para probar los cambios se pueden encontrar aquí [here](./DEMO.md)
 
-## Contributing
+## Contribuir
 
-We do not allow contributors to claim issues. If you find something interesting you can contribute to the repo, feel free to raise a PR. We do not require you to let us know in advance.
+No permitimos que los contribuyentes reclamen incidencias. Si encuentra algo interesante que pueda aportar al repositorio, siéntase libre para lanzar una PR. No es obligatorio que nos lo comunique con antelación.
 
-1. Fork the repo
-1. Install dependencies locally by running `yarn` or `npm install`
-1. Make your changes
-1. Make sure it builds using `yarn build` or `npm run build`
-1. Run the tests (you added tests, right?) with `npm test` or `yarn test`
-1. Test your changes in your consuming code or using our demo project: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
-1. Ensure the code coverage is the same or higher than before your changes
-1. Ensure commit message is properly formatted: `type(subject): input`. Eg: `chore(prettier): update prettier to 2.x`
-1. Create a PR to the `master` branch
-1. Codeowners will automatically be requested to review, so no need to tag on your PR
+1. Haga un Fork del repositorio
+1. Instale las dependencias localmente ejecutando `yarn` o `npm install`
+1. Haga sus cambios
+1. Asegúrese de que se compile usando `yarn build` o `npm run build`
+1. Corra los tests (ha realizado tests, cierto?) con `npm test` o `yarn test`
+1. Pruebe los cambios en su código de consumo o usando nuestro proyecto demo: Ejecute [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) o [`npm link`](https://docs.npmjs.com/cli/link)
+1. Compruebe que el tamaño del código es el mismo o superior que antes de realizar los cambios
+1. Compruebe que el mensaje de commit tenga el formato correcto: `type(subject): input`. Eg: `chore(prettier): update prettier to 2.x`
+1. Crear una PR a la rama `master`
+1. Se solicitará automáticamente a los propietarios del código que lo revisen, por lo que no es necesario etiquetarlos en su PR
 
-## Expected Project Structure
+## Estructura Esperada del Proyecto
 
-The structure shown here is how your code should be organised in the repository
+La estructura mostrada a continuación es la forma en que debe organizarse su código en el repositorio
 
-implementation folder should be renamed according to the problem you are solving for eg. the code for HMRC in UK is in the folder named hmrc.
+La carpeta implementation debe renombrarse en función al problema que está solucionando, por ejemplo: el código para HMRC en Reino Unido está en la carpeta llamada hmrc.
 
 ```
 Project
 └──src
      └──js
-        └──common                // Common and non specific code shoud be put in this folder
-        └──implementation       // Implementation specific code for solving problem should be in this folder
+        └──common                // El código común y no específico debe colocarse en esta carpeta
+        └──implementation       // El código específico de implementación para solucionar un problema irá en esta carpeta
 ```
 
-## How contributors get added to the README
+## Cómo se añaden los contribuyentes al archivo README
 
-There are two ways to add yourself as a contributor to this repo:
+Hay dos formas en las que usted puede agregarse a este repo:
 
-1. Call @all-contributors bot by adding this following comment in a PR: **@all-contributors please add [username] for [contributions]**. Please refer to the [docs](https://allcontributors.org/docs/en/bot/usage) for more info.
-1. Use the all-contributors-cli by running `npx all-contributors add [username] [contributions]`. Please refer to the [docs](https://allcontributors.org/docs/en/cli/usage) for more info.
+1. Llame al bot de @all-contributors añdiendo el siguiente comentario en una PR: **@all-contributors please add [username] for [contributions]**. Por favor, consulte [docs](https://allcontributors.org/docs/en/bot/usage) para más info.
+1. Use el all-contributors-cli ejecutando `npx all-contributors add [username] [contributions]`. Por favor, consulte [docs](https://allcontributors.org/docs/en/cli/usage) para más info.
 
-All parameters are required.
-See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+Todos los parámetros son obligatorios.
+Consulte [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) para ver una lista de los tipos de contribución permitidos.
 
-## License
+## Licencia
 
 [License](LICENSE)
 
 ## Changelog
 
-Please see our [CHANGELOG](CHANGELOG.md)
+Por favor consulte nuestro [CHANGELOG](CHANGELOG.md)
 
-## Other Languages
-README in other languages:
+## Otros Idiomas
+README en otros idiomas:
 
 1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
 1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
 2. [Spanish](README_SPANISH.md)
 
-## Contributors
+## Contribuyentes
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
