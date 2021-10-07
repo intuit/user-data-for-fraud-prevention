@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import getMockBrowserPluginDetails from "../mock/MockData";
 import {
   MockRTCPeerConnection,
@@ -17,7 +19,9 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone,
-  resetDeviceIpString, getUserAgent,
+  resetDeviceIpString,
+  getUserAgent,
+  getClientPublicIP,
 } from "../../../src/js/common/browserInfoHelper";
 
 expect.extend({
@@ -282,5 +286,16 @@ describe("BrowserInfoHelper", () => {
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);
+  });
+
+  it("getClientPublicIP", async () => {
+    jest.spyOn(axios, "get").mockReturnValue(Promise.resolve('127.0. 0.1'))
+    let output = await getClientPublicIP()
+    expect(output).toEqual(["127.0. 0.1", "2021-06-03T13:02:22.107Z"]);
+  });
+
+  it("getClientPublicIP axios.get throws error", async() => {
+    jest.spyOn(axios, "get").mockImplementation(() => {throw "Network error"})
+    await getClientPublicIP().catch(e => expect(e).toEqual("Network error"));
   });
 });
