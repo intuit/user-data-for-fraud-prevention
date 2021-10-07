@@ -79,6 +79,7 @@ README in other languages:
 1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
 1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
 2. [Spanish](README_SPANISH.md)
+3. [German](README_GERMAN.md)
 
 ## Contributors
 
