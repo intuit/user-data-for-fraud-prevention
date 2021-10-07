@@ -11,7 +11,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Description
+## Beschreibung
 
 Diese npm Library erlaubt es Browser- oder Gerätespezifische Informationen zu erkennen, z.B. die Zeitzone, Bildschirmauflösung/-größe, Browser Konfigurationen usw.
 Hersteller von Software müssen solche Informationen zu Zwecken der Betrugsprävention  oftmals an steuerliche Behörden senden.
