@@ -9,6 +9,7 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone, getUserAgent,
+  getClientPublicIP,
 } from "../common/browserInfoHelper";
 
 import {
@@ -28,6 +29,8 @@ export const fraudPreventionHeadersEnum = {
   DEVICE_ID: "Gov-Client-Device-ID",
   DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
   BROWSER_USER_AGENT: "Gov-Client-Browser-JS-User-Agent",
+  CLIENT_PUBLIC_IP: "Gov-Client-Public-IP",
+  CLIENT_PUBLIC_IP_TIMESTAMP: "Gov-Client-Public-IP-Timestamp",
 };
 
 const getScreenData = () => {
@@ -95,6 +98,15 @@ export const getFraudPreventionHeaders = async () => {
     const ipAddress = await getDeviceLocalIPAsString();
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, ipAddress.deviceIpTimeStamp);
+
+  } catch (error) {
+    errors.push(error);
+  }
+
+  try {
+    const publicIP = await getClientPublicIP();
+    headers.set(fraudPreventionHeadersEnum.CLIENT_PUBLIC_IP, encodeURI(publicIP[0]));
+    headers.set(fraudPreventionHeadersEnum.CLIENT_PUBLIC_IP_TIMESTAMP, publicIP[1]);
 
   } catch (error) {
     errors.push(error);

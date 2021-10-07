@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.10.4",
+    "axios": "^0.22.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
