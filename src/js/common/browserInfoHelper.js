@@ -189,7 +189,7 @@ export const getUserAgent = () => {
 export const getClientPublicIP = async () => {
   const url = "https://api.ipify.org";
   const data = await axios.get(url).catch((err) => {
-    reject({message: "CLIENT_PUBLIC_IP_FETCH_FAILED", error: err});
+    return err;
   });
 
   let publicClientIpString = data
