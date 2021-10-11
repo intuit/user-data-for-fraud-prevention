@@ -8,7 +8,7 @@ import {
   getScreenWidth,
   getWindowHeight,
   getWindowWidth,
-  getTimezone,
+  getTimezone, getUserAgent,
 } from "../common/browserInfoHelper";
 
 import {
@@ -26,17 +26,35 @@ export const fraudPreventionHeadersEnum = {
   BROWSER_DONOTTRACK: "Gov-Client-Browser-Do-Not-Track",
   DEVICE_LOCAL_IPS: "Gov-Client-Local-IPs",
   DEVICE_ID: "Gov-Client-Device-ID",
+  DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
+  BROWSER_USER_AGENT: "Gov-Client-Browser-JS-User-Agent",
 };
 
-const getScreenDetails = () => {
+const getScreenData = () => {
   const screenDetails = `width=${getScreenWidth()}&height=${getScreenHeight()}&scaling-factor=${getScreenScalingFactor()}&colour-depth=${getScreenColourDepth()}`;
   return encodeURI(screenDetails);
 };
+
+export const getScreenDetails = () => {
+  return {
+    width: getScreenWidth(),
+    height: getScreenHeight(),
+    colorDepth: getScreenColourDepth(),
+    scalingFactor: getScreenScalingFactor(),
+  };
+}
 
 const getWindowSize = () => {
   const windowSize = `width=${getWindowWidth()}&height=${getWindowHeight()}`;
   return encodeURI(windowSize);
 };
+
+export const windowDetails = () => {
+  return {
+    width: getWindowWidth(),
+    height: getWindowHeight(),
+  };
+}
 
 /**
  * Returns Map of HMRC Fraud prevention headers.
@@ -49,7 +67,7 @@ export const getFraudPreventionHeaders = async () => {
     { header: fraudPreventionHeadersEnum.TIMEZONE, callback: getTimezone },
     {
       header: fraudPreventionHeadersEnum.SCREENS_DETAILS,
-      callback: getScreenDetails,
+      callback: getScreenData,
     },
     { header: fraudPreventionHeadersEnum.WINDOW_SIZE, callback: getWindowSize },
     {
@@ -60,11 +78,8 @@ export const getFraudPreventionHeaders = async () => {
       header: fraudPreventionHeadersEnum.BROWSER_DONOTTRACK,
       callback: getBrowserDoNotTrackStatus,
     },
-    {
-      header: fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS,
-      callback: async () => encodeURI(await getDeviceLocalIPAsString()),
-    },
     { header: fraudPreventionHeadersEnum.DEVICE_ID, callback: generateClientDeviceID},
+    { header: fraudPreventionHeadersEnum.BROWSER_USER_AGENT, callback: getUserAgent },
   ];
   for (let i = 0; i < headerFunctions.length; i++) {
     try {
@@ -75,5 +90,15 @@ export const getFraudPreventionHeaders = async () => {
       errors.push(error);
     }
   }
+
+  try {
+    const ipAddress = await getDeviceLocalIPAsString();
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
+    headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, ipAddress.deviceIpTimeStamp);
+
+  } catch (error) {
+    errors.push(error);
+  }
+
   return { headers, errors };
 };
