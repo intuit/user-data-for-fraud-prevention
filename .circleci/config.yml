@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  coveralls: coveralls/coveralls@1.0.4
 jobs:
   build:
     docker:
@@ -16,18 +18,50 @@ jobs:
       - checkout
 
       - run: npm install
-      
-      # run build
-      - run : npm run build
 
-      # run tests!
-      - run: npm test
+      # run lint
+      - run: npm run lint
+
+      # run build
+      - run: npm run build
+
+      # run tests
+      - run:
+          name: "Run tests"
+          command: npm run test
 
       - run:
           name: Run semantic-release
           command: yarn semantic-release
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  coverage:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npm run test:coverage
+      - store_artifacts:
+          path: coverage
+
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=${process.env.COVERALLS_REPO_TOKEN}
+
 workflows:
   version: 2
   build:
     jobs:
       - build
+      - coverage:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master

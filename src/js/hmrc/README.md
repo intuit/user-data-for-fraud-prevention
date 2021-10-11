@@ -11,5 +11,7 @@ Here are some of HMRC's fraud prevention headers required to be sent by web appl
 1. Gov-Client-Browser-Plugins (A list of browser plugins on the originating device)
 1. Gov-Client-Browser-Do-Not-Track (Indicates whether 'Do Not Track option' is enabled on the browser)
 1. Gov-Client-Local-IPs (A list of all local IPv4 and IPv6 addresses available to the originating device)
+1. Gov-Client-Local-IPs-Timestamp (A timestamp to show when Gov-Client-Local-IPs is collected)
+1. Gov-Client-Browser-JS-User-Agent (JavaScript-reported user agent string from the originating device)
 
 Detailed information about each of these headers can be found here:  https://developer.service.hmrc.gov.uk/guides/fraud-prevention/connection-method/web-app-via-server/

@@ -6,7 +6,6 @@ import {
   resetCandidateString,
   setCandidateString,
 } from "../mock/MockRTCPeerConnection";
-import globalsUtil from "../../../src/js/common/globalsUtil";
 import {
   getDeviceLocalIPAsString,
   getBrowserDoNotTrackStatus,
@@ -18,11 +17,48 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone,
-  resetDeviceIpString,
+  resetDeviceIpString, getUserAgent,
 } from "../../../src/js/common/browserInfoHelper";
 
+expect.extend({
+  toBeErrorWithMessage(received, expectedMessage) {
+    let pass = true;
+    pass = received.message === expectedMessage;
+    pass = pass && 'error' in received;
+    return {
+      message: () =>
+        `expected error to be have message ${expectedMessage}`,
+      pass,
+    };
+  }
+})
+
 describe("BrowserInfoHelper", () => {
+  let screenSpy, navigatorSpy, windowSpy;
+
+  const mockTimeStamp = "2021-06-03T13:02:22.107Z"
+  global.Date = class DateMock {
+    constructor() {
+    }
+    toString() {
+        return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+    }
+    toISOString() {
+        return mockTimeStamp;
+    }
+};
+
+  beforeEach(() => {
+    screenSpy = jest.spyOn(global, 'screen', 'get');
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+    windowSpy = jest.spyOn(global, 'window', 'get');
+    global.RTCPeerConnection = MockRTCPeerConnection;
+  });
+
   afterEach(() => {
+    screenSpy.mockRestore();
+    navigatorSpy.mockRestore();
+    windowSpy.mockRestore();
     jest.resetAllMocks();
   });
 
@@ -82,9 +118,10 @@ describe("BrowserInfoHelper", () => {
 
     getBrowserDoNotTrackStatusTests.forEach(
       ({ test, mockWindow = {}, mockNavigator = {}, expected } = {}) => {
+        // eslint-disable-next-line jest/valid-title
         it(test, () => {
-          jest.spyOn(globalsUtil, "getWindow").mockReturnValue(mockWindow);
-          jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+          windowSpy.mockImplementation(() => (mockWindow));
+          navigatorSpy.mockImplementation(() => (mockNavigator));
           expect(getBrowserDoNotTrackStatus()).toEqual(expected);
         });
       }
@@ -100,7 +137,7 @@ describe("BrowserInfoHelper", () => {
       };
     });
     it("getBrowserPluginsAsString no plugins", () => {
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("");
     });
 
@@ -108,7 +145,7 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: getMockBrowserPluginDetails(),
       };
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
 
@@ -116,15 +153,14 @@ describe("BrowserInfoHelper", () => {
       mockNavigator = {
         plugins: [...getMockBrowserPluginDetails(), null],
       };
-      jest.spyOn(globalsUtil, "getNavigator").mockReturnValue(mockNavigator);
+      navigatorSpy.mockImplementation(() => (mockNavigator));
       expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     });
   });
 
   describe("getDeviceLocalIPAsString", () => {
-    let webRtcConnectionStub;
     beforeEach(() => {
-      webRtcConnectionStub = jest.spyOn(globalsUtil, "getWebRTCConnection");
+      global.RTCPeerConnection = MockRTCPeerConnection;
       resetDeviceIpString();
     });
 
@@ -135,107 +171,87 @@ describe("BrowserInfoHelper", () => {
     });
 
     it("RTCPeerConnection undefined", async () => {
-      webRtcConnectionStub.mockReturnValue(undefined);
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("WEBRTC_UNSUPPORTED_BROWSER");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      global.RTCPeerConnection = undefined;
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('WEBRTC_UNSUPPORTED_BROWSER');
     });
 
     it("RTCPeerConnection non constructable", async () => {
-      webRtcConnectionStub.mockReturnValue({});
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("WEBRTC_CONSTRUCTION_FAILED");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      global.RTCPeerConnection = {};
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('WEBRTC_CONSTRUCTION_FAILED');
     });
 
     it("RTCPeerConnection throws CREATE_CONNECTION_ERROR", async() => {
-      webRtcConnectionStub.mockReturnValue(MockErrorRTCPeerConnection);
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("CREATE_CONNECTION_ERROR");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      global.RTCPeerConnection = MockErrorRTCPeerConnection;
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('CREATE_CONNECTION_ERROR');
     });
 
     it("RTCPeerConnection throws NO_IP_FOUND if candidate string does not have valid IP address as 5th element", async () => {
       setCandidateString("abc xyz 127.0.0.1");
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("NO_IP_FOUND");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      global.RTCPeerConnection = MockRTCPeerConnection;
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('NO_IP_FOUND');
     });
 
     it("RTCPeerConnection throws NO_IP_FOUND for empty candidate string", async () => {
       setEmptyCandidateString();
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
-
-      try {
-        await getDeviceLocalIPAsString();
-      } catch (error) {
-        expect(error.message).toEqual("NO_IP_FOUND");
-        expect(error).toHaveProperty('error');
-        return;
-      }
-      throw new Error("Expected an error to be thrown, but it was not");
+      global.RTCPeerConnection = MockRTCPeerConnection;
+      await expect(
+        async () => getDeviceLocalIPAsString()
+      )
+        .rejects
+        .toBeErrorWithMessage('NO_IP_FOUND');
     });
 
     it("RTCPeerConnection valid", async () => {
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
-      expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+      global.RTCPeerConnection = MockRTCPeerConnection;
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
       // Calling the function to return an already calculated deviceIpString
-      expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
     });
 
     it("RTCPeerConnection returns 5th item in array after splitting", async () => {
       setCandidateString(
         "abc xyz 123 567 789 777 127.0.0.1 randomstring somestring"
       );
-      webRtcConnectionStub.mockReturnValue(MockRTCPeerConnection);
-      expect(await getDeviceLocalIPAsString()).toEqual("789");
+      global.RTCPeerConnection = MockRTCPeerConnection;
+      expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "789", "deviceIpTimeStamp": mockTimeStamp});
     });
   });
 
   it("getMTDTaxReturnWithParameter", async () => {
-    jest.spyOn(globalsUtil, "getNavigator").mockReturnValue({
+    navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    });
-    jest.spyOn(globalsUtil, "getWebRTCConnection").mockReturnValue(MockRTCPeerConnection);
-    jest.spyOn(globalsUtil, "getWindow").mockReturnValue({
+    }));
+
+    windowSpy.mockImplementation(() => ({
       devicePixelRatio: 2,
       innerWidth: 1009,
       innerHeight: 1013,
-    });
-    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
+    }));
+
+    global.RTCPeerConnection = MockRTCPeerConnection;
+
+    screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
       colorDepth: 17,
-    });
-    global.Date = class DateMock {
-        constructor() {
-        }
-        toString() {
-            return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
-        }
-    };
+    }));
 
     expect(getTimezone()).toEqual(`UTC+01:00`);
     expect(getScreenWidth()).toEqual(1019);
@@ -246,15 +262,23 @@ describe("BrowserInfoHelper", () => {
     expect(getWindowHeight()).toEqual(1013);
     expect(getBrowserPluginsAsString()).toEqual("ABC Plugin,XYZ Plugin");
     expect(getBrowserDoNotTrackStatus()).toEqual("true");
-    expect(await getDeviceLocalIPAsString()).toEqual("127.0.0.1");
+    expect(await getDeviceLocalIPAsString()).toEqual({"deviceIpString": "127.0.0.1", "deviceIpTimeStamp": mockTimeStamp});
   });
 
+  it("getUserAgent", async () => {
+    const mockedUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36";
+    navigatorSpy.mockImplementation(() => ({
+      userAgent: mockedUserAgent
+    }));
+    expect(getUserAgent()).toEqual(mockedUserAgent);
+  })
+
   it("getScreen", async () => {
-    jest.spyOn(globalsUtil, "getScreen").mockReturnValue({
+    screenSpy.mockImplementation(() => ({
       width: "900px",
       height: 1021,
       colorDepth: 17,
-    });
+    }));
     expect(getScreenWidth()).toEqual(null);
     expect(getScreenHeight()).toEqual(1021);
     expect(getScreenColourDepth()).toEqual(17);
