@@ -11,76 +11,79 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-21-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-## Descripción
+## वर्णन
 
-Se trata de una librería npm para detectar algunos detalles del navegador o dispositivo del usuario como: la zona horaria, la resolución de la pantalla, la configuración del navegador, etc.
-Estos detalles suelen ser requeridos por la autoridad fiscal del país correspondiente a los proveedores de software para que se los envíen, con la intención de evitar fraudes.
+यह उपयोगकर्ता के कुछ ब्राउज़र या डिवाइस विवरण जैसे टाइमज़ोन, स्क्रीन आकार, ब्राउज़र कॉन्फ़िगरेशन इत्यादि का पता लगाने के लिए एक एनपीएम लाइब्रेरी है।
+धोखाधड़ी को रोकने के लिए इस तरह के विवरण अक्सर सॉफ्टवेयर प्रदाताओं द्वारा अपने देश में कर प्राधिकरण को भेजे जाने की आवश्यकता होती है।
 
-Por ejemplo: La Autoridad Fiscal del Reino Unido (HMRC) requiere que los proveedores de software que utilicen alguna de sus APIs, proporcionen encabezados coherentes conocidos como encabezados de prevención de fraudes. Este nodo de módulo almacena esta información para usted en el formato requerido.
+उदाहरण: यूके में टैक्स अथॉरिटी (HMRC) को सॉफ़्टवेयर प्रदाताओं को अपने कुछ API का उपयोग करने की आवश्यकता होती है ताकि वे लगातार हेडर प्रदान कर सकें जिन्हें धोखाधड़ी रोकथाम हेडर के रूप में जाना जाता है। यह नोड मॉड्यूल आपके लिए आवश्यक प्रारूप में ऐसी जानकारी एकत्र करता है।
 
-Cada carpeta de nivel superior en `src/js` tiene su propio README con información más detallada sobre los casos de uso. Por ejemplo: [HMRC README](src/js/hmrc/README.md)
+`src/js` में प्रत्येक शीर्ष स्तर के फ़ोल्डर का उपयोग के मामले में अधिक विशिष्ट जानकारी के साथ अपना स्वयं का README है। उदा.[HMRC README](src/js/hmrc/README.md)
 
-## Cómo se usa
-Las instrucciones de uso se pueden encontrar aquí [here](./USAGE.md)
+## कैसे इस्तेमाल करे
+उपयोग के निर्देश यहां देखे जा सकते हैं [यहां](./USAGE.md)
 
-## Cómo testearlo
-Las instrucciones para probar los cambios se pueden encontrar aquí [here](./DEMO.md)
+## परीक्षण कैसे करें
+परिवर्तनों के परीक्षण के निर्देश यहां देखे जा सकते हैं [यहां](./DEMO.md)
 
-## Contribuir
+## योगदान
 
-No permitimos que los contribuyentes reclamen incidencias. Si encuentra algo interesante que pueda aportar al repositorio, siéntase libre para lanzar una PR. No es obligatorio que nos lo comunique con antelación.
+हम योगदानकर्ताओं को मुद्दों का दावा करने की अनुमति नहीं देते हैं। 
+अगर आपको कुछ दिलचस्प लगता है तो आप रेपो में योगदान कर सकते हैं, पीआर बढ़ाने के लिए स्वतंत्र महसूस करें। 
+हमें आपको पहले से बताने की आवश्यकता नहीं है।
 
-1. Haga un Fork del repositorio
-1. Instale las dependencias localmente ejecutando `yarn` o `npm install`
-1. Haga sus cambios
-1. Asegúrese de que se compile usando `yarn build` o `npm run build`
-1. Corra los tests (ha realizado tests, cierto?) con `npm test` o `yarn test`
-1. Pruebe los cambios en su código de consumo o usando nuestro proyecto demo: Ejecute [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) o [`npm link`](https://docs.npmjs.com/cli/link)
-1. Compruebe que el tamaño del código es el mismo o superior que antes de realizar los cambios
-1. Compruebe que el mensaje de commit tenga el formato correcto: `type(subject): input`. Eg: `chore(prettier): update prettier to 2.x`
-1. Crear una PR a la rama `master`
-1. Se solicitará automáticamente a los propietarios del código que lo revisen, por lo que no es necesario etiquetarlos en su PR
+1. फोर्क रेपो
+1. `yarn` या `npm install` चलाकर स्थानीय रूप से निर्भरता स्थापित करें
+1. अपने परिवर्तन करें
+1. सुनिश्चित करें कि यह `yarn build` या `npm run build` का उपयोग करके बनाता है
+1. `npm test` या `yarn test` के साथ परीक्षण चलाएं (आपने परीक्षण जोड़े, है ना?)
+1. अपने उपभोग कोड में या हमारे डेमो प्रोजेक्ट का उपयोग करके अपने परिवर्तनों का परीक्षण करें: [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) या [`npm link`](https://docs.npmjs.com/cli/link) चलाएं
+1. सुनिश्चित करें कि कोड कवरेज आपके परिवर्तनों से पहले की तुलना में समान या अधिक है
+1. सुनिश्चित करें कि प्रतिबद्ध संदेश ठीक से स्वरूपित है: `type(subject): input`. उदाहरण: `chore(prettier): update prettier to 2.x`
+1. `master` शाखा के लिए पीआर बनाएं 
+1. कोड मालिकों से स्वचालित रूप से समीक्षा करने का अनुरोध किया जाएगा, इसलिए आपके पीआर पर टैग करने की कोई आवश्यकता नहीं है
 
-## Estructura Esperada del Proyecto
+## अपेक्षित परियोजना संरचना
 
-La estructura mostrada a continuación es la forma en que debe organizarse su código en el repositorio
+यहां दिखाई गई संरचना यह है कि आपके कोड को रिपॉजिटरी में कैसे व्यवस्थित किया जाना चाहिए
 
-La carpeta implementation debe renombrarse en función al problema que está solucionando, por ejemplo: el código para HMRC en Reino Unido está en la carpeta llamada hmrc.
+उदाहरण के लिए आप जिस समस्या का समाधान कर रहे हैं, उसके अनुसार कार्यान्वयन फ़ोल्डर का नाम बदला जाना चाहिए। यूके में HMRC के लिए कोड hmrc नाम के फोल्डर में है।
 
 ```
 Project
 └──src
      └──js
-        └──common                // El código común y no específico debe colocarse en esta carpeta
-        └──implementation       // El código específico de implementación para solucionar un problema irá en esta carpeta
+        └──common                // इस फ़ोल्डर में सामान्य और गैर विशिष्ट कोड डाले जाने चाहिए
+        └──implementation       // समस्या को हल करने के लिए कार्यान्वयन विशिष्ट कोड इस फ़ोल्डर में होना चाहिए
 ```
 
-## Cómo se añaden los contribuyentes al archivo README
+## README में योगदानकर्ता कैसे जुड़ते हैं
 
-Hay dos formas en las que usted puede agregarse a este repo:
+इस रेपो में योगदानकर्ता के रूप में स्वयं को जोड़ने के दो तरीके हैं:
 
-1. Llame al bot de @all-contributors añdiendo el siguiente comentario en una PR: **@all-contributors please add [username] for [contributions]**. Por favor, consulte [docs](https://allcontributors.org/docs/en/bot/usage) para más info.
-1. Use el all-contributors-cli ejecutando `npx all-contributors add [username] [contributions]`. Por favor, consulte [docs](https://allcontributors.org/docs/en/cli/usage) para más info.
+1. पीआर में इस निम्नलिखित टिप्पणी को जोड़कर @all-contributors को कॉल करें: **@all-contributors please add [username] for [contributions]**. अधिक जानकारी के लिए कृपया डॉक्स देखें [docs](https://allcontributors.org/docs/en/bot/usage)
+1. `npx all-contributors add [username] [contributions]` जोड़ें चलाकर सभी योगदानकर्ता-क्ली का उपयोग करें। अधिक जानकारी के लिए कृपया डॉक्स देखें  [docs](https://allcontributors.org/docs/en/cli/usage) para más info.
 
-Todos los parámetros son obligatorios.
-Consulte [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) para ver una lista de los tipos de contribución permitidos.
+सभी मापदंडों की आवश्यकता है। मान्य योगदान प्रकारों की सूची के लिए इमोजी कुंजी (योगदान प्रकार संदर्भ) देखें [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) 
 
-## Licencia
+## लाइसेंस
 
 [License](LICENSE)
 
-## Changelog
+## बदलाव का
 
-Por favor consulte nuestro [CHANGELOG](CHANGELOG.md)
+कृपया हमारा बदलाव का देखें [CHANGELOG](CHANGELOG.md)
 
-## Otros Idiomas
-README en otros idiomas:
+## अन्य भाषाएँ
+अन्य भाषाओं में रीडमी:
 
 1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
 1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
 2. [Spanish](README_SPANISH.md)
+3. [German](README_GERMAN.md)
+4. [Hindi](README_HINDI.md)
 
-## Contribuyentes
+## योगदानकर्ताओं
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
