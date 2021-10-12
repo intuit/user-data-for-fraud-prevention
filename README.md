@@ -80,6 +80,7 @@ README in other languages:
 1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
 2. [Spanish](README_SPANISH.md)
 3. [German](README_GERMAN.md)
+4. [Hindi](README_HINDI.md)
 
 ## Contributors
 
