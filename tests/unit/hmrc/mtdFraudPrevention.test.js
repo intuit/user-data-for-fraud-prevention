@@ -12,7 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import axios from "axios";
+import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -68,10 +68,9 @@ describe("FraudPreventionHeaders", () => {
     }));
 
     jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
-    jest.spyOn(axios, "get").mockReturnValue(Promise.resolve('127.0.0.1'))
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(11);
+    expect(headers.size).toBe(9);
     expect(errors.length).toBe(0);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -87,8 +86,6 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
     expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(mockTimeStamp);
     expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
-    expect(headers.get("Gov-Client-Public-IP")).toBe("127.0.0.1");
-    expect(headers.get("Gov-Client-Public-IP-Timestamp")).toBe(mockTimeStamp);
   });
   it("getFraudPreventionHeaders with one error", async () => {
 
@@ -113,10 +110,10 @@ describe("FraudPreventionHeaders", () => {
 
     const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong."));
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    jest.spyOn(axios, "get").mockReturnValue(Promise.resolve('127.0.0.1'))
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(10);
+    expect(headers.size).toBe(8);
+    console.log(errors)
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(undefined);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -132,8 +129,6 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
     expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(mockTimeStamp);
     expect(headers.get("Gov-Client-Device-ID")).toEqual("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    expect(headers.get("Gov-Client-Public-IP")).toBe("127.0.0.1");
-    expect(headers.get("Gov-Client-Public-IP-Timestamp")).toBe(mockTimeStamp);
     expect(errors[0]).toEqual("Something went wrong.");
     timeZoneMock.mockRestore();
   });
@@ -161,10 +156,9 @@ describe("FraudPreventionHeaders", () => {
 
     const deviceLocalIpMock = jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    jest.spyOn(axios, "get").mockReturnValue(Promise.resolve('127.0.0.1'))
 
     const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(9);
+    expect(headers.size).toBe(7);
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
     expect(headers.get("Gov-Client-Screens")).toBe(
@@ -180,56 +174,8 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Local-IPs")).toBe(undefined);
     expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(undefined);
     expect(headers.get("Gov-Client-Device-ID")).toEqual("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    expect(headers.get("Gov-Client-Public-IP")).toBe("127.0.0.1");
-    expect(headers.get("Gov-Client-Public-IP-Timestamp")).toBe(mockTimeStamp);
     expect(errors[0]).toEqual("Something went wrong.");
     deviceLocalIpMock.mockRestore();
-  });
-
-  it("getFraudPreventionHeaders with one error (getClientPublicIP)", async () => {
-
-    navigatorSpy.mockImplementation(() => ({
-      plugins: getMockBrowserPluginDetails(),
-      doNotTrack: "yes",
-    }));
-
-    setAdditionalCandidateString(",127.0.0.2");
-
-    windowSpy.mockImplementation(() => ({
-      devicePixelRatio: 2,
-      innerWidth: 1009,
-      innerHeight: 1013,
-    }));
-
-    screenSpy.mockImplementation(() => ({
-      width: 1019,
-      height: 1021,
-      colorDepth: 17,
-    }));
-
-    jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    jest.spyOn(axios, "get").mockImplementation(() => {throw "Network error"})
-
-    const {headers, errors} = await getFraudPreventionHeaders();
-    expect(headers.size).toBe(9);
-    expect(errors.length).toBe(1);
-    expect(headers.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
-    expect(headers.get("Gov-Client-Screens")).toBe(
-        "width=1019&height=1021&scaling-factor=2&colour-depth=17"
-    );
-    expect(headers.get("Gov-Client-Window-Size")).toBe(
-        "width=1009&height=1013"
-    );
-    expect(headers.get("Gov-Client-Browser-Plugins")).toBe(
-        "ABC%20Plugin,XYZ%20Plugin"
-    );
-    expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
-    expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
-    expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(mockTimeStamp);
-    expect(headers.get("Gov-Client-Device-ID")).toEqual("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    expect(headers.get("Gov-Client-Public-IP")).toBe(undefined);
-    expect(headers.get("Gov-Client-Public-IP-Timestamp")).toBe(undefined);
-    expect(errors[0]).toEqual("Network error");
   });
 
   describe("screen details", () => {
@@ -259,4 +205,22 @@ describe("FraudPreventionHeaders", () => {
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
 
+});
+
+describe("getGovClientTimezoneHeader", () => {
+
+  it("no error", async () => {
+    const {header, error} = await getGovClientTimezoneHeader()
+    expect(header.size).toBe(1);
+    expect(error).toBe(undefined);
+    expect(header.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
+  });
+
+  it("getTimezone throws error", async () => {
+    const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong."));
+    const {header, error} = await getGovClientTimezoneHeader()
+    expect(error).toBe("Something went wrong.");
+    expect(header.get("Gov-Client-Timezone")).toBe(undefined);
+    timeZoneMock.mockRestore();
+  });
 });

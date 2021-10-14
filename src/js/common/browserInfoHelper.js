@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store deviceIpString as a global variable as generating it is expensive and often required several times
@@ -178,21 +176,4 @@ export const getBrowserDoNotTrackStatus = () => {
  */
 export const getUserAgent = () => {
   return navigator.userAgent;
-}
-
-/**
- * Function that returns the public Client IP address as a string along with the UTC time at which the IP was fetched.
- * It uses https://api.ipify.org to fetch the IP address
- * uses toISOString() returns in ISO format with UTC zero offset
- * @returns [ip, timestamp]
- */
-export const getClientPublicIP = async () => {
-  const url = "https://api.ipify.org";
-  const data = await axios.get(url).catch((err) => {
-    return err;
-  });
-
-  let publicClientIpString = data
-  let publicClientIpTimeStamp = new Date().toISOString()
-  return [publicClientIpString, publicClientIpTimeStamp];
 }

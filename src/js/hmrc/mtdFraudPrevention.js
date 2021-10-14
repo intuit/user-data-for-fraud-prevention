@@ -9,7 +9,6 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone, getUserAgent,
-  getClientPublicIP,
 } from "../common/browserInfoHelper";
 
 import {
@@ -103,14 +102,19 @@ export const getFraudPreventionHeaders = async () => {
     errors.push(error);
   }
 
-  try {
-    const publicIP = await getClientPublicIP();
-    headers.set(fraudPreventionHeadersEnum.CLIENT_PUBLIC_IP, encodeURI(publicIP[0]));
-    headers.set(fraudPreventionHeadersEnum.CLIENT_PUBLIC_IP_TIMESTAMP, publicIP[1]);
-
-  } catch (error) {
-    errors.push(error);
-  }
-
   return { headers, errors };
 };
+
+/**
+ * Returns Gov-Client-Timezone HMRC Fraud prevention header.
+ */
+export const getGovClientTimezoneHeader = async () => {
+  const header = new Map();
+  try {
+    header.set( fraudPreventionHeadersEnum.TIMEZONE, await getTimezone())
+  } catch (error) {
+    header.set( fraudPreventionHeadersEnum.TIMEZONE, undefined)
+    return {header, error}
+  }
+  return {header, undefined}
+}
