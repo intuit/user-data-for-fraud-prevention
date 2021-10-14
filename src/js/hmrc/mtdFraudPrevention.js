@@ -102,3 +102,12 @@ export const getFraudPreventionHeaders = async () => {
 
   return { headers, errors };
 };
+
+/**
+ * Returns Gov-Client-Screens HMRC Fraud prevention header.
+ */
+export const getGovClientScreensHeader = async () => {
+  const header = new Map();
+  header.set( fraudPreventionHeadersEnum.SCREENS_DETAILS, await getScreenData())
+  return header
+}

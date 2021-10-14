@@ -12,6 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
+import {getGovClientScreensHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -203,4 +204,35 @@ describe("FraudPreventionHeaders", () => {
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
 
+});
+
+describe("getGovClientScreensHeader", () => {
+  let screenSpy, windowSpy;
+
+  beforeEach(() => {
+    screenSpy = jest.spyOn(global, 'screen', 'get');
+    windowSpy = jest.spyOn(global, 'window', 'get');
+  });
+
+  afterEach(() => {
+    screenSpy.mockRestore();
+    windowSpy.mockRestore();
+  });
+
+  it("no error", async () => {
+    screenSpy.mockImplementation(() => ({
+      width: 1019,
+      height: 1021,
+      colorDepth: 17,
+    }));
+
+    windowSpy.mockImplementation(() => ({
+      devicePixelRatio: 2,
+    }));
+
+    const {header, error} = await getGovClientScreensHeader()
+    expect(header.size).toBe(1);
+    expect(error).toBe(undefined);
+    expect(header.get("Gov-Client-Screens")).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
+  });
 });
