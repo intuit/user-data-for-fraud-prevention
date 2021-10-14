@@ -113,7 +113,6 @@ describe("FraudPreventionHeaders", () => {
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(8);
-    console.log(errors)
     expect(errors.length).toBe(1);
     expect(headers.get("Gov-Client-Timezone")).toBe(undefined);
     expect(headers.get("Gov-Client-Screens")).toBe(
