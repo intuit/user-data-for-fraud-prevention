@@ -203,6 +203,24 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "someOne404",
+      "name": "someOne404",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43281100?v=4",
+      "profile": "https://someone404.github.io/personal-site/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "jochenrui",
+      "name": "Jochen Rui",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36842990?v=4",
+      "profile": "https://github.com/jochenrui",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 7,
