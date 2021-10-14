@@ -102,3 +102,18 @@ export const getFraudPreventionHeaders = async () => {
 
   return { headers, errors };
 };
+
+/**
+ * Returns DeviceId HMRC Fraud prevention header.
+ */
+ export const getDeviceIDHeader = async () => {
+  const header = new Map();
+  try {
+    header.set( fraudPreventionHeadersEnum.DEVICE_ID, await encodeURI(generateClientDeviceID()))
+  } catch (error) {
+    console.log(error)
+    header.set( fraudPreventionHeadersEnum.DEVICE_ID, undefined)
+    return {header, error}
+  }
+  return {header, undefined}
+}
