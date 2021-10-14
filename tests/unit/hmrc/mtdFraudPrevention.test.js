@@ -12,6 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
+import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -203,4 +204,24 @@ describe("FraudPreventionHeaders", () => {
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
 
+});
+
+describe("getGovClientBrowserPluginsHeader", () => {
+
+ let navigatorSpy
+
+  beforeEach(() => {
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+  });
+
+  it("no error", async () => {
+    navigatorSpy.mockImplementation(() => ({
+      plugins: getMockBrowserPluginDetails(),
+      doNotTrack: "yes",
+    }));
+    const {header, error} = await getGovClientBrowserPluginsHeader()
+    expect(header.size).toBe(1);
+    expect(error).toBe(undefined);
+    expect(header.get("Gov-Client-Browser-Plugins")).toBe("ABC%20Plugin,XYZ%20Plugin");
+  });
 });
