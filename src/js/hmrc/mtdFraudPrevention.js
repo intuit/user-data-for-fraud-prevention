@@ -28,8 +28,6 @@ export const fraudPreventionHeadersEnum = {
   DEVICE_ID: "Gov-Client-Device-ID",
   DEVICE_LOCAL_IPS_TIMESTAMP: "Gov-Client-Local-IPs-Timestamp",
   BROWSER_USER_AGENT: "Gov-Client-Browser-JS-User-Agent",
-  CLIENT_PUBLIC_IP: "Gov-Client-Public-IP",
-  CLIENT_PUBLIC_IP_TIMESTAMP: "Gov-Client-Public-IP-Timestamp",
 };
 
 const getScreenData = () => {
