@@ -109,5 +109,5 @@ export const getFraudPreventionHeaders = async () => {
 export const getGovClientScreensHeader = async () => {
   const header = new Map();
   header.set( fraudPreventionHeadersEnum.SCREENS_DETAILS, await getScreenData())
-  return header
+  return {header, undefined}
 }
