@@ -105,13 +105,13 @@ export const getFraudPreventionHeaders = async () => {
 
 /**
  * Returns Gov-Client-Timezone HMRC Fraud prevention header.
+ * @returns {object} with two fields headerValue and error if there is an error else undefined
  */
 export const getGovClientTimezoneHeader = async () => {
-  const header = new Map();
+  let header = undefined;
   try {
-    header.set( fraudPreventionHeadersEnum.TIMEZONE, await getTimezone())
+    header = await getTimezone()
   } catch (error) {
-    header.set( fraudPreventionHeadersEnum.TIMEZONE, undefined)
     return {header, error}
   }
   return {header, undefined}

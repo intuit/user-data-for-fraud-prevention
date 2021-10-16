@@ -210,16 +210,15 @@ describe("getGovClientTimezoneHeader", () => {
 
   it("no error", async () => {
     const {header, error} = await getGovClientTimezoneHeader()
-    expect(header.size).toBe(1);
     expect(error).toBe(undefined);
-    expect(header.get("Gov-Client-Timezone")).toBe(`UTC+01:00`);
+    expect(header).toBe(`UTC+01:00`);
   });
 
   it("getTimezone throws error", async () => {
     const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong."));
     const {header, error} = await getGovClientTimezoneHeader()
     expect(error).toBe("Something went wrong.");
-    expect(header.get("Gov-Client-Timezone")).toBe(undefined);
+    expect(header).toBe(undefined);
     timeZoneMock.mockRestore();
   });
 });
