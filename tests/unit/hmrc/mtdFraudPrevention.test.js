@@ -3,6 +3,7 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
+  getGovClientLocalIPsHeader,
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
