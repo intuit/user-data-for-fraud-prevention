@@ -19,7 +19,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-        name: Run semantic-release
+        name: "Run semantic-release"
         command: npm run semantic-release
 
     working_directory: ~/user-data-for-fraud-prevention
