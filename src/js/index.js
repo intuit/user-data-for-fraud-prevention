@@ -2,6 +2,7 @@ import {
   fraudPreventionHeadersEnum,
   getFraudPreventionHeaders,
   getScreenDetails,
+  getGovClientLocalIPsHeader,
   windowDetails,
 } from "./hmrc/mtdFraudPrevention";
 
