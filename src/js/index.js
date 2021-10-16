@@ -1,6 +1,7 @@
 import {
   fraudPreventionHeadersEnum,
   getFraudPreventionHeaders,
+  getGovClientTimezoneHeader,
   getScreenDetails,
   windowDetails,
 } from "./hmrc/mtdFraudPrevention";
