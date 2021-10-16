@@ -102,3 +102,21 @@ export const getFraudPreventionHeaders = async () => {
 
   return { headers, errors };
 };
+
+/**
+ * Returns Gov-Client-Local-IPs header value
+ * @returns {object} with two fields headerValue and error if there is an error
+ */
+ export const getGovClientLocalIPsHeader = async () => {
+  try {
+    const ipAddress = await getDeviceLocalIPAsString();
+    return {
+      headerValue: encodeURI(ipAddress.deviceIpString)
+    };
+  } catch (error) {
+    return {
+      headerValue: '',
+      error
+    };
+  }
+}
