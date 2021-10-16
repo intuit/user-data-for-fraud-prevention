@@ -8,7 +8,8 @@ import {
   getScreenWidth,
   getWindowHeight,
   getWindowWidth,
-  getTimezone, getUserAgent,
+  getTimezone,
+  getUserAgent,
 } from "../common/browserInfoHelper";
 
 import {
@@ -102,3 +103,15 @@ export const getFraudPreventionHeaders = async () => {
 
   return { headers, errors };
 };
+export const getGovClientTimezoneHeader = async () => {
+  let header = undefined;
+  let error = undefined;
+  try {
+    header = await getTimezone();
+  } catch (err) {
+    error = err;
+    console.log(error);
+    return { header, error };
+  }
+  return {header,error};
+}

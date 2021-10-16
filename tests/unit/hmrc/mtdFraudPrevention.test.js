@@ -3,6 +3,7 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
+  getGovClientTimezoneHeader
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
@@ -203,4 +204,20 @@ describe("FraudPreventionHeaders", () => {
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
 
+});
+describe("getGovClientTimezoneHeader", () => {
+  
+  it("no error", async () => {
+    const { header, error } = await getGovClientTimezoneHeader();
+    expect(header).toBe("UTC+01:00");
+    expect(error).toBe(undefined);
+  })
+
+  it("getTimezone throws error", async () => {
+    const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong."));
+    const { header, error } = await getGovClientTimezoneHeader();
+    expect(header).toBe(undefined);
+    expect(error).toBe("Something went wrong.");
+    timeZoneMock.mockRestore();
+  })
 });
