@@ -11,3 +11,4 @@ exports.getFraudPreventionHeaders = getFraudPreventionHeaders;
 
 exports.getScreenDetails = getScreenDetails;
 exports.windowDetails = windowDetails;
+exports.getGovClientLocalIPsHeader = getGovClientLocalIPsHeader;
