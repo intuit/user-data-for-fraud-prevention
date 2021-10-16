@@ -12,11 +12,15 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
   release:
-    executor: node/default
+    executor:
+      name: node/default
+      tag: "10.15.3-browsers"
     steps:
+      - attach_workspace:
+          at: .
       - run:
         name: Run semantic-release
-        command: yarn semantic-release
+        command: npm run semantic-release
 
     working_directory: ~/user-data-for-fraud-prevention
 
@@ -69,7 +73,6 @@ workflows:
                 - master
       - release:
           requires:
-            - build
             - coverage
           filters:
             branches:

@@ -8,8 +8,7 @@
       "changelogTitle": "# Semantic Versioning Changelog"
     }],
     ["@semantic-release/npm", {
-      "npmPublish": false,
-      "tarballDir": "dist",
+      "npmPublish": true,
     }],
     "@semantic-release/github"
   ]
