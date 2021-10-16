@@ -231,8 +231,7 @@ describe("getGovClientScreensHeader", () => {
     }));
 
     const {header, error} = await getGovClientScreensHeader()
-    expect(header.size).toBe(1);
     expect(error).toBe(undefined);
-    expect(header.get("Gov-Client-Screens")).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
+    expect(header).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
   });
 });
