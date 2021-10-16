@@ -15,7 +15,7 @@ jobs:
     executor: node/default
     steps:
       - run:
-        name: Run semantic-release
+        name: "Run semantic-release"
         command: yarn semantic-release
 
     working_directory: ~/user-data-for-fraud-prevention
