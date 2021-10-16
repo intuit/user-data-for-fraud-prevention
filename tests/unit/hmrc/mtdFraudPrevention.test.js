@@ -202,5 +202,28 @@ describe("FraudPreventionHeaders", () => {
     it("width", () => expect(windowDetails().width).toBe(1009));
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
+  
+  describe( "getGovClientLocalIPsHeader", () => {
+    it("with no error", async () => {
+      setAdditionalCandidateString(",127.0.0.2");
+      const expectedValue = "127.0.0.1,127.0.0.2";
+
+      const header = await getGovClientLocalIPsHeader();
+
+      expect(header.headerValue).toBe(expectedValue);
+      expect(header.error).toBeUndefined();
+    })
+
+    it("with error", async () => {
+      const expectedErrorMessage = "Something went wrong.";
+      const deviceLocalIpMock = jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject(expectedErrorMessage));
+
+      const header = await getGovClientLocalIPsHeader();
+
+      expect(header.headerValue).toBe('');
+      expect(header.error).toBe(expectedErrorMessage);
+      deviceLocalIpMock.mockRestore();
+    })
+  });
 
 });
