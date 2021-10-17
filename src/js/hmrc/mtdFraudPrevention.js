@@ -106,14 +106,10 @@ export const getFraudPreventionHeaders = async () => {
 /**
  * Returns Gov-Client-Browser-Plugins HMRC Fraud prevention header.
  */
-export const getGovClientBrowserPluginsHeader = async () => {
-  const header = new Map();
+export const getGovClientBrowserPluginsHeader = () => {
   try {
-    header.set( fraudPreventionHeadersEnum.BROWSER_PLUGINS, await encodeURI(getBrowserPluginsAsString()))
+    return {header: encodeURI(getBrowserPluginsAsString())}
   } catch (error) {
-    console.log(error)
-    header.set( fraudPreventionHeadersEnum.BROWSER_PLUGINS, undefined)
-    return {header, error}
+    return {error}
   }
-  return {header, undefined}
 }

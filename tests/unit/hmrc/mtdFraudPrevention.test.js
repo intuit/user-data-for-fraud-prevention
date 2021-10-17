@@ -214,14 +214,13 @@ describe("getGovClientBrowserPluginsHeader", () => {
     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
   });
 
-  it("no error", async () => {
+  it("no error", () => {
     navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     }));
-    const {header, error} = await getGovClientBrowserPluginsHeader()
-    expect(header.size).toBe(1);
+    const {header, error} = getGovClientBrowserPluginsHeader()
     expect(error).toBe(undefined);
-    expect(header.get("Gov-Client-Browser-Plugins")).toBe("ABC%20Plugin,XYZ%20Plugin");
+    expect(header).toBe("ABC%20Plugin,XYZ%20Plugin");
   });
 });
