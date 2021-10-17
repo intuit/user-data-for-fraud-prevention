@@ -95,10 +95,20 @@ export const getFraudPreventionHeaders = async () => {
     const ipAddress = await getDeviceLocalIPAsString();
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, ipAddress.deviceIpTimeStamp);
-
   } catch (error) {
     errors.push(error);
   }
 
   return { headers, errors };
 };
+/**
+ * Returns "Gov-Client-Browser-JS-User-Agent" header.
+ * @returns {object} which has header key having value of the header or error key if their is an error
+ */
+export const getGovClientBrowserHeader = ()=>{
+try{
+ return {header: getUserAgent()}
+}catch(error){
+  return {error}
+}
+}
