@@ -11,6 +11,15 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
+  release:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+        name: "Run semantic-release"
+        command: npx semantic-release
 
     working_directory: ~/user-data-for-fraud-prevention
 
@@ -57,6 +66,13 @@ workflows:
       - coverage:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
+      - release:
+          requires:
+            - coverage
           filters:
             branches:
               only:
