@@ -219,8 +219,8 @@ describe("getGovClientBrowserPluginsHeader", () => {
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     }));
-    const {header, error} = getGovClientBrowserPluginsHeader()
+    const {headerValue, error} = getGovClientBrowserPluginsHeader()
     expect(error).toBe(undefined);
-    expect(header).toBe("ABC%20Plugin,XYZ%20Plugin");
+    expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
   });
 });
