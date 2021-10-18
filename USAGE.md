@@ -12,6 +12,8 @@ Then to use in code:
 import getFraudPreventionHeaders from 'user-data-for-fraud-prevention';
 // or
 import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-for-fraud-prevention';
+import getGovClientDeviceID from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientDeviceID();
 ```
 
 To use

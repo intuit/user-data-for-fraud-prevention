@@ -12,7 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import {getDeviceIDHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -206,22 +206,20 @@ describe("FraudPreventionHeaders", () => {
 
 });
 
-describe("getDeviceIDHeader", () => {
-
+describe("getGovClientDeviceID", () => {
   let navigatorSpy
- 
-   beforeEach(() => {
-     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
-   });
- 
-   it("no error", async () => {
-     navigatorSpy.mockImplementation(() => ({
-       plugins: getMockBrowserPluginDetails(),
-       doNotTrack: "yes",
-     }));
-     const {header, error} = await getDeviceIDHeader()
-     expect(header.size).toBe(1);
-     expect(error).toBe(undefined);
-     expect(header.get("Gov-Client-Browser-Plugins")).toBe(undefined);
-   });
- });
+
+  beforeEach(() => {
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+  });
+
+  it("no error", () => {
+    navigatorSpy.mockImplementation(() => ({
+      plugins: getMockBrowserPluginDetails(),
+      doNotTrack: "yes",
+    }));
+    const {header, error} = getGovClientDeviceID()
+    expect(error).toBe(undefined);
+    expect(header).toBe(undefined);
+  });
+});
