@@ -11,16 +11,6 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
-  release:
-    docker:
-      - image: circleci/node:10.15.3-browsers
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-        name: "Run semantic-release"
-        command: npx semantic-release
-
     working_directory: ~/user-data-for-fraud-prevention
 
     steps:
@@ -44,6 +34,14 @@ jobs:
           paths:
             - .
 
+  release:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    steps:
+      - attach_workspace:
+          at: .
+      - run: npx semantic-release
+      
   coverage:
     docker:
       - image: circleci/node:10.15.3-browsers
@@ -53,7 +51,6 @@ jobs:
       - run: npm run test:coverage
       - store_artifacts:
           path: coverage
-
 notify:
   webhooks:
     - url: https://coveralls.io/webhook?repo_token=${process.env.COVERALLS_REPO_TOKEN}
