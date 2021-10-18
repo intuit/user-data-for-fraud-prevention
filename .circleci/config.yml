@@ -14,7 +14,7 @@ jobs:
   release:
     executor:
       name: node/default
-      tag: "10.15.3-browsers"
+      tag: "10.15.3"
     steps:
       - attach_workspace:
           at: .
