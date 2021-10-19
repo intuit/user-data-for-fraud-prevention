@@ -106,11 +106,12 @@ export const getFraudPreventionHeaders = async () => {
 /**
  * Returns DeviceId HMRC Fraud prevention header.
  */
- export const getGovClientDeviceID  = async () => {
+ export const getGovClientDeviceID  = () => {
   try {
-    return {headervalue: encodeURI(generateClientDeviceID())}
+    return {headervalue: encodeURI(generateClientDeviceID())};
   }
-  catch(error){
-    return{error}
+  catch (error) {
+    console.log(error);
+    return {error};
   }
 }
