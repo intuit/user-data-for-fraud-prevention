@@ -115,8 +115,7 @@ export const getFraudPreventionHeaders = async () => {
     };
   } catch (error) {
     return {
-      headerValue: '',
-      error
+      error,
     };
   }
 }
