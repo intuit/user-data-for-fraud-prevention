@@ -15,7 +15,7 @@ import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-f
 ```
 If you want only a specific header value, then you can use below functions that are available to get individual header values:
 
-* To get Gov-Client-Timezone HMRC Fraud prevention header:
+* To get Gov-Client-Device Id HMRC Fraud prevention header:
 ```js
 import getGovClientDeviceID from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientDeviceID();
