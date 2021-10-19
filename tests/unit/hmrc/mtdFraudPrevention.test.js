@@ -207,8 +207,7 @@ describe("FraudPreventionHeaders", () => {
 });
 
 describe("getGovClientBrowserPluginsHeader", () => {
-
- let navigatorSpy
+ let navigatorSpy;
 
   beforeEach(() => {
     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
@@ -219,8 +218,17 @@ describe("getGovClientBrowserPluginsHeader", () => {
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
     }));
-    const {headerValue, error} = getGovClientBrowserPluginsHeader()
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
     expect(error).toBe(undefined);
     expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
   });
+
+  it("getGovClientBrowserPluginsHeader throws error", () => {
+
+    const timeZoneMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
+  });
+
 });

@@ -108,8 +108,8 @@ export const getFraudPreventionHeaders = async () => {
  */
 export const getGovClientBrowserPluginsHeader = () => {
   try {
-    return {headerValue: encodeURI(getBrowserPluginsAsString())}
+    return {headerValue: encodeURI(getBrowserPluginsAsString())};
   } catch (error) {
-    return {error}
+    return {error};
   }
 }

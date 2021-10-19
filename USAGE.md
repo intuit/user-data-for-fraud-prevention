@@ -28,5 +28,5 @@ If you want only a specific header value, then you can use below functions that 
 * To get Gov-Client-Browser_plugins HMRC Fraud prevention header:
 ```
 import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
-const {headerValue, error} = getGovClientBrowserPluginsHeader()
+const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
