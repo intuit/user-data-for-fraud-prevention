@@ -104,12 +104,12 @@ export const getFraudPreventionHeaders = async () => {
 };
 
 /**
- * Returns Gov-Client-Timezone HMRC Fraud prevention header.
- * @returns {object} with two fields headerValue and error if there is an error else undefined
+ * Returns the value for Gov-Client-Timezone HMRC Fraud prevention header.
+ * @returns headerValue with the timezone value and error if an error is caught
  */
 export const getGovClientTimezoneHeader = () => {
   try {
-    return { header: getTimezone()}
+    return { headerValue: getTimezone()}
   } catch (error) {
     return {error}
   }
