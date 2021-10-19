@@ -225,10 +225,11 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
   it("getGovClientBrowserPluginsHeader throws error", () => {
 
-    const timeZoneMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
+    const browserPluginMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
     const {headerValue, error} = getGovClientBrowserPluginsHeader();
     expect(error).toEqual(Error("Something went wrong."));
     expect(headerValue).toBe(undefined);
+    browserPluginMock.mockRestore();
   });
 
 });
