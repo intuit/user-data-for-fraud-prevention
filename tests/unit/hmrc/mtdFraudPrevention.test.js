@@ -18,7 +18,7 @@ describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
   resetDeviceIpTimeStamp();
   resetCandidateString();
-  let screenSpy, navigatorSpy, windowSpy
+  let screenSpy, navigatorSpy, windowSpy;
 
   beforeEach(() => {
     screenSpy = jest.spyOn(global, 'screen', 'get');
@@ -211,7 +211,7 @@ describe("getGovClientDeviceID", () => {
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
     const {headervalue} = getGovClientDeviceID();
     expect(headervalue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-  })
+  });
   it("throws error",()=>{
     jest.spyOn(uuid, "v4").mockImplementation(()=>{
       throw Error("Something went wrong.");
@@ -219,5 +219,5 @@ describe("getGovClientDeviceID", () => {
     const {error} = getGovClientDeviceID();
     console.log(typeof(error));
     expect(error.toString()).toBe("Error: Something went wrong.");
-  })
+  });
 });
