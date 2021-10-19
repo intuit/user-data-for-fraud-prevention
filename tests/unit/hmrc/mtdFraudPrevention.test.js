@@ -221,8 +221,8 @@ describe("FraudPreventionHeaders", () => {
 
       const header = await getGovClientLocalIPsHeader();
 
-      expect(header.headerValue).toBe('');
       expect(header.error).toBe(expectedErrorMessage);
+      expect(header.headerValue).toBeUndefined();
       deviceLocalIpMock.mockRestore();
     })
   });
