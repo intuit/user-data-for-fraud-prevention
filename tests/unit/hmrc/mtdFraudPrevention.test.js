@@ -209,7 +209,7 @@ describe("FraudPreventionHeaders", () => {
         navigatorSpy.mockImplementationOnce(() => ({
           userAgent
         }));
-      expect(getGovClientBrowserHeader()).toEqual({header:userAgent})
+      expect(getGovClientBrowserHeader()).toEqual({ headerValue: userAgent })
     })
     it("returns error on error",()=>{
       navigatorSpy.mockImplementationOnce(() => null);
