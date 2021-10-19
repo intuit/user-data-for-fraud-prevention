@@ -38,13 +38,13 @@ describe("FraudPreventionHeaders", () => {
 
   const mockTimeStamp = "2021-06-03T13:02:22.107Z"
   global.Date = class DateMock {
-    constructor() {
-    }
-    toString() {
-      return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
-    }
-    toISOString() {
-      return mockTimeStamp;
+      constructor() {
+      }
+      toString() {
+          return "Tue May 14 2019 12:01:58 GMT+0100 (British Summer Time)";
+      }
+      toISOString() {
+        return mockTimeStamp;
     }
   };
 
@@ -212,10 +212,10 @@ describe("FraudPreventionHeaders", () => {
     })
 
     it("getBrowserDoNotTrackStatus throws error", async () => {
-      const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockReturnValue(Promise.reject("Something went wrong."));
+      const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
       const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
       expect(headerValue).toBe(undefined);
-      expect(error).toBe("Something went wrong.");
+      expect(error).toEqual(Error("Something went wrong."));
       browserDoNotTrackStatusMock.mockRestore();
     })
   });

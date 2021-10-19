@@ -106,13 +106,10 @@ export const getFraudPreventionHeaders = async () => {
 /**
  * Returns the value for Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header.
  */
- export const getGovClientBrowserDoNotTrackHeader = async () => {
-  let headerValue, error = undefined;
+ export const getGovClientBrowserDoNotTrackHeader = () => {
   try {
-    headerValue = await getBrowserDoNotTrackStatus();
-  } catch (err) {
-    error = err
-    return {headerValue, error}
-  }
-  return {headerValue, error}
+    return { headerValue: getBrowserDoNotTrackStatus() };
+  } catch (error) {
+    return { error }; 
+   }
 }

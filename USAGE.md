@@ -30,5 +30,5 @@ If you want only a specific header value, then you can use below functions that 
 
     ```js
     import getGovClientBrowserDoNotTrackHeader from 'user-data-for-fraud-prevention';
-    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader()
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
     ```
