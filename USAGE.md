@@ -32,8 +32,8 @@ import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
 
-* To get Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header:
+* To get Gov-Client-Device-ID HMRC Fraud prevention header:
 ```
-import getGovClientBrowserDoNotTrackHeader from 'user-data-for-fraud-prevention';
-const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
+import getGovClientDeviceIDHeader from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientDeviceIDHeader();
 ```

@@ -12,9 +12,8 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
-import { getGovClientBrowserDoNotTrackHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
-
+import { getGovClientDeviceIDHeader, getGovClientBrowserPluginsHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
+import * as standaloneInfoHelper from "../../../src/js/common/standaloneInfoHelper";
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
   resetDeviceIpTimeStamp();
@@ -235,20 +234,21 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
 });
 
-describe("getGovClientBrowserDoNotTrackHeader", () => {
+describe("getGovClientDeviceIDHeader", () => {
 
-  it("no error", async () => {
-    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
-    expect(headerValue).toBe("true");
+  it("no error", () => {
+    jest.spyOn(uuid, "v4").mockReturnValue("d85e2c1a-3168-11ec-8d3d-0242ac130003");
+    const {headerValue, error} = getGovClientDeviceIDHeader();
+    expect(headerValue).toBe("d85e2c1a-3168-11ec-8d3d-0242ac130003");
     expect(error).toBe(undefined);
   })
 
-  it("getBrowserDoNotTrackStatus throws error", async () => {
-    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
-    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
+  it("getGovClientDeviceIDHeader throws error", () => {
+    const govClientDeviceIDMock = jest.spyOn(standaloneInfoHelper, "generateClientDeviceID").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientDeviceIDHeader();
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(Error("Something went wrong."));
-    browserDoNotTrackStatusMock.mockRestore();
+    govClientDeviceIDMock.mockRestore();
   });
 
 });
