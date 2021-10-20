@@ -211,10 +211,12 @@ describe("FraudPreventionHeaders", () => {
           userAgent
         }));
       expect(getGovClientBrowserHeader()).toEqual({ headerValue: userAgent })
+      navigatorSpy.mockRestore();
     })
     it("returns error when there is an error", () => {
       navigatorSpy.mockImplementationOnce(() => null);
       expect(getGovClientBrowserHeader().error.toString()).toEqual("TypeError: Cannot read property 'userAgent' of null")
+      navigatorSpy.mockRestore();
     })
   })
 });
