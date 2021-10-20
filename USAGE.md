@@ -35,3 +35,8 @@ const {headerValue, error} = getGovClientBrowserPluginsHeader();
 import {getGovClientBrowserHeader} from 'user-data-for-fraud-prevention';
 const { headerValue,error } = getGovClientBrowserHeader() 
 ```
+* To get Gov-Client-Device Id HMRC Fraud prevention header:
+```js
+import getGovClientDeviceID from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientDeviceID();
+```
