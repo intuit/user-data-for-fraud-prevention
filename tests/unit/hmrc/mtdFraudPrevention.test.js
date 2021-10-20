@@ -251,7 +251,6 @@ describe("getGovClientDeviceID", () => {
     expect(error).toEqual(Error("Something went wrong."));
     deviceIDMock.mockRestore();
   });
-
 });
 
 describe("getGovClientBrowserDoNotTrackHeader", () => {
@@ -269,5 +268,4 @@ describe("getGovClientBrowserDoNotTrackHeader", () => {
     expect(error).toEqual(Error("Something went wrong."));
     browserDoNotTrackStatusMock.mockRestore();
   });
-
 });
