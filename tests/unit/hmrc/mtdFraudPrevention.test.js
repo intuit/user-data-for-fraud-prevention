@@ -237,15 +237,15 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
 describe("getGovClientBrowserDoNotTrackHeader", () => {
 
-  it("no error", async () => {
-    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
+  it("no error", () => {
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
     expect(headerValue).toBe("true");
     expect(error).toBe(undefined);
   })
 
-  it("getBrowserDoNotTrackStatus throws error", async () => {
+  it("getBrowserDoNotTrackStatus throws error", () => {
     const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
-    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(Error("Something went wrong."));
     browserDoNotTrackStatusMock.mockRestore();
