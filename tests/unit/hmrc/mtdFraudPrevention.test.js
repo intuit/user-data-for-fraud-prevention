@@ -239,15 +239,17 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
 describe("getGovClientDeviceID", () => {
   it("throws no error",()=>{
-    jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    const {headervalue} = getGovClientDeviceID();
-    expect(headervalue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    const deviceIDMock = jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    const {headerValue} = getGovClientDeviceID();
+    expect(headerValue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    deviceIDMock.mockRestore();
   });
   it("throws error",()=>{
-    jest.spyOn(uuid, "v4").mockImplementation(()=>{
+    const deviceIDMock = jest.spyOn(uuid, "v4").mockImplementation(()=>{
       throw Error("Something went wrong.");
-    })
+    });
     const {error} = getGovClientDeviceID();
-    expect(error.toString()).toBe("Error: Something went wrong.");
+    expect(error).toEqual(Error("Something went wrong."));
+    deviceIDMock.mockRestore();
   });
 });

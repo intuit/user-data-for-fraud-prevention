@@ -104,16 +104,16 @@ export const getFraudPreventionHeaders = async () => {
 };
 
 /**
- * Returns DeviceId HMRC Fraud prevention header.
+ * Returns the value for Gov-Client-Device-ID HMRC Fraud prevention header.
  */
- export const getGovClientDeviceID  = () => {
+export const getGovClientDeviceID = () => {
   try {
-    return {headervalue: encodeURI(generateClientDeviceID())};
-  }
-  catch (error) {
+    return {headerValue: encodeURI(generateClientDeviceID())};
+  } catch (error) {
     return {error};
   }
 }
+
 /**
  * Returns the value for Gov-Client-Browser-Plugins HMRC Fraud prevention header.
  */
