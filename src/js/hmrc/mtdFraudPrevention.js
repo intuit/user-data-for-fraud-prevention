@@ -111,7 +111,7 @@ export const getFraudPreventionHeaders = async () => {
   try {
     const ipAddress = await getDeviceLocalIPAsString();
     return {
-      headeValue: encodeURI(ipAddress.deviceIpString);
+      headerValue: encodeURI(ipAddress.deviceIpString);
     };
   } catch (error) {
     return {
