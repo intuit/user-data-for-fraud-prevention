@@ -204,7 +204,7 @@ describe("FraudPreventionHeaders", () => {
     it("width", () => expect(windowDetails().width).toBe(1009));
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
-  describe("getGovClientBrowserHeader",()=>{
+  describe("getGovClientBrowserHeader", () => {
     it("returns correct header",()=>{
       const userAgent = "Mozilla/5.0"
         navigatorSpy.mockImplementationOnce(() => ({
