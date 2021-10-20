@@ -212,7 +212,7 @@ describe("FraudPreventionHeaders", () => {
         }));
       expect(getGovClientBrowserHeader()).toEqual({ headerValue: userAgent })
     })
-    it("returns error on error",()=>{
+    it("returns error when there is an error", () => {
       navigatorSpy.mockImplementationOnce(() => null);
       expect(getGovClientBrowserHeader().error.toString()).toEqual("TypeError: Cannot read property 'userAgent' of null")
     })
