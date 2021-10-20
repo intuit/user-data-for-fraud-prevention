@@ -13,6 +13,6 @@ exports.getFraudPreventionHeaders = getFraudPreventionHeaders;
 exports.getGovClientBrowserPluginsHeader = getGovClientBrowserPluginsHeader;
 exports.getGovClientDeviceID = getGovClientDeviceID;
 exports.getScreenDetails = getScreenDetails;
-exports.getGovClientBrowserHeader = getGovClientBrowserHeader
+exports.getGovClientBrowserHeader = getGovClientBrowserHeader;
 exports.windowDetails = windowDetails;
 
