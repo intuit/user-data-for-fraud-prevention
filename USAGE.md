@@ -30,8 +30,8 @@ If you want only a specific header value, then you can use below functions that 
 import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
-To get Gov-Client-Browser-Header
+* To get Gov-Client-Browser-Header
 ```js
 import {getGovClientBrowserHeader} from 'user-data-for-fraud-prevention';
 const { headerValue,error } = getGovClientBrowserHeader() 
-'''
+```
