@@ -12,7 +12,11 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
+<<<<<<< HEAD
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
+=======
+import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+>>>>>>> 4a4e8e4265b57fc7b11e9eb367b4076621ec1d07
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -206,6 +210,7 @@ describe("FraudPreventionHeaders", () => {
 
 });
 
+<<<<<<< HEAD
 describe("getGovClientDeviceID", () => {
   it("throws no error",()=>{
     jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
@@ -221,3 +226,32 @@ describe("getGovClientDeviceID", () => {
     expect(error.toString()).toBe("Error: Something went wrong.");
   });
 });
+=======
+describe("getGovClientBrowserPluginsHeader", () => {
+ let navigatorSpy;
+
+  beforeEach(() => {
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+  });
+
+  it("no error", () => {
+    navigatorSpy.mockImplementation(() => ({
+      plugins: getMockBrowserPluginDetails(),
+      doNotTrack: "yes",
+    }));
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toBe(undefined);
+    expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
+  });
+
+  it("getGovClientBrowserPluginsHeader throws error", () => {
+
+    const browserPluginMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
+    browserPluginMock.mockRestore();
+  });
+
+});
+>>>>>>> 4a4e8e4265b57fc7b11e9eb367b4076621ec1d07
