@@ -12,13 +12,9 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
-
-<<<<<<< HEAD
-import { getGovClientBrowserDoNotTrackHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
-=======
+import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
->>>>>>> upstream/master
+import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -240,6 +236,24 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
 });
 
+describe("getGovClientDeviceID", () => {
+  it("throws no error",()=>{
+    const deviceIDMock = jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    const {headerValue} = getGovClientDeviceID();
+    expect(headerValue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    deviceIDMock.mockRestore();
+  });
+  it("throws error",()=>{
+    const deviceIDMock = jest.spyOn(uuid, "v4").mockImplementation(()=>{
+      throw Error("Something went wrong.");
+    });
+    const {error} = getGovClientDeviceID();
+    expect(error).toEqual(Error("Something went wrong."));
+    deviceIDMock.mockRestore();
+  });
+  
+});
+
 describe("getGovClientBrowserDoNotTrackHeader", () => {
 
   it("no error", async () => {
@@ -256,19 +270,4 @@ describe("getGovClientBrowserDoNotTrackHeader", () => {
     browserDoNotTrackStatusMock.mockRestore();
   });
 
-describe("getGovClientDeviceID", () => {
-  it("throws no error",()=>{
-    const deviceIDMock = jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    const {headerValue} = getGovClientDeviceID();
-    expect(headerValue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    deviceIDMock.mockRestore();
-  });
-  it("throws error",()=>{
-    const deviceIDMock = jest.spyOn(uuid, "v4").mockImplementation(()=>{
-      throw Error("Something went wrong.");
-    });
-    const {error} = getGovClientDeviceID();
-    expect(error).toEqual(Error("Something went wrong."));
-    deviceIDMock.mockRestore();
-  });
 });
