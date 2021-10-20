@@ -3,11 +3,8 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
-<<<<<<< HEAD
-  getGovClientDeviceID
-=======
   getGovClientBrowserPluginsHeader,
->>>>>>> 4a4e8e4265b57fc7b11e9eb367b4076621ec1d07
+  getGovClientDeviceID
 } from "./hmrc/mtdFraudPrevention";
 
 exports.fraudPreventionHeadersEnum = fraudPreventionHeadersEnum;

@@ -13,14 +13,6 @@ import getFraudPreventionHeaders from 'user-data-for-fraud-prevention';
 // or
 import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-for-fraud-prevention';
 ```
-If you want only a specific header value, then you can use below functions that are available to get individual header values:
-
-* To get Gov-Client-Device Id HMRC Fraud prevention header:
-```js
-import getGovClientDeviceID from 'user-data-for-fraud-prevention';
-const {headerValue, error} = getGovClientDeviceID();
-```
-
 To use
 
 ```js
@@ -30,13 +22,14 @@ const timezoneHeader = fraudHeaders.get('Gov-Client-Timezone');
 // Or
 const timezoneHeader = fraudHeaders.get(fraudPreventionHeadersEnum.TIMEZONE);
 ```
-<<<<<<< HEAD
-=======
-
 If you want only a specific header value, then you can use below functions that are available to get individual header values:
 * To get Gov-Client-Browser_plugins HMRC Fraud prevention header:
 ```
 import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
->>>>>>> 4a4e8e4265b57fc7b11e9eb367b4076621ec1d07
+* To get Gov-Client-Device Id HMRC Fraud prevention header:
+```js
+import getGovClientDeviceID from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientDeviceID();
+```
