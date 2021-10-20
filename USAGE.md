@@ -27,13 +27,19 @@ const timezoneHeader = fraudHeaders.get(fraudPreventionHeadersEnum.TIMEZONE);
 If you want only a specific header value, then you can use below functions that are available to get individual header values:
 
 * To get Gov-Client-Browser_plugins HMRC Fraud prevention header:
-```
+```js
 import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
 
-* To get Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header:
+* To get Gov-Client-Device Id HMRC Fraud prevention header:
+```js
+import getGovClientDeviceID from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientDeviceID();
 ```
+
+* To get Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header:
+```js
 import getGovClientBrowserDoNotTrackHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
 ```
