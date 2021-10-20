@@ -12,7 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
@@ -251,7 +251,7 @@ describe("getGovClientDeviceID", () => {
     expect(error).toEqual(Error("Something went wrong."));
     deviceIDMock.mockRestore();
   });
-  
+
 });
 
 describe("getGovClientBrowserDoNotTrackHeader", () => {
