@@ -12,8 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
-import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
-import { getGovClientBrowserDoNotTrackHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
+import { getGovClientBrowserDoNotTrackHeader, getGovClientBrowserPluginsHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
