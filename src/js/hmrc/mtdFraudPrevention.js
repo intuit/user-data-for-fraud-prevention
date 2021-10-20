@@ -104,12 +104,23 @@ export const getFraudPreventionHeaders = async () => {
 };
 
 /**
+ * Returns the value for Gov-Client-Browser-Plugins HMRC Fraud prevention header.
+ */
+export const getGovClientBrowserPluginsHeader = () => {
+  try {
+    return {headerValue: encodeURI(getBrowserPluginsAsString())};
+  } catch (error) {
+    return {error};
+  }
+}
+
+/**
  * Returns the value for Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header.
  */
- export const getGovClientBrowserDoNotTrackHeader = () => {
+export const getGovClientBrowserDoNotTrackHeader = () => {
   try {
-    return { headerValue: getBrowserDoNotTrackStatus() };
+    return {headerValue: getBrowserDoNotTrackStatus()};
   } catch (error) {
-    return { error }; 
-   }
+    return {error}; 
+  }
 }

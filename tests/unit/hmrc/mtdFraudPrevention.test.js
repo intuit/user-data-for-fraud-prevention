@@ -12,6 +12,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
+import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import { getGovClientBrowserDoNotTrackHeader } from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
@@ -203,20 +204,53 @@ describe("FraudPreventionHeaders", () => {
     it("width", () => expect(windowDetails().width).toBe(1009));
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
-  describe("getGovClientBrowserDoNotTrackHeader", () => {
 
-    it("no error", async () => {
-      const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
-      expect(headerValue).toBe("false");
-      expect(error).toBe(undefined);
-    })
-
-    it("getBrowserDoNotTrackStatus throws error", async () => {
-      const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
-      const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
-      expect(headerValue).toBe(undefined);
-      expect(error).toEqual(Error("Something went wrong."));
-      browserDoNotTrackStatusMock.mockRestore();
-    })
-  });
 });
+
+describe("getGovClientBrowserPluginsHeader", () => {
+ let navigatorSpy;
+
+  beforeEach(() => {
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+  });
+
+  it("no error", () => {
+    navigatorSpy.mockImplementation(() => ({
+      plugins: getMockBrowserPluginDetails(),
+      doNotTrack: "yes",
+    }));
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toBe(undefined);
+    expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
+  });
+
+  it("getGovClientBrowserPluginsHeader throws error", () => {
+
+    const browserPluginMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
+    browserPluginMock.mockRestore();
+  });
+
+}); 
+
+describe("getGovClientBrowserDoNotTrackHeader", () => {
+
+  it("no error", async () => {
+    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe("true");
+    expect(error).toBe(undefined);
+  })
+
+  it("getBrowserDoNotTrackStatus throws error", async () => {
+    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = await getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe(undefined);
+    expect(error).toEqual(Error("Something went wrong."));
+    browserDoNotTrackStatusMock.mockRestore();
+  });
+
+});
+
+
