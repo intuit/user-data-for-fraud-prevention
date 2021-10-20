@@ -112,3 +112,14 @@ export const getGovClientBrowserHeader = () => {
     return { error };
   }
 }
+
+/**
+ * Returns the value for Gov-Client-Browser-Plugins HMRC Fraud prevention header.
+ */
+export const getGovClientBrowserPluginsHeader = () => {
+  try {
+    return {headerValue: encodeURI(getBrowserPluginsAsString())};
+  } catch (error) {
+    return {error};
+  }
+}

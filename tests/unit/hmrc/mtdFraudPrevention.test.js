@@ -13,6 +13,7 @@ import {
 import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
 import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
 import uuid from "uuid";
+import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -216,4 +217,32 @@ describe("FraudPreventionHeaders", () => {
       expect(getGovClientBrowserHeader().error.toString()).toEqual("TypeError: Cannot read property 'userAgent' of null")
     })
   })
+});
+
+describe("getGovClientBrowserPluginsHeader", () => {
+ let navigatorSpy;
+
+  beforeEach(() => {
+    navigatorSpy = jest.spyOn(global, 'navigator', 'get');
+  });
+
+  it("no error", () => {
+    navigatorSpy.mockImplementation(() => ({
+      plugins: getMockBrowserPluginDetails(),
+      doNotTrack: "yes",
+    }));
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toBe(undefined);
+    expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
+  });
+
+  it("getGovClientBrowserPluginsHeader throws error", () => {
+
+    const browserPluginMock = jest.spyOn(browserInfoHelper, "getBrowserPluginsAsString").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserPluginsHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
+    browserPluginMock.mockRestore();
+  });
+
 });
