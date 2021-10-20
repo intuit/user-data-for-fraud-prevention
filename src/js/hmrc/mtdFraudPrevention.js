@@ -111,11 +111,22 @@ export const getFraudPreventionHeaders = async () => {
   try {
     const ipAddress = await getDeviceLocalIPAsString();
     return {
-      headerValue: encodeURI(ipAddress.deviceIpString)
+      headeValue: encodeURI(ipAddress.deviceIpString);
     };
   } catch (error) {
     return {
-      error,
+      error
     };
+  }
+}
+ 
+/**
+ * Returns the value for Gov-Client-Browser-Plugins HMRC Fraud prevention header.
+ */
+export const getGovClientBrowserPluginsHeader = () => {
+  try {
+    return {headerValue: encodeURI(getBrowserPluginsAsString())};
+  } catch (error) {
+    return {error};
   }
 }
