@@ -233,7 +233,7 @@ describe("getGovClientBrowserPluginsHeader", () => {
     browserPluginMock.mockRestore();
   });
 
-}); 
+});
 
 describe("getGovClientBrowserDoNotTrackHeader", () => {
 
@@ -252,5 +252,3 @@ describe("getGovClientBrowserDoNotTrackHeader", () => {
   });
 
 });
-
-
