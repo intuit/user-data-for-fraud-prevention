@@ -134,3 +134,14 @@ export const getGovClientBrowserPluginsHeader = () => {
     return {error};
   }
 }
+
+/**
+ * Returns the value for Gov-Client-Browser-Do-Not-Track HMRC Fraud prevention header.
+ */
+export const getGovClientBrowserDoNotTrackHeader = () => {
+  try {
+    return {headerValue: getBrowserDoNotTrackStatus()};
+  } catch (error) {
+    return {error}; 
+  }
+}

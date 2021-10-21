@@ -15,6 +15,7 @@ import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/com
 import uuid from "uuid";
 import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -259,5 +260,22 @@ describe("getGovClientDeviceID", () => {
     const {error} = getGovClientDeviceID();
     expect(error).toEqual(Error("Something went wrong."));
     deviceIDMock.mockRestore();
+  });
+});
+
+describe("getGovClientBrowserDoNotTrackHeader", () => {
+  it("returns correct headerValue when there is no error", () => {
+    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => "true");
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe("true");
+    expect(error).toBe(undefined);
+    browserDoNotTrackStatusMock.mockRestore();
+  })
+  it("returns error when there is an error", () => {
+    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe(undefined);
+    expect(error).toEqual(Error("Something went wrong."));
+    browserDoNotTrackStatusMock.mockRestore();
   });
 });
