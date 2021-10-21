@@ -29,5 +29,5 @@ If you want only a specific header value, then you can use below functions that 
 * To get Gov-Client-Timezone HMRC Fraud prevention header:
     ```js
     import getGovClientTimezoneHeader from 'user-data-for-fraud-prevention';
-    const {headerValue, error} = getGovClientTimezoneHeader()
+    const {headerValue, error} = getGovClientTimezoneHeader();
     ```

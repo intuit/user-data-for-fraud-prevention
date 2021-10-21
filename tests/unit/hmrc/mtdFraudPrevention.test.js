@@ -206,7 +206,7 @@ describe("FraudPreventionHeaders", () => {
 
 });
 
-describe("getGovClientTimezoneHeader", () => {
+describe("GovClientTimezoneHeader", () => {
 
   it("no error", () => {
     const {headerValue, error} =  getGovClientTimezoneHeader()
@@ -214,7 +214,7 @@ describe("getGovClientTimezoneHeader", () => {
     expect(error).toBe(undefined);
   });
 
-  it("getTimezone throws error", async () => {
+  it("getTimezone throws error", () => {
     const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockImplementation(() => { throw Error("Something went wrong.")});
     const {headerValue, error} = getGovClientTimezoneHeader()
     expect(headerValue).toBe(undefined);
@@ -222,7 +222,7 @@ describe("getGovClientTimezoneHeader", () => {
     timeZoneMock.mockRestore();
   });
 
-  it("Date doesn't return GMT format", async () => {
+  it("Date doesn't return GMT format",  () => {
     const dateMock = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
     dateMock.toString = "Wed Sep 30 2020"
     const {headerValue, error} = getGovClientTimezoneHeader()
