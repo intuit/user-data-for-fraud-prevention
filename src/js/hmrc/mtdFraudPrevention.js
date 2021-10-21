@@ -105,7 +105,7 @@ export const getFraudPreventionHeaders = async () => {
  * Returns "Gov-Client-Browser-JS-User-Agent" header.
  * @returns {object} which has headerValue key having the value of the header or error key if there is an error
  */
-export const getGovClientBrowserHeader = () => {
+export const getGovClientBrowserJSUserAgentHeader = () => {
   try {
     return { headerValue: getUserAgent() };
   } catch (error) {
