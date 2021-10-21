@@ -59,3 +59,9 @@ const {headerValue, error} = getGovClientTimezoneHeader();
 import getGovClientLocalIPsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = await getGovClientLocalIPsHeader();
 ```
+
+* To get Gov-Client-Window-Size HMRC Fraud prevention header:
+```js
+import {getGovClientWindowSizeHeader} from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientWindowSizeHeader();
+```

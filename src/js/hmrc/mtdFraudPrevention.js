@@ -172,3 +172,16 @@ export const getGovClientLocalIPsHeader = async () => {
     return { error };
   }
 }
+
+/**
+ * Returns the value for Gov-Client-Window-Size HMRC Fraud prevention header.
+ */
+export const getGovClientWindowSizeHeader = () => {
+  try {
+    return { headerValue: getWindowSize() };
+  } catch (error) {
+    return { error };
+  }
+};
+
+
