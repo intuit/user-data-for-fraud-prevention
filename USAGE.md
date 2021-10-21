@@ -11,7 +11,7 @@ Then to use in code:
 ```js
 import getFraudPreventionHeaders from 'user-data-for-fraud-prevention';
 // or
-import {getFraudPreventionHeaders, fraudPreventionHeadersEnum, getGovClientLocalIPsHeader} from 'user-data-for-fraud-prevention';
+import {getFraudPreventionHeaders, fraudPreventionHeadersEnum} from 'user-data-for-fraud-prevention';
 ```
 
 To use
