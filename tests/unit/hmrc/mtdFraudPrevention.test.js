@@ -3,6 +3,7 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
+  getGovClientBrowserJSUserAgentHeader,
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
@@ -204,7 +205,21 @@ describe("FraudPreventionHeaders", () => {
     it("width", () => expect(windowDetails().width).toBe(1009));
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
-
+  describe("getGovClientBrowserHeader", () => {
+    it("returns correct headerValue when there is no error", () => {
+      const userAgent = "Mozilla/5.0"
+        navigatorSpy.mockImplementationOnce(() => ({
+          userAgent
+        }));
+      expect(getGovClientBrowserJSUserAgentHeader()).toEqual({ headerValue: userAgent })
+      navigatorSpy.mockRestore();
+    })
+    it("returns error when there is an error", () => {
+      navigatorSpy.mockImplementationOnce(() => null);
+      expect(getGovClientBrowserJSUserAgentHeader().error.toString()).toEqual("TypeError: Cannot read property 'userAgent' of null")
+      navigatorSpy.mockRestore();
+    })
+  })
 });
 
 describe("getGovClientBrowserPluginsHeader", () => {

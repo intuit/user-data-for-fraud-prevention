@@ -30,7 +30,11 @@ If you want only a specific header value, then you can use below functions that 
 import getGovClientBrowserPluginsHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserPluginsHeader();
 ```
-
+* To get Gov-Client-Browser-JS-User-Agent HMRC Fraud prevention header:
+```js
+import {getGovClientBrowserJSUserAgentHeader} from 'user-data-for-fraud-prevention';
+const { headerValue, error } = getGovClientBrowserJSUserAgentHeader();
+```
 * To get Gov-Client-Device Id HMRC Fraud prevention header:
 ```js
 import getGovClientDeviceID from 'user-data-for-fraud-prevention';

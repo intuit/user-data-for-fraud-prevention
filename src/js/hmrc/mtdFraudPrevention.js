@@ -95,13 +95,23 @@ export const getFraudPreventionHeaders = async () => {
     const ipAddress = await getDeviceLocalIPAsString();
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS, encodeURI(ipAddress.deviceIpString));
     headers.set(fraudPreventionHeadersEnum.DEVICE_LOCAL_IPS_TIMESTAMP, ipAddress.deviceIpTimeStamp);
-
   } catch (error) {
     errors.push(error);
   }
 
   return { headers, errors };
 };
+/**
+ * Returns "Gov-Client-Browser-JS-User-Agent" header.
+ * @returns {object} which has headerValue key having the value of the header or error key if there is an error
+ */
+export const getGovClientBrowserJSUserAgentHeader = () => {
+  try {
+    return { headerValue: getUserAgent() };
+  } catch (error) {
+    return { error };
+  }
+}
 
 /**
  * Returns the value for Gov-Client-Device-ID HMRC Fraud prevention header.
