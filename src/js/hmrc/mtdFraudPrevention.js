@@ -105,7 +105,7 @@ export const getFraudPreventionHeaders = async () => {
 
 /**
  * Returns Gov-Client-Local-IPs header value
- * @returns {object} with two fields headerValue and error if there is an error
+ * @returns {object} which has header key having the value of the header or error key if there is an error
  */
  export const getGovClientLocalIPsHeader = async () => {
   try {
