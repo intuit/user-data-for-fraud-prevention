@@ -206,7 +206,7 @@ describe("FraudPreventionHeaders", () => {
 
 });
 
-describe("getGovClientScreensHeader", () => {
+describe("GovClientScreensHeader", () => {
   let screenSpy, windowSpy;
 
   beforeEach(() => {
@@ -219,7 +219,7 @@ describe("getGovClientScreensHeader", () => {
     windowSpy.mockRestore();
   });
 
-  it("no error", async () => {
+  it("no error",  () => {
     screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
@@ -230,8 +230,8 @@ describe("getGovClientScreensHeader", () => {
       devicePixelRatio: 2,
     }));
 
-    const {header, error} = await getGovClientScreensHeader()
+    const {headerValue, error} = getGovClientScreensHeader()
     expect(error).toBe(undefined);
-    expect(header).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
+    expect(headerValue).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
   });
 });

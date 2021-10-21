@@ -23,3 +23,9 @@ const timezoneHeader = fraudHeaders.get('Gov-Client-Timezone');
 // Or
 const timezoneHeader = fraudHeaders.get(fraudPreventionHeadersEnum.TIMEZONE);
 ```
+
+* To get Gov-Client-Screens HMRC Fraud prevention header:
+    ```js
+    import getGovClientTimezoneHeader from 'user-data-for-fraud-prevention';
+    const {headerValue, error} = getGovClientTimezoneHeader();
+    ```

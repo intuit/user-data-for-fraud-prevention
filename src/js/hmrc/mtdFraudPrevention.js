@@ -105,9 +105,8 @@ export const getFraudPreventionHeaders = async () => {
 
 /**
  * Returns Gov-Client-Screens HMRC Fraud prevention header.
- * @returns {object} with two fields headerValue and error if there is an error else undefined
+ * @returns {object} with headerValue field
  */
-export const getGovClientScreensHeader = async () => {
-  let header = await getScreenData()
-  return {header, undefined}
+export const getGovClientScreensHeader = () => {
+  return {headerValue: getScreenData()};
 }
