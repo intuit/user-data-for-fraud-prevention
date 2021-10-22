@@ -3,6 +3,7 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
+  getGovClientBrowserJSUserAgentHeader,
   getGovClientBrowserPluginsHeader,
   getGovClientBrowserDoNotTrackHeader,
   getGovClientDeviceID
@@ -15,4 +16,6 @@ exports.getGovClientBrowserDoNotTrackHeader = getGovClientBrowserDoNotTrackHeade
 
 exports.getGovClientDeviceID = getGovClientDeviceID;
 exports.getScreenDetails = getScreenDetails;
+exports.getGovClientBrowserJSUserAgentHeader = getGovClientBrowserJSUserAgentHeader;
 exports.windowDetails = windowDetails;
+
