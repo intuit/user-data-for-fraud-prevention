@@ -297,7 +297,7 @@ describe("GovClientTimezoneHeader", () => {
     timeZoneMock.mockRestore();
   });
 
-  it("returns error when there Date doesn't return GMT format",  () => {
+  it("returns error when Date doesn't return GMT format",  () => {
     const dateMock = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
     dateMock.toString = "Wed Sep 30 2020";
     const {headerValue, error} = getGovClientTimezoneHeader();
