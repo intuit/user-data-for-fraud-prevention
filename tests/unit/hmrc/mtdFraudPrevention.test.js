@@ -250,27 +250,26 @@ describe("getGovClientDeviceID", () => {
 
 describe("GovClientTimezoneHeader", () => {
 
-  it("no error", () => {
-    const {headerValue, error} =  getGovClientTimezoneHeader()
+  it("returns correct headerValue when there is no error", () => {
+    const {headerValue, error} = getGovClientTimezoneHeader();
     expect(headerValue).toBe(`UTC+01:00`);
     expect(error).toBe(undefined);
   });
 
-  it("getTimezone throws error", () => {
+  it("returns error when there is an error", () => {
     const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockImplementation(() => { throw Error("Something went wrong.")});
-    const {headerValue, error} = getGovClientTimezoneHeader()
+    const {headerValue, error} = getGovClientTimezoneHeader();
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(Error("Something went wrong."));
     timeZoneMock.mockRestore();
   });
 
-  it("Date doesn't return GMT format",  () => {
+  it("returns error when there Date doesn't return GMT format",  () => {
     const dateMock = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
-    dateMock.toString = "Wed Sep 30 2020"
-    const {headerValue, error} = getGovClientTimezoneHeader()
+    dateMock.toString = "Wed Sep 30 2020";
+    const {headerValue, error} = getGovClientTimezoneHeader();
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(TypeError("Cannot read property '0' of undefined"));
     dateMock.mockRestore();
   });
-
 });

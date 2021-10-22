@@ -131,8 +131,8 @@ export const getGovClientBrowserPluginsHeader = () => {
  */
 export const getGovClientTimezoneHeader = () => {
   try {
-    return { headerValue: getTimezone()}
+    return { headerValue: getTimezone()};
   } catch (error) {
-    return {error}
+    return {error};
   }
 }
