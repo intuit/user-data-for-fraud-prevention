@@ -3,6 +3,7 @@ import {
   getFraudPreventionHeaders,
   getScreenDetails,
   windowDetails,
+  getGovClientBrowserJSUserAgentHeader,
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
@@ -14,6 +15,7 @@ import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/com
 import uuid from "uuid";
 import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
@@ -205,7 +207,21 @@ describe("FraudPreventionHeaders", () => {
     it("width", () => expect(windowDetails().width).toBe(1009));
     it("height", () => expect(windowDetails().height).toBe(1013));
   });
-
+  describe("getGovClientBrowserHeader", () => {
+    it("returns correct headerValue when there is no error", () => {
+      const userAgent = "Mozilla/5.0"
+        navigatorSpy.mockImplementationOnce(() => ({
+          userAgent
+        }));
+      expect(getGovClientBrowserJSUserAgentHeader()).toEqual({ headerValue: userAgent })
+      navigatorSpy.mockRestore();
+    })
+    it("returns error when there is an error", () => {
+      navigatorSpy.mockImplementationOnce(() => null);
+      expect(getGovClientBrowserJSUserAgentHeader().error.toString()).toEqual("TypeError: Cannot read property 'userAgent' of null")
+      navigatorSpy.mockRestore();
+    })
+  })
 });
 
 describe("getGovClientBrowserPluginsHeader", () => {
@@ -245,6 +261,23 @@ describe("getGovClientDeviceID", () => {
     const {error} = getGovClientDeviceID();
     expect(error).toEqual(Error("Something went wrong."));
     deviceIDMock.mockRestore();
+  });
+});
+
+describe("getGovClientBrowserDoNotTrackHeader", () => {
+  it("returns correct headerValue when there is no error", () => {
+    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => "true");
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe("true");
+    expect(error).toBe(undefined);
+    browserDoNotTrackStatusMock.mockRestore();
+  })
+  it("returns error when there is an error", () => {
+    const browserDoNotTrackStatusMock = jest.spyOn(browserInfoHelper, "getBrowserDoNotTrackStatus").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
+    expect(headerValue).toBe(undefined);
+    expect(error).toEqual(Error("Something went wrong."));
+    browserDoNotTrackStatusMock.mockRestore();
   });
 });
 
