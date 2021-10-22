@@ -47,3 +47,10 @@ const {headerValue, error} = getGovClientDeviceID();
 import getGovClientBrowserDoNotTrackHeader from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
 ```
+
+
+* To get Gov-Client-Timezone HMRC Fraud prevention header:
+    ```js
+    import getGovClientTimezoneHeader from 'user-data-for-fraud-prevention';
+    const {headerValue, error} = getGovClientTimezoneHeader();
+    ```
