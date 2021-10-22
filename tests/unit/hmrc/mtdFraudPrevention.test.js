@@ -261,7 +261,7 @@ describe("GovClientScreensHeader", () => {
     windowSpy.mockRestore();
   });
 
-  it("no error",  () => {
+  it("returns correct headerValue when there is no error",  () => {
     screenSpy.mockImplementation(() => ({
       width: 1019,
       height: 1021,
@@ -272,8 +272,20 @@ describe("GovClientScreensHeader", () => {
       devicePixelRatio: 2,
     }));
 
-    const {headerValue, error} = getGovClientScreensHeader()
+    const {headerValue, error} = getGovClientScreensHeader();
     expect(error).toBe(undefined);
     expect(headerValue).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
+  });
+
+  it("returns error when there is an error",  () => {
+    screenSpy.mockImplementation(() => {throw Error("Something went wrong.")});
+
+    windowSpy.mockImplementation(() => ({
+      devicePixelRatio: 2,
+    }));
+
+    const {headerValue, error} = getGovClientScreensHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
   });
 });

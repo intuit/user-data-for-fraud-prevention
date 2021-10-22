@@ -127,8 +127,12 @@ export const getGovClientBrowserPluginsHeader = () => {
 
 /**
  * Returns Gov-Client-Screens HMRC Fraud prevention header.
- * @returns {object} with headerValue field
+ * @returns {object} with headerValue field and error if an error is caught
  */
 export const getGovClientScreensHeader = () => {
-  return {headerValue: getScreenData()};
+  try {
+    return {headerValue: getScreenData()};
+  } catch (error) {
+    return {error};
+  }
 }
