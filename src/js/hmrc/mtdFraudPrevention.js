@@ -159,7 +159,7 @@ export const getGovClientTimezoneHeader = () => {
 }
 
 /**
- * Returns Gov-Client-Screens HMRC Fraud prevention header.
+ * Returns the value for Gov-Client-Screens HMRC Fraud prevention header.
  * @returns {object} with headerValue field and error if an error is caught
  */
 export const getGovClientScreensHeader = () => {
