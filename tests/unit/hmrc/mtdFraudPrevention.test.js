@@ -16,6 +16,7 @@ import uuid from "uuid";
 import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientScreensHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
@@ -278,6 +279,32 @@ describe("getGovClientBrowserDoNotTrackHeader", () => {
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(Error("Something went wrong."));
     browserDoNotTrackStatusMock.mockRestore();
+  });
+});
+
+describe("GovClientTimezoneHeader", () => {
+
+  it("returns correct headerValue when there is no error", () => {
+    const {headerValue, error} = getGovClientTimezoneHeader();
+    expect(headerValue).toBe(`UTC+01:00`);
+    expect(error).toBe(undefined);
+  });
+
+  it("returns error when there is an error", () => {
+    const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockImplementation(() => { throw Error("Something went wrong.")});
+    const {headerValue, error} = getGovClientTimezoneHeader();
+    expect(headerValue).toBe(undefined);
+    expect(error).toEqual(Error("Something went wrong."));
+    timeZoneMock.mockRestore();
+  });
+
+  it("returns error when Date doesn't return GMT format",  () => {
+    const dateMock = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
+    dateMock.toString = "Wed Sep 30 2020";
+    const {headerValue, error} = getGovClientTimezoneHeader();
+    expect(headerValue).toBe(undefined);
+    expect(error).toEqual(TypeError("Cannot read property '0' of undefined"));
+    dateMock.mockRestore();
   });
 });
 

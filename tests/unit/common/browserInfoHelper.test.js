@@ -17,7 +17,8 @@ import {
   getWindowHeight,
   getWindowWidth,
   getTimezone,
-  resetDeviceIpString, getUserAgent,
+  resetDeviceIpString,
+  getUserAgent,
 } from "../../../src/js/common/browserInfoHelper";
 
 expect.extend({

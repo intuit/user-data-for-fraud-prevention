@@ -147,6 +147,18 @@ export const getGovClientBrowserDoNotTrackHeader = () => {
 }
 
 /**
+ * Returns the value for Gov-Client-Timezone HMRC Fraud prevention header.
+ * @returns {object} with headerValue field or error field in case of an exception
+ */
+export const getGovClientTimezoneHeader = () => {
+  try {
+    return { headerValue: getTimezone()};
+  } catch (error) {
+    return {error};
+  }
+}
+
+/**
  * Returns Gov-Client-Screens HMRC Fraud prevention header.
  * @returns {object} with headerValue field and error if an error is caught
  */
