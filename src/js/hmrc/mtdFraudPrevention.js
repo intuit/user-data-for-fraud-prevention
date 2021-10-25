@@ -157,3 +157,18 @@ export const getGovClientTimezoneHeader = () => {
     return {error};
   }
 }
+
+/**
+ * Returns Gov-Client-Local-IPs header value
+ * @returns {object} which has header key having the value of the header or error key if there is an error
+ */
+export const getGovClientLocalIPsHeader = async () => {
+  try {
+    const ipAddress = await getDeviceLocalIPAsString();
+    return {
+      headerValue: encodeURI(ipAddress.deviceIpString),
+    };
+  } catch (error) {
+    return { error };
+  }
+}

@@ -4,6 +4,7 @@ import {
   getScreenDetails,
   windowDetails,
   getGovClientBrowserJSUserAgentHeader,
+  getGovClientLocalIPsHeader,
 } from "../../../src/js";
 import {
   MockRTCPeerConnection,
@@ -304,5 +305,28 @@ describe("GovClientTimezoneHeader", () => {
     expect(headerValue).toBe(undefined);
     expect(error).toEqual(TypeError("Cannot read property '0' of undefined"));
     dateMock.mockRestore();
+  });
+});
+
+describe("getGovClientLocalIPsHeader", () => {
+  it("returns correct headerValue when there is no error", async () => {
+    setAdditionalCandidateString(",127.0.0.2");
+    const expectedValue = "127.0.0.1,127.0.0.2";
+
+    const header = await getGovClientLocalIPsHeader();
+
+    expect(header.headerValue).toBe(expectedValue);
+    expect(header.error).toBeUndefined();
+  });
+
+  it("returns error when there is an error", async () => {
+    const expectedErrorMessage = "Something went wrong.";
+    const deviceLocalIpMock = jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject(expectedErrorMessage));
+
+    const header = await getGovClientLocalIPsHeader();
+
+    expect(header.error).toBe(expectedErrorMessage);
+    expect(header.headerValue).toBeUndefined();
+    deviceLocalIpMock.mockRestore();
   });
 });
