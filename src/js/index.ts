@@ -6,5 +6,6 @@ export {
   getGovClientBrowserJSUserAgentHeader,
   getGovClientBrowserPluginsHeader,
   getGovClientBrowserDoNotTrackHeader,
-  getGovClientDeviceID
+  getGovClientDeviceID,
+  getGovClientTimezoneHeader
 } from './hmrc/mtdFraudPrevention';
