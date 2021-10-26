@@ -174,7 +174,7 @@ export const getGovClientLocalIPsHeader = async () => {
 }
 /**
  * Returns the value for Gov-Client-Screens HMRC Fraud prevention header.
- * @returns {object} with headerValue field and error if an error is caught
+ * @returns {object} with headerValue key having the value of the header or error key if there is an error
  */
 export const getGovClientScreensHeader = () => {
   try {
