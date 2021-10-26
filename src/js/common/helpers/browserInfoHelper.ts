@@ -1,20 +1,24 @@
+import { IDeviceIpDetails } from '../interfaces/deviceIp-interface';
+import { IExtendedNavigator } from '../interfaces/extended-navigator-interface';
+import { IExtendedWindow } from '../interfaces/extended-window-interface';
+
 const ICE_CANDIDATE_IP_INDEX = 4;
 
 // store deviceIpString as a global variable as generating it is expensive and often required several times
-const deviceIpData = {
-  deviceIpString: "",
-  deviceIpTimeStamp: ""
+const deviceIpData: IDeviceIpDetails = {
+  deviceIpString: '',
+  deviceIpTimeStamp: ''
 }
 
 /**
  * This reset function is valuable only for unit testing
  */
 export const resetDeviceIpString = () => {
-  deviceIpData.deviceIpString = "";
+  deviceIpData.deviceIpString = '';
 };
 
 export const resetDeviceIpTimeStamp = () => {
-  deviceIpData.deviceIpTimeStamp = "";
+  deviceIpData.deviceIpTimeStamp = '';
 };
 
 /**
@@ -23,46 +27,46 @@ export const resetDeviceIpTimeStamp = () => {
  * automatically when a new Ice Candidate is available.
  * @returns {Promise} Promise to get users devices IP address
  */
-export const getDeviceLocalIPAsString = () => {
-  return new Promise((resolve, reject) => {
-    if (deviceIpData.deviceIpString !== "" && deviceIpData.deviceIpTimeStamp !== "") {
+export const getDeviceLocalIPAsString = (): Promise<IDeviceIpDetails> => {
+  return new Promise<IDeviceIpDetails>((resolve, reject) => {
+    if (deviceIpData.deviceIpString !== '' && deviceIpData.deviceIpTimeStamp !== '') {
       resolve(deviceIpData);
     }
     const WebRTCConnection = RTCPeerConnection;
     if (!WebRTCConnection) {
-      reject({message: "WEBRTC_UNSUPPORTED_BROWSER", error: undefined});
+      reject({message: 'WEBRTC_UNSUPPORTED_BROWSER', error: undefined});
     }
     //RTCPeerConection is supported, so will try to find the IP
-    const ip = [];
-    let pc;
+    const ip: string[] = [];
+    let pc: RTCPeerConnection;
     try {
       pc = new WebRTCConnection();
     } catch (err) {
-      reject({message: "WEBRTC_CONSTRUCTION_FAILED", error: err});
+      reject({message: 'WEBRTC_CONSTRUCTION_FAILED', error: err});
     }
 
-    pc.onicecandidate = (event) => {
+    pc.onicecandidate = (event: RTCPeerConnectionIceEvent) => {
       if (!event || !event.candidate) {
         pc.close();
         if (ip.length < 1) {
-          reject({message: "NO_IP_FOUND", error: undefined});
+          reject({message: 'NO_IP_FOUND', error: undefined});
         }
-        deviceIpData.deviceIpString = ip.join(",");
+        deviceIpData.deviceIpString = ip.join(',');
         deviceIpData.deviceIpTimeStamp = new Date().toISOString();
         resolve(deviceIpData);
       }
       else if (event.candidate.candidate) {
-        const candidateValues = event.candidate.candidate.split(" ");
+        const candidateValues = event.candidate.candidate.split(' ');
         if (candidateValues.length > ICE_CANDIDATE_IP_INDEX) {
           ip.push(candidateValues[ICE_CANDIDATE_IP_INDEX]);
         }
       }
     };
-    pc.createDataChannel("");
+    pc.createDataChannel('');
     pc.createOffer()
         .then(pc.setLocalDescription.bind(pc))
         .catch((err) => {
-            reject({message: "CREATE_CONNECTION_ERROR", error: err});
+            reject({message: 'CREATE_CONNECTION_ERROR', error: err});
       });
   });
 };
@@ -71,13 +75,13 @@ export const getDeviceLocalIPAsString = () => {
  * Function that returns user's browser's all plugin as a comma separated string
  * @returns {string} comma separated user's browser's plugins
  */
-export const getBrowserPluginsAsString = () => {
+export const getBrowserPluginsAsString = (): string => {
   return Array.from(navigator.plugins, plugin => plugin && plugin.name)
     .filter((name) => name)
-    .join(",");
+    .join(',');
 };
 
-const validateAndGetScreenDetail = (value) => {
+const validateAndGetScreenDetail = (value: number) : number => {
   if (isNaN(value)) {
     return null;
   } else {
@@ -85,11 +89,11 @@ const validateAndGetScreenDetail = (value) => {
   }
 };
 
-const getFormattedOffset = () => {
+const getFormattedOffset = (): string => {
     // Date().toString() is in format like "Wed Sep 30 2020 23:11:02 GMT+0100 (British Summer Time)"
     // To format the offset, we split on "GMT"
     // and then pick the relevant characters based on their position and reformat with a ":"
-    const offset = new Date().toString().split("GMT")[1];
+    const offset = new Date().toString().split('GMT')[1];
     const hourOffset = `${offset[0]}${offset[1]}${offset[2]}`;
     const minuteOffset = `${offset[3]}${offset[4]}`;
     const formattedUTC = `${hourOffset}:${minuteOffset}`;
@@ -100,14 +104,14 @@ const getFormattedOffset = () => {
  * Function that returns user's timezone offset relative to UTC
  * @returns {string} UTC concatenated with user's browser's timezone offset
  */
-export const getTimezone = () => `UTC${getFormattedOffset()}`;
+export const getTimezone = (): string => `UTC${getFormattedOffset()}`;
 
 /**
  * Function that validates the user's screen's width value, and then returns it.
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen width
  */
-export const getScreenWidth = () =>
+export const getScreenWidth = (): number =>
   validateAndGetScreenDetail(screen.width);
 
 /**
@@ -115,7 +119,7 @@ export const getScreenWidth = () =>
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen height
  */
-export const getScreenHeight = () =>
+export const getScreenHeight = (): number =>
   validateAndGetScreenDetail(screen.height);
 
 /**
@@ -123,7 +127,7 @@ export const getScreenHeight = () =>
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's devicePixelRatio
  */
-export const getScreenScalingFactor = () =>
+export const getScreenScalingFactor = (): number =>
   validateAndGetScreenDetail(window.devicePixelRatio);
 
 /**
@@ -131,7 +135,7 @@ export const getScreenScalingFactor = () =>
  * If it fails validation, it returns null
  * @returns {string | null} validated value of screen's colorDepth
  */
-export const getScreenColourDepth = () =>
+export const getScreenColourDepth = (): number =>
   validateAndGetScreenDetail(screen.colorDepth);
 
 /**
@@ -139,7 +143,7 @@ export const getScreenColourDepth = () =>
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's innerWidth
  */
-export const getWindowWidth = () =>
+export const getWindowWidth = (): number =>
   validateAndGetScreenDetail(window.innerWidth);
 
 /**
@@ -147,7 +151,7 @@ export const getWindowWidth = () =>
  * If it fails validation, it returns null
  * @returns {string | null} validated value of window's innerHeight
  */
-export const getWindowHeight = () =>
+export const getWindowHeight = (): number =>
   validateAndGetScreenDetail(window.innerHeight);
 
 /**
@@ -156,18 +160,18 @@ export const getWindowHeight = () =>
  * @returns {string} true or false based on users Do Not Track setting
  */
 export const getBrowserDoNotTrackStatus = () => {
-  const windowVar = window,
-    navigatorVar = navigator;
+  const windowVar: IExtendedWindow = window;
+  const navigatorVar: IExtendedNavigator = navigator;
   /* eslint-disable eqeqeq */
   const isBrowserDoNotTrack =
-    (windowVar.doNotTrack && windowVar.doNotTrack == "1") ||
+    (windowVar.doNotTrack && windowVar.doNotTrack == '1') ||
     (navigatorVar.doNotTrack &&
-      (navigatorVar.doNotTrack == "yes" || navigatorVar.doNotTrack == "1")) ||
-    (navigatorVar.msDoNotTrack && navigatorVar.msDoNotTrack == "1") ||
+      (navigatorVar.doNotTrack == 'yes' || navigatorVar.doNotTrack == '1')) ||
+    (navigatorVar.msDoNotTrack && navigatorVar.msDoNotTrack == '1') ||
     (windowVar.external &&
       windowVar.external.msTrackingProtectionEnabled &&
       windowVar.external.msTrackingProtectionEnabled());
-  return isBrowserDoNotTrack ? "true" : "false";
+  return isBrowserDoNotTrack ? 'true' : 'false';
 };
 
 /**
