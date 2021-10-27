@@ -18,6 +18,7 @@ import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPre
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+import {getGovClientWindowSizeHeader} from "../../../src/js/hmrc/mtdFraudPrevention"
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -330,3 +331,44 @@ describe("getGovClientLocalIPsHeader", () => {
     deviceLocalIpMock.mockRestore();
   });
 });
+
+describe("getGovClientWindowSizeHeader", () => {
+  it("returns correct headerValue when there is no error", () => {
+    const windowSpy = jest
+      .spyOn(window, "window", "get")
+      .mockImplementation(() => ({
+        innerWidth: 100,
+        innerHeight: 100,
+      }));
+
+    const { headerValue } = getGovClientWindowSizeHeader();
+    expect(headerValue).toBe("width=100&height=100");
+    windowSpy.mockRestore();
+  });
+
+  it("returns error when there is an error in window width", () => {
+    const widthSpy = jest
+      .spyOn(browserInfoHelper, "getWindowWidth")
+      .mockImplementation(() => {
+        throw Error("Something went wrong.");
+      });
+    const { error } = getGovClientWindowSizeHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    widthSpy.mockRestore();
+  });
+
+  it("returns error when there is an error in window height", () => {
+    const heightSpy = jest
+      .spyOn(browserInfoHelper, "getWindowHeight")
+      .mockImplementation(() => {
+        throw Error("Something went wrong.");
+      });
+    const { error } = getGovClientWindowSizeHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    heightSpy.mockRestore();
+  });
+});
+
+
+
+

@@ -9,6 +9,7 @@ import {
   getGovClientDeviceID,
   getGovClientTimezoneHeader,
   getGovClientLocalIPsHeader,
+  getGovClientWindowSizeHeader
 } from "./hmrc/mtdFraudPrevention";
 
 exports.fraudPreventionHeadersEnum = fraudPreventionHeadersEnum;
@@ -22,4 +23,6 @@ exports.getGovClientTimezoneHeader = getGovClientTimezoneHeader;
 exports.getGovClientLocalIPsHeader = getGovClientLocalIPsHeader;
 exports.getScreenDetails = getScreenDetails;
 exports.getGovClientBrowserJSUserAgentHeader = getGovClientBrowserJSUserAgentHeader;
+
 exports.windowDetails = windowDetails;
+exports.getGovClientWindowSizeHeader = getGovClientWindowSizeHeader;
