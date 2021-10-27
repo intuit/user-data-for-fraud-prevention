@@ -11,13 +11,18 @@ import {
   setAdditionalCandidateString,
   resetCandidateString,
 } from "../mock/MockRTCPeerConnection";
-import * as browserInfoHelper from "../../../src/js/common/browserInfoHelper";
-import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/browserInfoHelper";
+import * as browserInfoHelper from "../../../src/js/common/helpers/browserInfoHelper";
+import * as standaloneInfoHelper from "../../../src/js/common/helpers/standaloneInfoHelper";
+import { resetDeviceIpString, resetDeviceIpTimeStamp } from "../../../src/js/common/helpers/browserInfoHelper";
 import uuid from "uuid";
 import {getGovClientBrowserPluginsHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
+
+jest.mock('uuid/v4', () => {
+  return () => 'fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99';
+});
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -29,7 +34,7 @@ describe("FraudPreventionHeaders", () => {
     screenSpy = jest.spyOn(global, 'screen', 'get');
     navigatorSpy = jest.spyOn(global, 'navigator', 'get');
     windowSpy = jest.spyOn(global, 'window', 'get');
-    global.RTCPeerConnection = MockRTCPeerConnection;
+    (global as any).RTCPeerConnection = MockRTCPeerConnection;
   });
 
   afterEach(() => {
@@ -41,8 +46,8 @@ describe("FraudPreventionHeaders", () => {
     resetCandidateString();
   });
 
-  const mockTimeStamp = "2021-06-03T13:02:22.107Z"
-  global.Date = class DateMock {
+  const mockTimeStamp = "2021-06-03T13:02:22.107Z";
+  (global as any).Date = class DateMock {
       constructor() {
       }
       toString() {
@@ -72,8 +77,6 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     }));
 
-    jest.spyOn(uuid, "v4").mockReturnValue("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
-
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(9);
     expect(errors.length).toBe(0);
@@ -90,7 +93,7 @@ describe("FraudPreventionHeaders", () => {
     expect(headers.get("Gov-Client-Browser-Do-Not-Track")).toBe("true");
     expect(headers.get("Gov-Client-Local-IPs")).toBe("127.0.0.1,127.0.0.2");
     expect(headers.get("Gov-Client-Local-IPs-Timestamp")).toBe(mockTimeStamp);
-    expect(headers.get("Gov-Client-Device-ID")).toEqual("134b0eb1-4e27-40a3-82b7-ab28f7d5ee79");
+    expect(headers.get("Gov-Client-Device-ID")).toEqual("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
   });
   it("getFraudPreventionHeaders with one error", async () => {
 
@@ -113,8 +116,7 @@ describe("FraudPreventionHeaders", () => {
       colorDepth: 17,
     }));
 
-    const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
+    const timeZoneMock = jest.spyOn(browserInfoHelper, "getTimezone").mockReturnValue(Promise.reject("Something went wrong.") as any);
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(8);
@@ -159,7 +161,6 @@ describe("FraudPreventionHeaders", () => {
     }));
 
     const deviceLocalIpMock = jest.spyOn(browserInfoHelper, "getDeviceLocalIPAsString").mockReturnValue(Promise.reject("Something went wrong."));
-    jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
 
     const {headers, errors} = await getFraudPreventionHeaders();
     expect(headers.size).toBe(7);
@@ -231,7 +232,7 @@ describe("getGovClientBrowserPluginsHeader", () => {
     navigatorSpy.mockImplementation(() => ({
       plugins: getMockBrowserPluginDetails(),
       doNotTrack: "yes",
-    }));
+    } as any));
     const {headerValue, error} = getGovClientBrowserPluginsHeader();
     expect(error).toBe(undefined);
     expect(headerValue).toBe("ABC%20Plugin,XYZ%20Plugin");
@@ -250,18 +251,15 @@ describe("getGovClientBrowserPluginsHeader", () => {
 
 describe("getGovClientDeviceID", () => {
   it("returns correct headerValue when there is no error", () => {
-    const deviceIDMock = jest.spyOn(uuid, "v4").mockReturnValue("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
     const {headerValue} = getGovClientDeviceID();
     expect(headerValue).toBe("fce4f7ff-d5f1-4e4f-99a1-aa97bef71e99");
-    deviceIDMock.mockRestore();
   });
   it("returns error when there is an error", () => {
-    const deviceIDMock = jest.spyOn(uuid, "v4").mockImplementation(() => {
-      throw Error("Something went wrong.");
-    });
+    const standaloneInfoHelperMock = jest.spyOn(standaloneInfoHelper, "generateClientDeviceID").mockImplementation(() => { throw Error("Something went wrong.")});
+
     const {error} = getGovClientDeviceID();
     expect(error).toEqual(Error("Something went wrong."));
-    deviceIDMock.mockRestore();
+    standaloneInfoHelperMock.mockRestore();
   });
 });
 
@@ -299,7 +297,7 @@ describe("GovClientTimezoneHeader", () => {
   });
 
   it("returns error when Date doesn't return GMT format",  () => {
-    const dateMock = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
+    const dateMock: any = jest.spyOn(global, "Date").mockReturnValue("Wed Sep 30 2020");
     dateMock.toString = "Wed Sep 30 2020";
     const {headerValue, error} = getGovClientTimezoneHeader();
     expect(headerValue).toBe(undefined);

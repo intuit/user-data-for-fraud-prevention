@@ -1,11 +1,11 @@
 const getMockBrowserPluginDetails = () => [
   {
     name: "ABC Plugin",
-    version: 1,
+    version: 1
   },
   {
     name: "XYZ Plugin",
-    version: 2,
+    version: 2
   },
 ];
 

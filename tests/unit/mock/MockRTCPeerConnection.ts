@@ -13,24 +13,28 @@ export const setEmptyCandidateString = () => {
 };
 
 export class MockRTCPeerConnection {
-  createDataChannel(str) {
-    this.str = str;
+  str = '';
+
+  onicecandidate: (evt?: any) => void = () => {};
+
+  createDataChannel(str: string): any {
+      this.str = str;
   }
 
-  createOffer() {
-    return new Promise((resolve) => {
-      resolve({});
-    });
+  createOffer(): any {
+      return new Promise((resolve) => {
+          resolve({});
+      });
   }
 
-  setLocalDescription() {
-    const evt = {
-      candidate: {
-        candidate: candidateString,
-      },
-    };
-    this.onicecandidate(evt);
-    this.onicecandidate();
+  async setLocalDescription() {
+      const evt = {
+          candidate: {
+              candidate: candidateString,
+          },
+      };
+      this.onicecandidate(evt);
+      this.onicecandidate();
   }
 
   close() {}
