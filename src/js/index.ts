@@ -9,4 +9,5 @@ export {
   getGovClientDeviceID,
   getGovClientTimezoneHeader,
   getGovClientLocalIPsHeader,
+  getGovClientWindowSizeHeader
 } from './hmrc/mtdFraudPrevention';
