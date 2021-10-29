@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "allowJs": true, // Remove once migration is done
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+    },
+    "include": [
+        "src/**/*",
+    ],
+}
