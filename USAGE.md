@@ -67,7 +67,7 @@ const {headerValue, error} = getGovClientWindowSizeHeader();
 ```
 
 * To get Gov-Client-Screens HMRC Fraud prevention header:
-    ```js
-    import {getGovClientScreensHeader} from 'user-data-for-fraud-prevention';
-    const {headerValue, error} = getGovClientScreensHeader();
-    ```
+```js
+import {getGovClientScreensHeader} from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientScreensHeader();
+```
