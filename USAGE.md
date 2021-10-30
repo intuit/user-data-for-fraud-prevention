@@ -50,13 +50,13 @@ const {headerValue, error} = getGovClientBrowserDoNotTrackHeader();
 
 * To get Gov-Client-Timezone HMRC Fraud prevention header:
 ```js
-import getGovClientTimezoneHeader from 'user-data-for-fraud-prevention';
+import {getGovClientTimezoneHeader} from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientTimezoneHeader();
 ```
 
 * To get Gov-Client-Local-IPs HMRC Fraud prevention header:
 ```js
-import getGovClientLocalIPsHeader from 'user-data-for-fraud-prevention';
+import {getGovClientLocalIPsHeader} from 'user-data-for-fraud-prevention';
 const {headerValue, error} = await getGovClientLocalIPsHeader();
 ```
 
@@ -64,4 +64,10 @@ const {headerValue, error} = await getGovClientLocalIPsHeader();
 ```js
 import {getGovClientWindowSizeHeader} from 'user-data-for-fraud-prevention';
 const {headerValue, error} = getGovClientWindowSizeHeader();
+```
+
+* To get Gov-Client-Screens HMRC Fraud prevention header:
+```js
+import {getGovClientScreensHeader} from 'user-data-for-fraud-prevention';
+const {headerValue, error} = getGovClientScreensHeader();
 ```

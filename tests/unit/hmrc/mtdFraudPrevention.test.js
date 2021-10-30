@@ -19,6 +19,7 @@ import {getGovClientDeviceID} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientBrowserDoNotTrackHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientTimezoneHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 import {getGovClientWindowSizeHeader} from "../../../src/js/hmrc/mtdFraudPrevention"
+import {getGovClientScreensHeader} from "../../../src/js/hmrc/mtdFraudPrevention";
 
 describe("FraudPreventionHeaders", () => {
   resetDeviceIpString();
@@ -372,3 +373,45 @@ describe("getGovClientWindowSizeHeader", () => {
 
 
 
+
+describe("GovClientScreensHeader", () => {
+  let screenSpy, windowSpy;
+
+  beforeEach(() => {
+    screenSpy = jest.spyOn(global, 'screen', 'get');
+    windowSpy = jest.spyOn(global, 'window', 'get');
+  });
+
+  afterEach(() => {
+    screenSpy.mockRestore();
+    windowSpy.mockRestore();
+  });
+
+  it("returns correct headerValue when there is no error",  () => {
+    screenSpy.mockImplementation(() => ({
+      width: 1019,
+      height: 1021,
+      colorDepth: 17,
+    }));
+
+    windowSpy.mockImplementation(() => ({
+      devicePixelRatio: 2,
+    }));
+
+    const {headerValue, error} = getGovClientScreensHeader();
+    expect(error).toBe(undefined);
+    expect(headerValue).toBe(`width=1019&height=1021&scaling-factor=2&colour-depth=17`);
+  });
+
+  it("returns error when there is an error",  () => {
+    screenSpy.mockImplementation(() => {throw Error("Something went wrong.")});
+
+    windowSpy.mockImplementation(() => ({
+      devicePixelRatio: 2,
+    }));
+
+    const {headerValue, error} = getGovClientScreensHeader();
+    expect(error).toEqual(Error("Something went wrong."));
+    expect(headerValue).toBe(undefined);
+  });
+});
