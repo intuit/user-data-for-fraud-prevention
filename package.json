@@ -5,19 +5,19 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "test:coverage": "npm test -- --coverage && cat ./coverage/lcov.info | coveralls",
+    "test:coverage": "yarn test -- --coverage && cat ./coverage/lcov.info | coveralls",
     "lint:fix": "eslint '{src,tests}/**/*.{js,ts} --fix",
     "lint": "eslint '{src,tests}/**/*.{js,ts}'",
     "format": "lint-staged",
     "prettier": "prettier '{src,tests}/**/*.{js,ts}' --config .prettierrc --write",
     "prettier:fix": "prettier '{src,tests}/**/*.{js,ts}' --config .prettierrc",
     "clean": "rm -rf node_modules",
-    "rebuild": "npm run clean && npm install && npm run build",
+    "rebuild": "yarn clean && yarn && yarn build",
     "prepublishOnly": "webpack"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm test",
+      "pre-push": "yarn test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
