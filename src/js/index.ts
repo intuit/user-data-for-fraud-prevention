@@ -10,5 +10,5 @@ export {
   getGovClientTimezoneHeader,
   getGovClientLocalIPsHeader,
   getGovClientWindowSizeHeader,
-  getGovClientScreensHeader
+  getGovClientScreensHeader,
 } from './hmrc/mtdFraudPrevention';
