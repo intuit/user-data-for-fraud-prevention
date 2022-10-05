@@ -221,6 +221,17 @@
       "contributions": [
         "translation"
       ]
+    },
+    {
+      "login": "pmaidens",
+      "name": "Peter Maidens",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3442406?v=4",
+      "profile": "http://www.petermaidens.com",
+      "contributions": [
+        "code",
+        "doc",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
