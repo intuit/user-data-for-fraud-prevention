@@ -88,17 +88,6 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
   },
-  "jest": {
-    "coverageReporters": [
-      "json-summary",
-      "text",
-      "lcov"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,tx,tsx}",
-      "!**/test/**"
-    ]
-  },
   "directories": {
     "test": "tests"
   }
