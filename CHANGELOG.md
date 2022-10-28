@@ -1,3 +1,12 @@
+# Semantic Versioning Changelog
+
+## [1.11.2](https://github.com/intuit/user-data-for-fraud-prevention/compare/v1.11.1...v1.11.2) (2022-10-28)
+
+
+### Bug Fixes
+
+* changelog not getting updated with semantic release ([#184](https://github.com/intuit/user-data-for-fraud-prevention/issues/184)) ([1f0061a](https://github.com/intuit/user-data-for-fraud-prevention/commit/1f0061aa435e83d46c5d5be656feb36924404b70))
+
 # Changelog
 
 Sections should look like this
