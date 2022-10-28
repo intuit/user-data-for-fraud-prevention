@@ -30,11 +30,11 @@
 我们不允许贡献者认领issues。如果你发现一些有趣的东西可以为这个repo做出贡献，请随时提出PR。我们不要求您提前通知我们。
 
 1. Fork这个repo
-1. 通过运行 `yarn` 或 `npm install` 在本地安装依赖项
+1. 通过运行 `yarn` 在本地安装依赖项
 1. 进行更改
-1. 确保使用 `yarn build` 或 `npm run build` 进行打包
-1. 使用 `npm test` 或 `yarn test` 运行测试（你添加了测试，对吧？）
-1. 在您运行的代码或者我们的演示项目中测试您的更改：运行 [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) 或 [`npm link`](https://docs.npmjs.com/cli/link)
+1. 确保使用 `yarn build` 进行打包
+1. 使用 `yarn test` 运行测试（你添加了测试，对吧？）
+1. 在您运行的代码或者我们的演示项目中测试您的更改：运行 [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link)
 1. 确保代码覆盖率与更改前相同或更高
 1. 确保commit message的格式正确：`type(subject): input`。例如：`chore(prettier): update prettier to 2.x`
 1. 创建一个PR到 `master` 分支
