@@ -31,11 +31,11 @@ Las instrucciones para probar los cambios se pueden encontrar aquí [here](./DEM
 No permitimos que los contribuyentes reclamen incidencias. Si encuentra algo interesante que pueda aportar al repositorio, siéntase libre para lanzar una PR. No es obligatorio que nos lo comunique con antelación.
 
 1. Haga un Fork del repositorio
-1. Instale las dependencias localmente ejecutando `yarn` o `npm install`
+1. Instale las dependencias localmente ejecutando `yarn`
 1. Haga sus cambios
-1. Asegúrese de que se compile usando `yarn build` o `npm run build`
-1. Corra los tests (ha realizado tests, cierto?) con `npm test` o `yarn test`
-1. Pruebe los cambios en su código de consumo o usando nuestro proyecto demo: Ejecute [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) o [`npm link`](https://docs.npmjs.com/cli/link)
+1. Asegúrese de que se compile usando `yarn build`
+1. Corra los tests (ha realizado tests, cierto?) con `yarn test`
+1. Pruebe los cambios en su código de consumo o usando nuestro proyecto demo: Ejecute [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link)
 1. Compruebe que el tamaño del código es el mismo o superior que antes de realizar los cambios
 1. Compruebe que el mensaje de commit tenga el formato correcto: `type(subject): input`. Eg: `chore(prettier): update prettier to 2.x`
 1. Crear una PR a la rama `master`
