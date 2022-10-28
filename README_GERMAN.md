@@ -31,11 +31,11 @@ Eine Anleitung zum Testen von Änderungen kann hier gefunden werden [hier](./DEM
 Wenn du zum Projekt beitragen möchtest, musst du kein Issue claimen. Falls du etwas Interessantes findest, kannst du einfach zum Repo beitragen. Öffne einfach einen PR. Du musst uns nicht vorab Bescheid geben
 
 1. Fork das Repository
-1. Installiere Dependencies lokal indem du folgenden Command ausführst: `yarn` oder `npm install`
+1. Installiere Dependencies lokal indem du folgenden Command ausführst: `yarn``
 1. Änder Teile des Codes
-1. Stelle sicher, dass der Build noch funktioniert `yarn build` oder `npm run build`
-1. Lass die Tests laufen (Du hast doch wohl Tests hinzugefügt oder?) `npm test` oder `yarn test`
-1. Teste die Änderungen in deinem Code oder benütze unser Demo Projekt: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link) or [`npm link`](https://docs.npmjs.com/cli/link)
+1. Stelle sicher, dass der Build noch funktioniert `yarn build`
+1. Lass die Tests laufen (Du hast doch wohl Tests hinzugefügt oder?) `yarn test`
+1. Teste die Änderungen in deinem Code oder benütze unser Demo Projekt: Run [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link)
 1. Stell sicher, dass die Code Coverage nach deinen Änderungen gleich geblieben ist oder höher ist.
 1. Formattiere deine Commit Message richtig: `type(subject): input`. z.B.: `chore(prettier): update prettier to 2.x`
 1. Erstelle einen PR mit dem `master` Branch als Zielbranch
@@ -80,8 +80,10 @@ Please see our [CHANGELOG](CHANGELOG.md)
 README in anderen Sprachen:
 
 1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
-1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
-2. [Spanish](README_SPANISH.md)
+2. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
+3. [Spanish](README_SPANISH.md)
+4. [German](README_GERMAN.md)
+5. [Hindi](README_HINDI.md)
 
 ## Contributors
 
