@@ -77,8 +77,10 @@ Por favor consulte nuestro [CHANGELOG](CHANGELOG.md)
 README en otros idiomas:
 
 1. [Simplified Chinese](README_SIMPLIFIED_CHINESE.md)
-1. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
-2. [Spanish](README_SPANISH.md)
+2. [Traditional Chinese](README_TRADITIONAL_CHINESE.md)
+3. [Spanish](README_SPANISH.md)
+4. [German](README_GERMAN.md)
+5. [Hindi](README_HINDI.md)
 
 ## Contribuyentes
 
