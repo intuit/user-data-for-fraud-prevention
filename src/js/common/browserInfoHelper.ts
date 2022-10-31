@@ -153,15 +153,13 @@ export const getWindowHeight = () => validateAndGetScreenDetail(window.innerHeig
 export const getBrowserDoNotTrackStatus = () => {
     const windowVar = window,
         navigatorVar = navigator;
-    /* eslint-disable eqeqeq */
     const isBrowserDoNotTrack =
-        (windowVar.doNotTrack && windowVar.doNotTrack == '1') ||
-        (navigatorVar.doNotTrack && (navigatorVar.doNotTrack == 'yes' || navigatorVar.doNotTrack == '1')) ||
-        (navigatorVar.msDoNotTrack && navigatorVar.msDoNotTrack == '1') ||
+        (windowVar.doNotTrack && windowVar.doNotTrack === '1') ||
+        (navigatorVar.doNotTrack && (navigatorVar.doNotTrack == 'yes' || navigatorVar.doNotTrack === '1')) ||
+        (navigatorVar.msDoNotTrack && navigatorVar.msDoNotTrack === '1') ||
         (windowVar.external &&
             windowVar.external.msTrackingProtectionEnabled &&
             windowVar.external.msTrackingProtectionEnabled());
-    /* eslint-enable eqeqeq */
     return isBrowserDoNotTrack ? 'true' : 'false';
 };
 
