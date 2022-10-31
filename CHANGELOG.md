@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.11.3](https://github.com/intuit/user-data-for-fraud-prevention/compare/v1.11.2...v1.11.3) (2022-10-31)
+
+
+### Reverts
+
+* Revert "refactor(typescript): migrate mtdFraudPrevention to TypeScript (#185)" (#186) ([618f6bf](https://github.com/intuit/user-data-for-fraud-prevention/commit/618f6bf1253f9256451fcfe9cd51aad5e86ee97f)), closes [#185](https://github.com/intuit/user-data-for-fraud-prevention/issues/185) [#186](https://github.com/intuit/user-data-for-fraud-prevention/issues/186)
+
 ## [1.11.2](https://github.com/intuit/user-data-for-fraud-prevention/compare/v1.11.1...v1.11.2) (2022-10-28)
 
 
