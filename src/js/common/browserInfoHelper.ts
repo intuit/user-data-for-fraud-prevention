@@ -24,7 +24,7 @@ export const resetDeviceIpTimeStamp = () => {
  * @returns {Promise} Promise to get users devices IP address
  */
 export const getDeviceLocalIPAsString = (): Promise<
-    typeof deviceIpData
+    typeof deviceIpData | {message: string; error: unknown | undefined}
 > => {
     return new Promise((resolve, reject) => {
         if (deviceIpData.deviceIpString !== '' && deviceIpData.deviceIpTimeStamp !== '') {
