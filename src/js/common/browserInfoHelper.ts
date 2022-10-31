@@ -155,7 +155,7 @@ export const getBrowserDoNotTrackStatus = () => {
         navigatorVar = navigator;
     const isBrowserDoNotTrack =
         (windowVar.doNotTrack && windowVar.doNotTrack === '1') ||
-        (navigatorVar.doNotTrack && (navigatorVar.doNotTrack == 'yes' || navigatorVar.doNotTrack === '1')) ||
+        (navigatorVar.doNotTrack && (navigatorVar.doNotTrack === 'yes' || navigatorVar.doNotTrack === '1')) ||
         (navigatorVar.msDoNotTrack && navigatorVar.msDoNotTrack === '1') ||
         (windowVar.external &&
             windowVar.external.msTrackingProtectionEnabled &&
