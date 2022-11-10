@@ -7,7 +7,7 @@ declare global {
     interface Navigator {
         msDoNotTrack: string;
     }
-    interface External {
+    interface External extends External{
         msTrackingProtectionEnabled: () => boolean;
     }
 }
