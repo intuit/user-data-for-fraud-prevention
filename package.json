@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "test:coverage": "yarn test -- --coverage && cat ./coverage/lcov.info | coveralls",
+    "test:coverage": "yarn test --coverage && cat ./coverage/lcov.info | coveralls",
     "lint:fix": "eslint '{src,tests}/**/*.{js,ts} --fix",
     "lint": "eslint '{src,tests}/**/*.{js,ts}'",
     "format": "lint-staged",
