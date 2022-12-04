@@ -1,5 +1,12 @@
 # Semantic Versioning Changelog
 
+## [1.11.4](https://github.com/intuit/user-data-for-fraud-prevention/compare/v1.11.3...v1.11.4) (2022-12-04)
+
+
+### Bug Fixes
+
+* change to strict equality operator for browserDoNotTrack status ([#187](https://github.com/intuit/user-data-for-fraud-prevention/issues/187)) ([6548ec2](https://github.com/intuit/user-data-for-fraud-prevention/commit/6548ec2841740bc7338079783f4e1f240acebca8))
+
 ## [1.11.3](https://github.com/intuit/user-data-for-fraud-prevention/compare/v1.11.2...v1.11.3) (2022-10-31)
 
 

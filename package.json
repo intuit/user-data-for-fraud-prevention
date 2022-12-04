@@ -1,6 +1,6 @@
 {
   "name": "user-data-for-fraud-prevention",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "description": "Detects Timezone, screen size, scaling factor, browser plugins, local device IPs etc;",
   "scripts": {
     "test": "jest",
