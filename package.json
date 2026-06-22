@@ -52,7 +52,7 @@
     "registry": "https://registry.npmjs.com/"
   },
   "dependencies": {
-    "uuid": "^3.3.3"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.4",
